@@ -1,0 +1,23 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vkr2471/ATBCS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vkr2471/ATBCS/issues"
+  },
+  "homepage": "https://github.com/vkr2471/ATBCS#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
