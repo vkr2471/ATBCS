@@ -2,10 +2,10 @@
   "name": "y",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "nodemon index.js"
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "homepage": "https://github.com/vkr2471/ATBCS#readme",
   "devDependencies": {
     "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "mongoose": "^7.0.2"
   }
 }
