@@ -1,0 +1,13 @@
+.Navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.title-login{
+    margin-left: 10px;
+    margin-right: 10px;
+    float: right; 
+}
