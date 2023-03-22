@@ -1,9 +1,11 @@
 import React from 'react';
+import PlaceSearch from './PlaceSearch';
+import './HomeBody.css';
 
 export default function HomeBody() {
     return (
         <div className='home-body'>
-            <h1>Home Body</h1>
+            <PlaceSearch />
         </div>
     );
 }

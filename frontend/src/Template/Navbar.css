@@ -3,11 +3,45 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: #dcd9f7;
+    height: 90px;
     
 }
 
-.title-login{
-    margin-left: 10px;
+.title{
     margin-right: 10px;
-    float: right; 
+}
+
+.header{
+    margin-bottom: 0;
+    font-family: 'Chalkduster', 'fantasy';
+}
+
+.title--quote{
+    font-family: cursive;
+    font-size: 18px;
+    color: rgb(110, 34, 224);
+    margin-right: 5px;
+    margin-top: 5px;
+    font-style: italic;
+    font-weight: 100;
+}
+
+.title-login{
+    background-color: #dcd9f7;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    font-family: 'Papyrus', fantasy;
+    font-weight: bold;
+}
+
+.logo--image{
+    width: 100px;
+    height: 80px;
+    margin-left: 10px;
 }
