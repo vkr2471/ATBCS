@@ -4,7 +4,7 @@ const userschema = mongoose.Schema({
         type: String,
         required: [true , "name must be provided"],
         trim: true,
-        maxlength: [40 , "name must not be more than 20 characters"]
+        maxlength: [40 , "name must not be more than 40 characters"]
     },
     dob:{
         type: Date,
@@ -12,7 +12,8 @@ const userschema = mongoose.Schema({
     },
     email:{
         type: String,
-        required: [true , "email must be provided"]
+        required: [true , "email must be provided"],
+        unique: true
     },
     password:{
         type: String,
@@ -22,7 +23,8 @@ const userschema = mongoose.Schema({
     },
     phone:{
         type: String,
-        required: [true , "phone number must be provided"]
+        required: [true , "phone number must be provided"],
+        unique: true
     },
     ffm:{
         type: Int16Array,
