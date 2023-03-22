@@ -2,30 +2,19 @@ const mongoose = require('mongoose');
 const flightschema = mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'model must be provided']
+        required: [true, 'name must be provided']
     },
-    seats: [{
+    seats: {
         fc:{
-            type: Int16Array,
+            type: Number,
         },
         bc:{
-            type: Int16Array,
+            type: Number,
         },
         ec:{
-            type: Int16Array,
+            type: Number,
         }
-    }],
-    fare: [{
-        fc:{
-            type: Int16Array,
-        },
-        bc:{
-            type: Int16Array,
-        },
-        ec:{
-            type: Int16Array,
-        }
-    }]
+    },
 });
 
 module.exports = mongoose.model('flight', flightschema);

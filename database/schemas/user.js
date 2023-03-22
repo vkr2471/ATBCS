@@ -27,7 +27,8 @@ const userschema = mongoose.Schema({
         unique: true
     },
     ffm:{
-        type: Int16Array,
+        type: Number,
+        default: 0
     },
     bookings:[
         {
