@@ -5,9 +5,8 @@
     display: flex;
 }
 
-.input{
-    height: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 0 1rem;
+.textbox {
+    height: 100%;
+    width: 100%;
+    border: none;
 }

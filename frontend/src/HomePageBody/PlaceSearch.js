@@ -16,8 +16,14 @@ export default function PlaceSearch() {
                     <input type='radio' name='option' id='round' value='round-trip' onClick={retur}/>
                     <label>Round Trip</label>
                 </div>
-                <input type="text" placeholder="Source" />
-                <input type="text" placeholder="Destination" />
+                <fieldset>
+                    <legend>From</legend>
+                    <input type="text" placeholder="City or Airport" className = 'textbox' />
+                </fieldset>
+                <fieldset>
+                    <legend>To</legend>
+                    <input type="text" placeholder="City or Airport" className = 'textbox' />
+                </fieldset>
                 <input type="date" placeholder="Departure Date" />
                 <input type="date" placeholder="Return Date" id='return'  disabled />
             </form>
