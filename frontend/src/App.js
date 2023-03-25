@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Template/Navbar';
 import HomeBody from './HomePageBody/HomeBody';
+import SignUp from './LoginPage/SignUp';
 import SignIn from './LoginPage/SignIn';
 
 export default function App() {
@@ -8,7 +9,6 @@ export default function App() {
     <div class="body">
       <Navbar />
       <HomeBody />
-      <SignIn />
     </div>
   );
 }

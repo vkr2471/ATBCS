@@ -1,4 +1,5 @@
 import React from 'react';
+import './LoginPage.css'
 
 export default function SignUp() {
   const [signUpData, setSignUpData] = React.useState({
@@ -23,33 +24,43 @@ export default function SignUp() {
   }
 
   return(
-    <div>
-        <form onSubmit={HandleSubmit}>
+    <div class="wrapper">
+        <form onSubmit={HandleSubmit} class="login-form">
+        <h2 class="login-header">Register</h2>
+          <div class="input-box">
+              <span class='icon'>
+                <ion-icon name="mail"></ion-icon>
+              </span>
+              <input 
+                type="text" 
+                name='email'
+                value={signUpData.email}
+                onChange={HandleChange}  required/>
+              <label>Email</label>
+          </div>
+          <div class="input-box">
+            <span class='icon'>
+                <ion-icon name="lock-closed"></ion-icon>
+            </span>
             <input 
-            type="email" 
-            placeholder='Email Address'
-            name='email'
-            value={signUpData.email}
-            onChange={HandleChange} />
+              type="password" 
+              name='password'
+              value={signUpData.password}
+              onChange={HandleChange} required/>
+            <label>Password</label>
+          </div>
+          <div class="input-box">
+            <span class='icon'>
+                <ion-icon name="bag-check"></ion-icon>
+            </span>
             <input 
-            type="text" 
-            placeholder='Username'
-            name='username'
-            value={signUpData.username}
-            onChange={HandleChange} />
-            <input 
-            type="password" 
-            placeholder='Password'
-            name='password'
-            value={signUpData.password}
-            onChange={HandleChange} />
-            <input 
-            type="text" 
-            placeholder='Confirm Password'
-            name='confirmPassword'
-            value={signUpData.confirmPassword}
-            onChange={HandleChange} />
-            <button type='submit'>Sign Up</button>
+              type="password" 
+              name='confirmPassword'
+              value={signUpData.confirmPassword}
+              onChange={HandleChange} required/>
+            <label>Confirm Password</label>
+          </div>
+          <button type='submit' class="button">Sign Up</button>
         </form>
     </div>
   )
