@@ -10,4 +10,4 @@ const connect = async () => {
         console.log(`[!!!] Unable to connect to the database! ${e.message}`, e);
     }
 }
-module.exports = connect
+module.exports = {connect,mongoose}

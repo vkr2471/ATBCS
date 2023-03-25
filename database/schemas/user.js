@@ -15,12 +15,25 @@ const userschema = mongoose.Schema({
         required: [true , "email must be provided"],
         unique: true
     },
-    password:{
+    hash:{
         type: String,
         required: [true , "password must be provided"],
-        minlength: [8 , "password must be at least 8 characters"],
-        maxlength: [20 , "password must not be more than 20 characters"]
+        
+        
     },
+    salt:{
+        type: String,
+    },
+
+    isVerified:{
+        type: Boolean,
+
+    },
+    emailToken:{
+        type: String,
+
+    },
+
     phone:{
         type: String,
         required: [true , "phone number must be provided"],
