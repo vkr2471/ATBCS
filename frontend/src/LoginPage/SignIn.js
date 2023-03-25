@@ -23,11 +23,11 @@ export default function SignIn() {
   }
 
   return(
-    <div class="wrapper">
-        <form onSubmit={HandleSubmit} class="login-form">
-          <h2 class="login-header">Login</h2>
-          <div class="input-box">
-            <span class='icon'>
+    <div className="wrapper">
+        <form onSubmit={HandleSubmit} className="login-form">
+          <h2 className="login-header">Login</h2>
+          <div className="input-box">
+            <span className='icon'>
               <ion-icon name="mail"></ion-icon>
             </span>
             <input 
@@ -37,8 +37,8 @@ export default function SignIn() {
               onChange={HandleChange}  required/>
             <label>Email</label>
           </div>
-          <div class="input-box">
-            <span class='icon'>
+          <div className="input-box">
+            <span className='icon'>
                 <ion-icon name="lock-closed"></ion-icon>
             </span>
             <input 
@@ -48,8 +48,8 @@ export default function SignIn() {
               onChange={HandleChange} required/>
             <label>Password</label>
           </div>
-          <button type='submit' class="button">Sign In</button>
-          <div class="login-register">
+          <button type='submit' className="button">Sign In</button>
+          <div className="login-register">
             <p>Don't have an acccount?<Link to={'/signup'}><button type="button">Sign Up</button></Link></p>
           </div>
         </form>

@@ -3,10 +3,14 @@
     gap: 1rem;
     list-style: none;
     display: flex;
+
 }
 
 .textbox {
     height: 100%;
     width: 100%;
     border: none;
+    outline: none;
+    background:fixed;
 }
+

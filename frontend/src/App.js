@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default function App() {
   return (
-    <div class="body">
+    <div className="body">
       <Router>
         <Navbar />
         <Route exact path="/" component={HomeBody} />
