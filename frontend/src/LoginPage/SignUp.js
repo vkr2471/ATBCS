@@ -3,8 +3,10 @@ import './LoginPage.css'
 
 export default function SignUp() {
   const [signUpData, setSignUpData] = React.useState({
+    name:'',
     email: '',
-    username: '',
+    phoneNumber:'',
+    DOB:'',
     password: '',
     confirmPassword: '',
   });
@@ -27,6 +29,17 @@ export default function SignUp() {
     <div className="wrapper">
         <form onSubmit={HandleSubmit} className="login-form">
         <h2 className="login-header">Register</h2>
+        <div className="input-box">
+              <span className='icon'>
+                <ion-icon name="happy"></ion-icon>
+              </span>
+              <input 
+                type="text" 
+                name='name'
+                value={signUpData.name}
+                onChange={HandleChange}  required/>
+              <label>Name</label>
+          </div>
           <div className="input-box">
               <span className='icon'>
                 <ion-icon name="mail"></ion-icon>
@@ -37,6 +50,24 @@ export default function SignUp() {
                 value={signUpData.email}
                 onChange={HandleChange}  required/>
               <label>Email</label>
+          </div>
+          <div className="input-box">
+              <span className='icon'>
+                <ion-icon name="call"></ion-icon>
+              </span>
+              <input 
+                type="text" 
+                name='phoneNumber'
+                value={signUpData.phoneNumber}
+                onChange={HandleChange}  required/>
+              <label>Phone Number</label>
+          </div>
+          <div className="input-box">
+              <input 
+                type="date" 
+                name='DOB'
+                value={signUpData.DOB}
+                onChange={HandleChange}  required/>
           </div>
           <div className="input-box">
             <span className='icon'>
