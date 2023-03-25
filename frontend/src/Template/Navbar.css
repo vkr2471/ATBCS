@@ -1,12 +1,40 @@
-.Navbar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #dcd9f7;
-    height: 90px;
-    
+
+@media screen and (min-width: 600px) {
+    .Navbar{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #dcd9f7;
+        height: 20%;
+    }
 }
+@media screen and (max-width: 600px) {
+    .Navbar{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #dcd9f7;
+        height: 20%;
+        font-size: 0.8rem;
+    }
+     .title-login:hover {
+            background-color: rgb(110, 34, 224);
+            color: white;
+            border-radius: 6px;
+    }
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #dcd9f7;
+        height: 20%;
+        font-size: 0.8rem;
+    }
+}
+
 
 .title{
     margin-right: 10px;
@@ -38,6 +66,11 @@
     font-size: 18px;
     font-family: 'Papyrus', fantasy;
     font-weight: bold;
+}
+.title-login:hover{
+    background-color: rgb(110, 34, 224);
+    color: white;
+    border-radius: 6px;
 }
 
 .logo--image{

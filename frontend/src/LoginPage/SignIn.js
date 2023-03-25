@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './LoginPage.css';
 
 export default function SignIn() {
@@ -49,7 +50,7 @@ export default function SignIn() {
           </div>
           <button type='submit' class="button">Sign In</button>
           <div class="login-register">
-            <p>Don't have an acccount?<button type="button">Sign Up</button></p>
+            <p>Don't have an acccount?<Link to={'/signup'}><button type="button">Sign Up</button></Link></p>
           </div>
         </form>
     </div>
