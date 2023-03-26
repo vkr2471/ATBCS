@@ -19,4 +19,12 @@
     margin-bottom: 10%;
     
 }
-
+.time{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.date{
+    max-height: fit-content;
+}

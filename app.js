@@ -7,7 +7,7 @@ require('dotenv').config();
 
 isAuth=require('./backend/middleware/isAuth.js');
 
-
+const cors = require('cors');
 
 const {connect,mongoose} = require('./database/connect.js');
 
@@ -15,6 +15,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 const home=require('./backend/routes/home.js');
 const search=require('./backend/routes/search.js');
 
@@ -39,14 +40,11 @@ const ensure=require('connect-ensure-login');
 
 const {sendVerificationMail}=require('./backend/lib/sendVerificationMail.js');
 
-
-
-
 const start = async () => {
     try{
          db=await connect();
-        app.listen(3000,  
-         console.log('Listening on port 3000...'));
+        app.listen(5000,  
+         console.log('Listening on port 5000...'));
          
         
 
@@ -111,8 +109,8 @@ app.post('/register',async(req,res,next)=>
         hash:hash,
         salt:salt,
         name:req.body.name,
-        phone:req.body.phone,
-        dob:req.body.dob,
+        phone:req.body.phoneNumber,
+        dob:req.body.DOB,
                             emailToken:crypto.randomBytes(64).toString('hex'),
                     isVerified:false,
         ffm:0,
@@ -121,16 +119,39 @@ app.post('/register',async(req,res,next)=>
     await newuser.save().then((user)=>{
         console.log(user);
 
+    }).then(async ()=>{
+        await sendVerificationMail(newuser);
+        res.redirect('/verify-email');
     }).catch((error)=>{
-        console.log(error);
+        console.log(Object.keys(error.keyPattern));
+        if(Object.keys(error.keyPattern)[0]=='email'){
+            res.status(400)
+            res.send('Email already registered');
+        }
+        else if(Object.keys(error.keyPattern)[0]=='phone'){
+            res.status(400)
+            res.send('Phone number already registered');
+        }
     });
-    await sendVerificationMail(newuser);
-    res.redirect('/verify-email');
 });
 
 
-app.post('/login',passport.authenticate('local',{failureRedirect:'/login',successReturnToOrRedirect:'/'}));
+app.post('/login',passport.authenticate('local',{failureRedirect:'/login-error'}),(req,res,next)=>{
+    //console.log(req.user);
+    const d = {user : req.user.id , session : req.session}
+    res.send(d);
+    next();
+});
 
+app.get('/getcookie',(req,res,next)=>{
+    console.log(req);
+    res.send(req.cookies);
+})
+
+app.get('/login-error',(req,res,next)=>{
+    res.status(400);
+    res.send('Invalid Username or Password');
+})
 
 app.get('/logout',(req,res,next)=>{
     req.logout();
@@ -150,7 +171,8 @@ app.get('/verify-email/:id',(req,res,next)=>{
 
     user.findOne({emailToken:req.params.id}).then((user)=>{
         if(!user){
-            res.send('Invalid token');
+            res.status(400);
+            res.send('You have not registered yet');
         }
         else{
             user.isVerified=true;

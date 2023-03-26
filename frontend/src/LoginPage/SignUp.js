@@ -1,18 +1,34 @@
 import React from 'react';
 import './LoginPage.css'
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 export default function SignUp() {
+  const [flag , setflag ] = React.useState(false)
   const [signUpData, setSignUpData] = React.useState({
     name:'',
     email: '',
     phoneNumber:'',
-    DOB:'',
+    DOB: new Date(),
     password: '',
     confirmPassword: '',
   });
 
-    function HandleSubmit(event) {
+    async function HandleSubmit(event) {
         event.preventDefault();
+        if(flag) {
+          alert('Passwords do not match')
+        }
+        else{
+        await axios.post('http://localhost:5000/register', signUpData)
+        .then((response) => {
+          console.log(response);
+          alert('Registered Successfully , Please verify your email')
+        }).catch((error) => {
+          //console.log(error)
+          alert((error.response.data))
+        })}
+        console.log(signUpData);
     }
 
   function HandleChange(event) {
@@ -23,6 +39,12 @@ export default function SignUp() {
         [name]: value,
       };
     });
+    if(name === 'confirmPassword' && value !== signUpData.password) {
+      setflag(true)
+    }
+    else {
+      setflag(false)
+    }
   }
 
   return(
@@ -45,7 +67,7 @@ export default function SignUp() {
                 <ion-icon name="mail"></ion-icon>
               </span>
               <input 
-                type="text" 
+                type="email" 
                 name='email'
                 value={signUpData.email}
                 onChange={HandleChange}  required/>
@@ -80,6 +102,7 @@ export default function SignUp() {
               onChange={HandleChange} required/>
             <label>Password</label>
           </div>
+          {flag && <p className="error">Passwords do not match</p>}
           <div className="input-box">
             <span className='icon'>
                 <ion-icon name="bag-check"></ion-icon>

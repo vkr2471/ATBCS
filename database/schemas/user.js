@@ -18,8 +18,6 @@ const userschema = mongoose.Schema({
     hash:{
         type: String,
         required: [true , "password must be provided"],
-        
-        
     },
     salt:{
         type: String,

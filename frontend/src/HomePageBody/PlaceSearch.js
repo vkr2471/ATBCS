@@ -24,14 +24,12 @@ export default function PlaceSearch() {
                     <legend>To</legend>
                     <input type="text" placeholder="City or Airport" className = 'textbox' />
                 </fieldset>
-                <div className='time'>
-                    <label className='time-header'>Departure</label>
+                <fieldset className='time'>
+                    <legend className='time-header'>Travel date</legend>
                     <input type="date" placeholder="Departure Date" className='date'/>
-                </div>
-                <div className='time'>
-                    <label className='time-header'>Arrival</label>
+                    <p>-</p>
                     <input type="date" placeholder="Return Date" id='return' className='date' disabled />
-                </div>
+                </fieldset>
             </form>
         </div>
     );

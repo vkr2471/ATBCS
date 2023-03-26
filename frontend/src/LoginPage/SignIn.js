@@ -1,15 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
+import axios from 'axios';
+import UserContext from '../context/context';
+import { useContext , useEffect  } from 'react';
+import { Redirect } from 'react-router-dom';
 
 export default function SignIn() {
   const [signInData, setSignInData] = React.useState({
     email: '',
     password: ''
   });
-
-    function HandleSubmit(event) {
+  const {Loggedin , setLoggedin} = useContext(UserContext);
+  async function HandleSubmit(event) {
         event.preventDefault();
+        const response = await axios.post('http://localhost:5000/login', signInData)
+        .then(async (response) => {
+          console.log(response);
+          const user = response.data
+          localStorage.setItem('user', user.user)
+          localStorage.setItem('token', user.session.cookie.expires)
+          alert('Logged In Successfully')
+          setLoggedin(true)
+        }).catch((error) => {
+          console.log(error)
+          alert((error.response.data))
+        })
     }
 
   function HandleChange(event) {
@@ -21,7 +37,9 @@ export default function SignIn() {
       };
     });
   }
-
+  if(Loggedin){
+    return <Redirect to='/' />
+  }
   return(
     <div className="wrapper">
         <form onSubmit={HandleSubmit} className="login-form">
