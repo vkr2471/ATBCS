@@ -71,7 +71,7 @@ export default function PlaceSearch() {
                         <input type="date" placeholder="Return Date" id='return' className='date' disabled />
                     </div>
                 </div>
-                <Link to = {'/search/:id'} ><button className='search-button'>Show Available Flights</button></Link>
+                <Link to = {'/search/'} ><button className='search-button'>Show Available Flights</button></Link>
             </form>
         </div>
     );
