@@ -1,10 +1,10 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { useContext } from "react";
-import UserContext from "../context/context";
+import {UserProvider} from "../App";
 
 export default function Yes() {
-    const { setLoggedin } = useContext(UserContext);
+    const { setLoggedin } = useContext(UserProvider);
     setLoggedin(false);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
