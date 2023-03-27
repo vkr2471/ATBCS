@@ -76,3 +76,66 @@
     height: 60px;
     margin-left: 10px;
 }
+
+.logout-header{
+    margin-bottom: 0;
+    font-family: 'fantasy';
+    font-size: 20px;
+    color:#162938;
+    margin-right: 5px;
+    margin-top: 5px;
+    font-style: italic;
+    font-weight: 100;
+    position: relative;
+    text-align: left;
+    padding-left: 10%;
+    margin-top: 4%;
+}
+
+.logout-options{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    padding-left: 13%;
+    padding-right: 40%;
+    gap: 20%;
+}
+
+.logout-yes{
+    background: fixed;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    font-size: 18px;
+    font-family: 'fantasy';
+    font-weight: bold;
+}
+
+.logout-no{
+    background: fixed;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    font-size: 20px;
+    font-family: 'fantasy';
+    font-weight: bold;
+}
+
+.logout-yes:hover{
+    background-color: rgb(110, 34, 224);
+    color: white;
+    border-radius: 6px;
+}
+
+.logout-no:hover{
+    background-color: rgb(110, 34, 224);
+    color: white;
+    border-radius: 6px;
+}
