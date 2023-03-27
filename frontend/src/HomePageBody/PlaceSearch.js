@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Select from "react-select";
 import { UserProvider } from "../App";
@@ -17,7 +16,53 @@ export default function PlaceSearch() {
         console.log(err);
       });
   }
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    const from = e.target.from.value;
+    const to = e.target.to.value;
+    const option = e.target.option.value;
+    const passengers =
+      parseInt(e.target.adults.value) +
+      parseInt(e.target.children.value) +
+      parseInt(e.target.infants.value);
+    const date = e.target.departure.value;
+    const clas = e.target.class.value;
+    const returndate = e.target.return.value;
+    const data = {
+      from: from,
+      to: to,
+      option: option,
+      passengers: passengers,
+      date: date,
+      returndate: returndate,
+      class: clas,
+    };
+    console.log(data);
+    const now = new Date();
+    if (date === "" || from === "" || to === "") {
+      alert("Invalid Date or source or destination");
+    }
+    const date1 = new Date(date);
+    if (date1 < now) {
+      alert("Invalid Date");
+    } else if (option === "round-trip") {
+      const date2 = new Date(returndate);
+      if (date2 < now) {
+        alert("Invalid Date");
+      } else if (date1 > date2) {
+        alert("Invalid Date");
+      }
+    }
+    /*axios
+      .get("http://localhost:5000/search", data)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });*/
+  };
   const retur = () => {
     document.getElementById("return").disabled = false;
   };
@@ -26,7 +71,7 @@ export default function PlaceSearch() {
   };
   return (
     <div className="wrapper">
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h2 className="title">Search Flights</h2>
         <div className="options">
           <input
@@ -88,7 +133,7 @@ export default function PlaceSearch() {
         <div className="age">
           <div className="adults-age">
             <label className="adults">Adults (greater than 15)</label>
-            <select className="adults">
+            <select className="adults" name="adults">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -99,7 +144,7 @@ export default function PlaceSearch() {
           </div>
           <div className="children-age">
             <label className="children">Children (2-15)</label>
-            <select className="children">
+            <select className="children" name="children">
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -109,7 +154,7 @@ export default function PlaceSearch() {
           </div>
           <div className="infants-age">
             <label className="infants">Infants(0-2)</label>
-            <select className="infants">
+            <select className="infants" name="infants">
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -119,7 +164,7 @@ export default function PlaceSearch() {
           </div>
           <div className="class-type">
             <label className="class">Class</label>
-            <select className="class">
+            <select className="class" name="class">
               <option value="fc">First Class</option>
               <option value="bc">Business Class</option>
               <option value="ec">Economy Class</option>
@@ -129,7 +174,12 @@ export default function PlaceSearch() {
         <div className="choose-time">
           <div className="time">
             <label className="time-header">Departure</label>
-            <input type="date" placeholder="Departure Date" className="date" />
+            <input
+              type="date"
+              placeholder="Departure Date"
+              className="date"
+              name="departure"
+            />
           </div>
           <div className="time">
             <label className="time-header">Arrival</label>
@@ -138,13 +188,14 @@ export default function PlaceSearch() {
               placeholder="Return Date"
               id="return"
               className="date"
+              name="return"
               disabled
             />
           </div>
         </div>
-        <Link to={"/search/"}>
-          <button className="search-button">Show Available Flights</button>
-        </Link>
+        <button className="search-button" type="submit">
+          Show Available Flights
+        </button>
       </form>
     </div>
   );
