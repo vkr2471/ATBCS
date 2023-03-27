@@ -1,9 +1,9 @@
 import React , {useContext} from 'react';
 import { Link } from 'react-router-dom';
-import UserContext from '../context/context';
+import {UserProvider} from '../App';
 
 export default function Login() {
-    const {Loggedin} = useContext(UserContext);
+    const {Loggedin} = useContext(UserProvider);
     return (
         <div className='buttons'>
             <button type='button' className='title-login'>Manage</button>

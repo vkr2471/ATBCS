@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import axios from 'axios';
-import UserContext from '../context/context';
-import { useContext , useEffect  } from 'react';
+import {UserProvider} from '../App';
+import { useContext  } from 'react';
 import { Redirect } from 'react-router-dom';
 
 export default function SignIn() {
@@ -11,10 +11,10 @@ export default function SignIn() {
     email: '',
     password: ''
   });
-  const {Loggedin , setLoggedin} = useContext(UserContext);
+  const {Loggedin , setLoggedin} = useContext(UserProvider);
   async function HandleSubmit(event) {
         event.preventDefault();
-        const response = await axios.post('http://localhost:5000/login', signInData)
+        await axios.post('http://localhost:5000/login', signInData)
         .then(async (response) => {
           console.log(response);
           const user = response.data
