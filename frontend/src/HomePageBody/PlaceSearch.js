@@ -117,6 +117,14 @@ export default function PlaceSearch() {
               <option value="4">4</option>
             </select>
           </div>
+          <div className="class-type">
+            <label className="class">Class</label>
+            <select className="class">
+              <option value="fc">First Class</option>
+              <option value="bc">Business Class</option>
+              <option value="ec">Economy Class</option>
+            </select>
+          </div>
         </div>
         <div className="choose-time">
           <div className="time">
