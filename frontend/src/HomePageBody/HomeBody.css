@@ -200,3 +200,23 @@
     font-weight: 500;
     margin-bottom: 5%;
 }
+
+@media screen and (max-width: 850px) {
+    .search-place {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5%;
+    }
+
+    .choose-time {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5%;
+    }
+}
+
+body {
+    background-image: url("..\\..\\public\\morning.jpg")!important;
+}

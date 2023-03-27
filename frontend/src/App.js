@@ -9,23 +9,24 @@ import Logout from './Template/logout';
 import Yes from './Template/yes';
 
 export const UserProvider = React.createContext();
-
 export default function App() {
   const [Loggedin, setLoggedin] = React.useState(false);
-  var date1 = new Date();
-  const date = new Date();
-  if(localStorage.getItem('token') !== null){
-      date1 = new Date(localStorage.getItem('token'));
-  }
-  useEffect(()=>{
-    if(date1 > date){
-      setLoggedin(true)
-      console.log('Logged in');
-    }else{
-     setLoggedin(false)
-      console.log('Logged out');
-    }
-  })
+  useEffect(() => {
+  if(localStorage.getItem('token') !== null ){
+      const date1 = new Date(localStorage.getItem('token'));
+      const date = new Date();
+      if(date1 > date){
+        setLoggedin(true)
+        console.log('Logged in');
+      }else{
+        setLoggedin(false)
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        console.log('Logged out');
+      }
+  }else{
+        setLoggedin(false)
+    }})
   return (
     <div className="body">
       <Router>

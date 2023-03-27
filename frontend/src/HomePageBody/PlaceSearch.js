@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function PlaceSearch() {
     const retur = () => {
@@ -70,7 +71,7 @@ export default function PlaceSearch() {
                         <input type="date" placeholder="Return Date" id='return' className='date' disabled />
                     </div>
                 </div>
-                <button className='search-button'>Show Available Flights</button>
+                <Link to = {'/search/:id'} ><button className='search-button'>Show Available Flights</button></Link>
             </form>
         </div>
     );

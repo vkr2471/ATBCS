@@ -128,3 +128,6 @@
     padding: 0;
     text-align: left;
 }
+body {
+    background-image: url(../../public/night_background.png);
+}
