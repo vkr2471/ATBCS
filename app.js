@@ -40,6 +40,16 @@ const ensure=require('connect-ensure-login');
 
 const {sendVerificationMail}=require('./backend/lib/sendVerificationMail.js');
 
+const {verify}=require('./backend/lib/verifycowincert.js');
+
+
+const {upload}=require('./backend/lib/upload.js');
+
+const{rename1}=require('./backend/lib/rename.js');
+
+
+
+
 const start = async () => {
     try{
          db=await connect();
@@ -52,7 +62,10 @@ const start = async () => {
         console.log(error);
     }
 }
+
 start();
+
+
 
 
 const sessionStore=new MongoStore(
@@ -136,6 +149,9 @@ app.post('/register',async(req,res,next)=>
 });
 
 
+app.post('/login',passport.authenticate('local',{failureRedirect:'/login',successReturnToOrRedirect:'/'}));
+
+
 app.post('/login',passport.authenticate('local',{failureRedirect:'/login-error'}),(req,res,next)=>{
     //console.log(req.user);
     const d = {user : req.user.id , session : req.session}
@@ -191,8 +207,22 @@ app.get('/verify-email/:id',(req,res,next)=>{
 
 })
 
+app.get('/verify-cert',verify,(req,res,next)=>{})
 
 
+app.get('/upload',(req,res,next)=>{
+    const form = '<h1>Upload your image</h1><form method="post" action="upload" enctype="multipart/form-data">\
+                    <input type="file" name="image">\
+                    <br><br><input type="submit" value="Submit"></form>';
+
+    res.send(form);
+})
+
+app.post('/upload',upload.single('image'),rename1,(req,res,next)=>{
+    res.send('uploaded');
+})
+
+  
 
 
 
