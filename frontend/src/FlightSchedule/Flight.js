@@ -87,13 +87,16 @@ export default function Flight() {
         
         <div className='flights'>
             <h2 className='heading'>Flights</h2>
+            <div>
+                <h3 className='date'>{date}</h3>
+                <h3 className='date'>Total Flights: {data[0]["flights"].length}</h3>
+                <h3 className='from'>From: {data[0]['flights'][0]['source']}</h3>
+                <h3 className='to'>To: {data[0]['flights'][0]['destination']}</h3>
+            </div>
             <div className='flightsContainer'>
                 <table>
                 <thead>
                     <tr>
-                        <th>Date </th>
-                        <th>From</th>
-                        <th>To</th>
                         <th>FlightID</th>
                         <th>Departure</th>
                         <th>Arrival</th>
