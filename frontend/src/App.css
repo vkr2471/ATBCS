@@ -2,8 +2,8 @@ body{
     background-image: url("./Template/Background.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-blend-mode: lighten;
     background-size: cover;
+    background-blend-mode:normal;
     height: 100%;
     top: 20%;
 }

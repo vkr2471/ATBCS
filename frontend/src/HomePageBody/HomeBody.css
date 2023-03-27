@@ -1,12 +1,38 @@
 .home-body{
-    justify-content: center;
-    gap: 1rem;
-    list-style: none;
-    display: flex;
-
+    width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.textbox {
+.home-body .wrapper{
+    border-radius: 0;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    width: 50%;
+    height: 60%;    
+    margin-left: 7%;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    background-color: #dcd9f7;
+}
+
+.options label{
+    position: relative;
+    margin-right: 5px;
+    margin-left:2px;
+    font-size: 1.1rem;
+    color: #162938;
+}
+
+
+.place .textbox {
     height: 100%;
     width: 100%;
     border: none;
@@ -14,17 +40,163 @@
     background:fixed;
 }
 
-.place{
-    margin-top: 10%;
-    margin-bottom: 10%;
-    
+.place legend{
+    color:#162938;
 }
-.time{
+
+.place ::placeholder{
+    color: #162938;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.search-place{
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    align-items: center;
+    gap: 5%;
 }
-.date{
-    max-height: fit-content;
+
+.wrapper .form{
+    width:100%;
+    padding-top: 2%;
+    padding-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form .title{
+    font-size: 1.75rem;
+    color: #162938;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 100;
+}
+
+.form .options{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+}
+
+.form .place{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    border: 1px solid #162938;
+}
+
+.form .place .place-header{
+    font-size: 1.75rem;
+    color: #162938;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 100;
+}
+
+.form .passenger{
+    margin-top: 4%;
+    margin-bottom: 1%;
+    border-radius: 6px;
+    font-size: 1.3rem;
+    color: #162938;
+}
+
+.form .age{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 10%;
+    padding-right: 50%;    
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.age .adults-age{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 1.1rem;
+    color:#162938;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    margin-left: 7%;
+}
+
+.age .children-age{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    color:#162938;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 1.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    margin-left: 7%;
+}
+
+.age .infants-age{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    color:#162938;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 1.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    margin-left: 7%;
+}
+
+.choose-time{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+}
+
+.choose-time .time{
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+.time .time-header{
+    font-size: 1.3rem;
+    color: #162938;
+    font-family: "Helvetica";
+    font-weight: 100;
+
+}
+
+.time .date{
+    border-radius: 6px;
+    margin-left: 3%;
+    width: 100%;
+    background-color: #d3dbe0;
+}
+
+.form .search-button{
+    width: 80%;
+    height: 50px;
+    background: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 5%;
 }
