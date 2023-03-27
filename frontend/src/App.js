@@ -1,36 +1,40 @@
-import React, { useEffect }  from 'react';
-import Navbar from './Template/Navbar';
-import HomeBody from './HomePageBody/HomeBody';
-import SignUp from './LoginPage/SignUp';
-import SignIn from './LoginPage/SignIn';
-import Verify from './LoginPage/verify';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Logout from './Template/logout';
-import Yes from './Template/yes';
+import React, { useEffect } from "react";
+import Navbar from "./Template/Navbar";
+import HomeBody from "./HomePageBody/HomeBody";
+import SignUp from "./LoginPage/SignUp";
+import SignIn from "./LoginPage/SignIn";
+import Verify from "./LoginPage/verify";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Logout from "./Template/logout";
+import Yes from "./Template/yes";
 
 export const UserProvider = React.createContext();
 export default function App() {
+  const [airport, setAirport] = React.useState([]);
   const [Loggedin, setLoggedin] = React.useState(false);
   useEffect(() => {
-  if(localStorage.getItem('token') !== null ){
-      const date1 = new Date(localStorage.getItem('token'));
+    if (localStorage.getItem("token") !== null) {
+      const date1 = new Date(localStorage.getItem("token"));
       const date = new Date();
-      if(date1 > date){
-        setLoggedin(true)
-        console.log('Logged in');
-      }else{
-        setLoggedin(false)
+      if (date1 > date) {
+        setLoggedin(true);
+        console.log("Logged in");
+      } else {
+        setLoggedin(false);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        console.log('Logged out');
+        console.log("Logged out");
       }
-  }else{
-        setLoggedin(false)
-    }})
+    } else {
+      setLoggedin(false);
+    }
+  });
   return (
     <div className="body">
       <Router>
-        <UserProvider.Provider value={{Loggedin,setLoggedin}}>
+        <UserProvider.Provider
+          value={{ Loggedin, setLoggedin, airport, setAirport }}
+        >
           <Navbar />
           <Route exact path="/" component={HomeBody} />
           <Route path="/login" component={SignIn} />
@@ -40,7 +44,6 @@ export default function App() {
           <Route path="/yes/:id" component={Yes} />
         </UserProvider.Provider>
       </Router>
-      </div>
+    </div>
   );
 }
-

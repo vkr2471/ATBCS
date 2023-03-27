@@ -8,7 +8,7 @@ body , html {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(217, 202, 237);
+    background: fixed;
 }
 #root {
     height: 100%;
@@ -17,7 +17,7 @@ body , html {
     padding: 0;
 }
 body{
-    background-image: url("..\\public\\morning.jpg");
+    background-image: url("../public/morning.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
