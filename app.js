@@ -149,7 +149,7 @@ app.post('/register',async(req,res,next)=>
 });
 
 
-app.post('/login',passport.authenticate('local',{failureRedirect:'/login',successReturnToOrRedirect:'/'}));
+
 
 
 app.post('/login',passport.authenticate('local',{failureRedirect:'/login-error'}),(req,res,next)=>{
