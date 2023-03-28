@@ -35,6 +35,9 @@ const {
 const { loginpage } = require("./backend/controllers/login.js");
 
 const ensure = require("connect-ensure-login");
+const { verify } = require("./backend/lib/verifycowincert.js");
+const{upload}=require('./backend/lib/upload.js');
+const{rename1}=require('./backend/lib/rename.js');
 
 const {
   sendVerificationMail,
@@ -44,7 +47,7 @@ const airport = require("./database/schemas/airports.js");
 const start = async () => {
     try{
          db=await connect();
-        app.listen(5000,  
+        app.listen(5001,  
          console.log('Listening on port 5000...'));
          
         

@@ -11,6 +11,9 @@ const verify= async(req,res,next)=>
 
     let options = new chrome.Options();
     options.addArguments("use-fake-ui-for-media-stream");
+
+    // options.addArguments("use-fake-device-for-media-stream"); 
+    // options.addArguments("use-file-for-fake-video-capture=\"../images/img.png\"");
     
     let driver = new    webdriver.Builder().forBrowser('chrome').setChromeOptions(options).build();
 
