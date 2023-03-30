@@ -10,7 +10,6 @@ export default function PlaceSearch() {
       .get("http://localhost:5000/airportdata")
       .then((res) => {
         setAirport(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -18,7 +17,6 @@ export default function PlaceSearch() {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
     const from = e.target.from.value;
     const to = e.target.to.value;
     const option = e.target.option.value;
@@ -42,26 +40,31 @@ export default function PlaceSearch() {
     const now = new Date();
     if (date === "" || from === "" || to === "") {
       alert("Invalid Date or source or destination");
-    }
-    const date1 = new Date(date);
-    if (date1 < now) {
-      alert("Invalid Date");
-    } else if (option === "round-trip") {
-      const date2 = new Date(returndate);
-      if (date2 < now) {
+    } else {
+      const date1 = new Date(date);
+      if (date1 < now) {
         alert("Invalid Date");
-      } else if (date1 > date2) {
-        alert("Invalid Date");
+      } else if (option === "round-trip") {
+        const date2 = new Date(returndate);
+        if (date2 < now) {
+          alert("Invalid Date");
+        } else if (date1 > date2) {
+          alert("Invalid Date");
+        }
+      } else {
+        axios
+          .get(
+            `http://localhost:5000/search/${from}/${to}/${date}/${clas}/${passengers}`,
+            data
+          )
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
-    /*axios
-      .get("http://localhost:5000/search", data)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });*/
   };
   const retur = () => {
     document.getElementById("return").disabled = false;
@@ -79,6 +82,7 @@ export default function PlaceSearch() {
             name="option"
             id="one"
             value="one-way"
+            defaultChecked
             onClick={retu}
           />
           <label>One Way</label>
@@ -102,7 +106,7 @@ export default function PlaceSearch() {
                 getOptionLabel={(option) =>
                   option.city + "(" + option.code + ")"
                 }
-                getOptionValue={(option) => option.code}
+                getOptionValue={(option) => option.city}
                 isSearchable={true}
                 isClearable={true}
                 isLoading={airport.length === 0}
@@ -121,7 +125,7 @@ export default function PlaceSearch() {
                   : [{ city: "Loading", code: "Loading" }]
               }
               getOptionLabel={(option) => option.city + "(" + option.code + ")"}
-              getOptionValue={(option) => option.code}
+              getOptionValue={(option) => option.city}
               isSearchable={true}
               isClearable={true}
               isLoading={airport.length === 0}

@@ -26,7 +26,7 @@ const user = require("./database/schemas/user.js");
 const session = require("express-session");
 
 const MongoStore = require("connect-mongo")(session);
-
+const findflights = require("./backend/middleware/findflights.js");
 const passport = require("passport");
 const {
   genpassword,
@@ -36,8 +36,8 @@ const { loginpage } = require("./backend/controllers/login.js");
 
 const ensure = require("connect-ensure-login");
 const { verify } = require("./backend/lib/verifycowincert.js");
-const{upload}=require('./backend/lib/upload.js');
-const{rename1}=require('./backend/lib/rename.js');
+const { upload } = require("./backend/lib/upload.js");
+const { rename1 } = require("./backend/lib/rename.js");
 
 const {
   sendVerificationMail,
@@ -45,21 +45,15 @@ const {
 const airport = require("./database/schemas/airports.js");
 
 const start = async () => {
-    try{
-         db=await connect();
-        app.listen(5001,  
-         console.log('Listening on port 5000...'));
-         
-        
-
-    }catch(error){
-        console.log(error);
-    }
-}
+  try {
+    db = await connect();
+    app.listen(5000, console.log("Listening on port 5000..."));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 start();
-
-
 
 const sessionStore = new MongoStore({
   mongooseConnection: mongoose.connection,
@@ -135,12 +129,6 @@ app.post("/register", async (req, res, next) => {
     });
 });
 
-
-
-
-
-
-
 app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login-error" }),
@@ -183,51 +171,53 @@ app.get("/verify-email", (req, res, next) => {
   res.send(form);
 });
 app.get("/verify-email/:id", (req, res, next) => {
-  user
-    .findOne({ emailToken: req.params.id })
-    .then((user) => {
-      if (!user) {
-        res.status(400);
-        res.send("You have not registered yet");
-      } else {
-        user.isVerified = true;
-        user.emailToken = null;
-        user
-          .save()
-          .then((user) => {
-            res.send('<a href="/login">Click here to login ');
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    })
+  user.findOne({ emailToken: req.params.id }).then((user) => {
+    if (!user) {
+      res.status(400);
+      res.send("You have not registered yet");
+    } else {
+      user.isVerified = true;
+      user.emailToken = null;
+      user
+        .save()
+        .then((user) => {
+          res.send('<a href="/login">Click here to login ');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  });
+});
 
+app.get("/user/:id", (req, res, next) => {
+  console.log(req.params.id);
+  user.findById(req.params.id).then((user) => {
+    console.log(user);
+    res.send({
+      name: user.name,
+      phone: user.phone,
+      email: user.email,
+      dob: user.dob,
+      ffm: user.ffm,
+      bookings: user.bookings,
+    });
+  });
+});
 
+//app.get("/verify-cert", verify, (req, res, next) => {});
 
-})
-
-app.get('/verify-cert',verify,(req,res,next)=>{})
-
-
-app.get('/upload',(req,res,next)=>{
-    const form = '<h1>Upload your image</h1><form method="post" action="upload" enctype="multipart/form-data">\
+/*app.get("/upload", (req, res, next) => {
+  const form =
+    '<h1>Upload your image</h1><form method="post" action="upload" enctype="multipart/form-data">\
                     <input type="file" name="image">\
                     <br><br><input type="submit" value="Submit"></form>';
 
-    res.send(form);
-})
+  res.send(form);
+});*/
 
-app.post('/upload',upload.single('image'),rename1,(req,res,next)=>{
-    res.send('uploaded');
-})
+/*app.post("/upload", upload.single("image"), rename1, (req, res, next) => {
+  res.send("uploaded");
+});*/
 
-  
-
-
-
-
-
-
-
-
+app.get("/search/:source/:destination/:date/:type/:seats", findflights);

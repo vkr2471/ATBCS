@@ -7,6 +7,8 @@ import Verify from "./LoginPage/verify";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Logout from "./Template/logout";
 import Yes from "./Template/yes";
+import Profile from "./LoginPage/profile";
+import About from "./HomePageBody/about";
 
 export const UserProvider = React.createContext();
 export default function App() {
@@ -42,6 +44,8 @@ export default function App() {
           <Route path="/verify-email/:id" component={Verify} />
           <Route path="/logout" component={Logout} />
           <Route path="/yes/:id" component={Yes} />
+          <Route path="/profile/:id" component={Profile} />
+          <Route path="/about" component={About} />
         </UserProvider.Provider>
       </Router>
     </div>
