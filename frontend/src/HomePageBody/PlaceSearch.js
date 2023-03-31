@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 export default function PlaceSearch() {
   const { airport, setAirport } = useContext(UserProvider);
   const [redirect, setRedirect] = React.useState(false);
+  const [flights , setFlights] = React.useState([]);
   if (airport.length === 0) {
     axios
       .get("http://localhost:5000/airportdata")
@@ -60,6 +61,7 @@ export default function PlaceSearch() {
           )
           .then((res) => {
             console.log(res.data);
+            setFlights(res.data);
             setRedirect(true);
           })
           .catch((err) => {
@@ -79,7 +81,7 @@ export default function PlaceSearch() {
       <Redirect
         to={{
           pathname: "/flight-search",
-          state: { id: "place-search" },
+          state: { data: flights },
         }}
       />
     );

@@ -83,7 +83,7 @@ export default function Flight(props) {
     },
   ];
   const date = data[0]["date"];
-  console.log(props.location.state);
+  console.log(props.location.state.data);
   return (
     <div className="flights">
       <h2 className="heading">Flights</h2>

@@ -1,0 +1,71 @@
+.about{
+    margin-top: 0px;
+    height: 100%;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-blend-mode: lighten;
+    border-radius: 10px;
+    backdrop-filter: blur(6px);
+}
+
+.about .about-us{
+    border-radius: 6px;
+    margin-top: 0%;
+    height: 80%;
+}
+
+.about-us .header{
+    text-align: center;
+    color: black;
+    font-family: 'fantasy';
+    font-style: italic;
+    font-size: 1.75rem;
+}
+
+.about-us .content{
+    text-align: center;
+    color: rgb(110, 34, 224);
+    font-family: 'cursive';
+    font-style: italic;
+    font-size: 1.25rem;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.about h2{
+    text-align: left;
+    color: black;
+    font-family: 'fantasy';
+    font-style: italic;
+    font-size: 1.4rem;
+    padding-left: 10px;
+}
+
+.about .services-text{
+    text-align: left;
+    color: rgb(110, 34, 224);
+    font-family: 'cursive';
+    font-style: italic;
+    font-size: 1.2rem;
+    padding-left: 30px;
+}
+
+.about .service-list{
+    list-style-type: none;
+    padding-left: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+.about .airports{
+    text-align: left;
+    color: black;
+    font-family: 'fantasy';
+    font-style: italic;
+    font-size: 1rem;
+    padding-left: 10px;
+}
+
+
