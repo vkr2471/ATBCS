@@ -9,6 +9,7 @@ import Logout from "./Template/logout";
 import Yes from "./Template/yes";
 import Profile from "./LoginPage/profile";
 import About from "./HomePageBody/about";
+import Flight from "./FlightSchedule/Flight";
 
 export const UserProvider = React.createContext();
 export default function App() {
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/yes/:id" component={Yes} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/about" component={About} />
+          <Route path="/flight-search" component={Flight} />
         </UserProvider.Provider>
       </Router>
     </div>

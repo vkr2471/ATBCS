@@ -2,7 +2,6 @@ const schedule = require("../../database/schemas/schedule.js");
 
 //////need to complete this once the database is ready
 const findflights = async (req, res, next) => {
-  console.log(req.params);
   const source = req.params.source.replace("%20", " ");
   const destination = req.params.destination.replace("%20", " ");
   const date = req.params.date;
@@ -15,10 +14,13 @@ const findflights = async (req, res, next) => {
     const flightsfromto = dayflights.filter((flight) => {
       return flight.source === source && flight.destination === destination;
     });
-    const availableflights = flightsfromto.filter((flight) => {
-      return flight.totalseats[type] - flight.seatsbooked[type] >= seats;
+    const availableflights = flightsfromto.map((flight) => {
+      if (flight.totalseats[type] - flight.seatsbooked[type] >= seats) {
+        //console.log(...flight);
+        return { flight: flight, type: type, seats: seats };
+      }
     });
-    if (availableflights.length === 0) {
+    /*if (availableflights.length === 0) {
       const i = 0;
       var j = await schedule.findOne({ date: date });
       var dat = new Date(date);
@@ -52,7 +54,7 @@ const findflights = async (req, res, next) => {
           availabledates: dats,
         });
       }
-    }
+    }*/
     res.status(200).json({ availableflights });
   } catch (error) {
     res.status(500).json({ error: error.message });

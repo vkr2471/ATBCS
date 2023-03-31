@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import axios from "axios";
 import Select from "react-select";
 import { UserProvider } from "../App";
+import { Redirect } from "react-router-dom";
 
 export default function PlaceSearch() {
   const { airport, setAirport } = useContext(UserProvider);
+  const [redirect, setRedirect] = React.useState(false);
   if (airport.length === 0) {
     axios
       .get("http://localhost:5000/airportdata")
@@ -54,11 +56,11 @@ export default function PlaceSearch() {
       } else {
         axios
           .get(
-            `http://localhost:5000/search/${from}/${to}/${date}/${clas}/${passengers}`,
-            data
+            `http://localhost:5000/search/${from}/${to}/${date}/${clas}/${passengers}`
           )
           .then((res) => {
             console.log(res.data);
+            setRedirect(true);
           })
           .catch((err) => {
             console.log(err);
@@ -72,6 +74,16 @@ export default function PlaceSearch() {
   const retu = () => {
     document.getElementById("return").disabled = true;
   };
+  if (redirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/flight-search",
+          state: { id: "place-search" },
+        }}
+      />
+    );
+  }
   return (
     <div className="wrapper">
       <form className="form" onSubmit={handleSubmit}>
