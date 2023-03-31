@@ -16,7 +16,6 @@ const findflights = async (req, res, next) => {
     });
     const availableflights = flightsfromto.map((flight) => {
       if (flight.totalseats[type] - flight.seatsbooked[type] >= seats) {
-        //console.log(...flight);
         return { flight: flight, type: type, seats: seats };
       }
     });

@@ -41,7 +41,7 @@ export default function Profile() {
       <h3>Name: {user.name}</h3>
       <h3>Email: {user.email}</h3>
       <h3>Phone number: {user.phone}</h3>
-      <h3>Date of birth: {user.dob}</h3>
+      <h3>Date of birth: {user.dob.split("T")[0]}</h3>
       <h3>ffm: {user.ffm}</h3>
       <h3>Bookings:</h3>
       <div>

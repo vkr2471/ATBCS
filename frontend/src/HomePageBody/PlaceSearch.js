@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 export default function PlaceSearch() {
   const { airport, setAirport } = useContext(UserProvider);
   const [redirect, setRedirect] = React.useState(false);
-  const [flights , setFlights] = React.useState([]);
+  const [details, setDetails] = React.useState({});
   if (airport.length === 0) {
     axios
       .get("http://localhost:5000/airportdata")
@@ -41,7 +41,7 @@ export default function PlaceSearch() {
     };
     console.log(data);
     const now = new Date();
-    if (date === "" || from === "" || to === "") {
+    if (date === "" || from === "" || to === "" || from === to) {
       alert("Invalid Date or source or destination");
     } else {
       const date1 = new Date(date);
@@ -55,18 +55,8 @@ export default function PlaceSearch() {
           alert("Invalid Date");
         }
       } else {
-        axios
-          .get(
-            `http://localhost:5000/search/${from}/${to}/${date}/${clas}/${passengers}`
-          )
-          .then((res) => {
-            console.log(res.data);
-            setFlights(res.data);
-            setRedirect(true);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        setDetails(data);
+        setRedirect(true);
       }
     }
   };
@@ -81,7 +71,7 @@ export default function PlaceSearch() {
       <Redirect
         to={{
           pathname: "/flight-search",
-          state: { data: flights },
+          state: { details: details },
         }}
       />
     );
