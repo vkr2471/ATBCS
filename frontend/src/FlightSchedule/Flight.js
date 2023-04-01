@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Flight.css";
-import Plane from "./Plane.js";
+import Plane from "./Planes.js";
 import axios from "axios";
 
 export default function Flight(props) {

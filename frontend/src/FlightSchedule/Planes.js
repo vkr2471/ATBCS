@@ -5,7 +5,9 @@ import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 
 export default function Plane(props) {
-  const { loggedin } = useContext(UserProvider);
+  const { Loggedin } = useContext(UserProvider);
+  const [redirect , setRedirect] = React.useState(false);
+  const [redirect1 , setRedirect1] = React.useState(false);
   var year = "2013";
   var month = "04";
   var day = "18";
@@ -26,10 +28,15 @@ export default function Plane(props) {
   var hr = Math.floor(z / 3600000);
   var min = Math.floor((z % 3600000) / 60000);
   const HandleBooking = (flightid) => {
-    if (loggedin) {
+    if (Loggedin) {
+      setRedirect1(true);
     } else {
       alert("Please Login to Book a Ticket");
-      <Redirect
+      setRedirect(true);
+    }
+  };
+  if(redirect){
+    return <Redirect
         to={{
           pathname: "/login",
           state: {
@@ -37,8 +44,18 @@ export default function Plane(props) {
           },
         }}
       />;
-    }
-  };
+  }
+  if(redirect1){
+    return <Redirect
+        to={{
+          pathname: "/book",
+          state: {
+            details: props.details,
+            flightid: props.flightid,
+          },
+        }}
+      />;
+  }
   return (
     <div className="plane">
       <ul className="plane-details">

@@ -5,14 +5,14 @@
     align-items: center;
     height: 20%;
     font-size: 0.8rem;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
     background-color: #dcd9f7;
     padding-top: 5px;
     padding-bottom: 5px;
     margin-top: 7px;
     margin-bottom: 7px;
-    width: 85%;
+    width: 75%;
     border-radius: 5px;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
     position: relative;
@@ -42,16 +42,14 @@
     font-size: 1.2rem;
     font-weight: 600;
     font-family: 'cursive';
-    padding-left: 5%;
-    padding-right: 5%;
+    
 }
 
 .plane-details .plane-ticketfare{
     font-size: 1.2rem;
     font-weight: 600;
     font-family: 'cursive';
-    padding-left: 5%;
-    padding-right: 5%;
+    
 }
 
 .plane-details li button{

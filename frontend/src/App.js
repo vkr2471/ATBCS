@@ -10,6 +10,7 @@ import Yes from "./Template/yes";
 import Profile from "./LoginPage/profile";
 import About from "./HomePageBody/about";
 import Flight from "./FlightSchedule/Flight";
+import Book from "./Book/Book";
 
 export const UserProvider = React.createContext();
 export default function App() {
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/about" component={About} />
           <Route path="/flight-search" component={Flight} />
+          <Route path="/book" component={Book} />
         </UserProvider.Provider>
       </Router>
     </div>
