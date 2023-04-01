@@ -22,7 +22,9 @@ export default function About() {
         })}
       </ul>
       <h2 className="flights-header">Our Flights:</h2>
-      <ul></ul>
+      <ul>
+        
+      </ul>
     </div>
   );
 }

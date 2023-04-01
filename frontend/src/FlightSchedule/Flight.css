@@ -54,3 +54,41 @@ tr td
 .loading h1 {
     margin-top: 20%;
 }
+
+.flights{
+    backdrop-filter: blur(5px);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.flights-header{
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'cursive';
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.flights .details{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 3%;
+    align-items: center;
+    width: 90%;
+    margin-left: 3%;
+}
+
+.details h3{
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'cursive';
+    padding-left: 3%;
+    padding-right: 3%;
+}

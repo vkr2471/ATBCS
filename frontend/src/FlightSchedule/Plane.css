@@ -1,0 +1,76 @@
+.plane{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+    font-size: 0.8rem;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #dcd9f7;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    width: 85%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.plane .plane-details{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+    width: 90%;
+}
+
+.plane-details li{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    font-size: 1rem;
+    font-family: 'cursive';
+}
+
+.plane-details .plane-name{
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'cursive';
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.plane-details .plane-ticketfare{
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'cursive';
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.plane-details li button{
+    background-color:  rgb(110, 34, 224);
+    border: 1px solid #000;
+    color: #fff;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 45px;
+    position: relative;
+
+}

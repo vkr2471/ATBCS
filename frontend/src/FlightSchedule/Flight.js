@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import "./Flight.css";
-import Details from "./Details";
+import Plane from "./Plane.js";
 import axios from "axios";
+
 export default function Flight(props) {
   const [dataTable, setDataTable] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -30,5 +31,22 @@ export default function Flight(props) {
       </div>
     );
   }
-  return <div className="flights"></div>;
+  return (<div className="flights">
+    <h1 className="flights-header">Available Flights</h1>
+    <div className="details">
+      <h3 className="date">Date: {details.date}</h3>
+      <h3 className="source">Source: {details.from}</h3>
+      <h3 className="destination">Destination: {details.to}</h3>
+    </div>
+    {data.availableflights.map((available) => {
+        return(
+          <Plane key={available.flight._id}
+           flightid={available.flight.flightid} 
+           arrival={available.flight.arrival}
+           departure={available.flight.departure}
+           ticketfare={available.flight.ticketfare[details.class]}
+          />
+        )
+    })}
+  </div>);
 }
