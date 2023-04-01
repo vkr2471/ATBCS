@@ -1,7 +1,11 @@
 import React from "react";
 import "./Plane.css";
+import { UserProvider } from "../App";
+import { useContext } from "react";
+import { Redirect } from "react-router-dom";
 
 export default function Plane(props) {
+  const { loggedin } = useContext(UserProvider);
   var year = "2013";
   var month = "04";
   var day = "18";
@@ -18,8 +22,23 @@ export default function Plane(props) {
   const time1 = new Date(year, month, day, hour1, min1);
   const time2 = new Date(year, month, day, hour2, min2);
   var z = time2.getTime() - time1.getTime();
+  if (z < 0) z += 86400000;
   var hr = Math.floor(z / 3600000);
   var min = Math.floor((z % 3600000) / 60000);
+  const HandleBooking = (flightid) => {
+    if (loggedin) {
+    } else {
+      alert("Please Login to Book a Ticket");
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: {
+            details: props.details,
+          },
+        }}
+      />;
+    }
+  };
   return (
     <div className="plane">
       <ul className="plane-details">
@@ -34,7 +53,7 @@ export default function Plane(props) {
         <li className="plane-name">{props.flightid}</li>
         <li className="plane-ticketfare">₹{props.ticketfare}</li>
         <li>
-          <button>Book</button>
+          <button onClick={() => HandleBooking(props.flightid)}>Book</button>
         </li>
       </ul>
     </div>
