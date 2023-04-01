@@ -93,3 +93,15 @@ tr td
     padding-left: 3%;
     padding-right: 3%;
 }
+
+.no-available{
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'cursive';
+    padding-left: 3%;
+    padding-right: 3%;
+    color: #000000;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
