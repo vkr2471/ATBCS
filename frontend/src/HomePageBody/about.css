@@ -7,8 +7,26 @@
     background-blend-mode: lighten;
     border-radius: 10px;
     backdrop-filter: blur(6px);
+    background-color: rgba(220, 217, 247, 0.7);
 }
-
+.about .header
+{
+    text-align: center;
+    color: black;
+    font-family: 'fantasy';
+    font-size: 1.75rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    width: 85%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
 .about .about-us{
     border-radius: 6px;
     margin-top: 0%;
@@ -34,12 +52,11 @@
 }
 
 .about h2{
-    text-align: left;
+    text-align: center;
     color: black;
     font-family: 'fantasy';
     font-style: italic;
-    font-size: 1.4rem;
-    padding-left: 10px;
+    font-size: 1.75rem;
 }
 
 .about .services-text{

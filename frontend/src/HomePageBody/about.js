@@ -21,7 +21,6 @@ export default function About() {
           return <li key={airports._id} className="airports">{airports.city}</li>;
         })}
       </ul>
-      <h2 className="flights-header">Our Flights:</h2>
       <ul>
         
       </ul>
