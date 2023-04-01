@@ -35,6 +35,8 @@ export default function Flight(props) {
         <h3 className="date">Date: {details.date}</h3>
         <h3 className="source">Source: {details.from}</h3>
         <h3 className="destination">Destination: {details.to}</h3>
+        <h3 className="class">Class: {details.class}</h3>
+        <h3 className="passengers">Passengers: {details.passengers}</h3>
       </div>
       {data.availableflights.length ? (
         data.availableflights.map((available) => {

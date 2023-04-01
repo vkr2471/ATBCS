@@ -67,7 +67,7 @@ export default function Plane(props) {
           </p>
         </li>
         <li className="plane-arrival">{props.arrival}</li>
-        <li className="plane-name">{props.flightid}</li>
+        <li className="plane-name">{props.flightid}&emsp;&emsp;&emsp;</li>
         <li className="plane-ticketfare">₹{props.ticketfare}</li>
         <li>
           <button onClick={() => HandleBooking(props.flightid)}>Book</button>
