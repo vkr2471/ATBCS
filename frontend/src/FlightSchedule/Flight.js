@@ -38,15 +38,15 @@ export default function Flight(props) {
       <h3 className="source">Source: {details.from}</h3>
       <h3 className="destination">Destination: {details.to}</h3>
     </div>
-    {data.availableflights.map((available) => {
+    {data.availableflights.length?data.availableflights.map((available) => {
         return(
           <Plane key={available.flight._id}
-           flightid={available.flight.flightid} 
-           arrival={available.flight.arrival}
-           departure={available.flight.departure}
-           ticketfare={available.flight.ticketfare[details.class]}
-          />
+              flightid={available.flight.flightid} 
+              arrival={available.flight.arrival}
+              departure={available.flight.departure}
+              ticketfare={available.flight.ticketfare[details.class]}
+              />
         )
-    })}
+    }):<h1 className="no-available">No flights available. Sorry for the inconvenience.</h1>}
   </div>);
 }
