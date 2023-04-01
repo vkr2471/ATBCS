@@ -32,8 +32,8 @@ export default function Profile() {
   }
   if (user.length === 0) {
     return (
-      <div>
-        <h1>Loading</h1>
+      <div className="spinner-container">
+        <div className="loading-spinner"></div>
       </div>
     );
   }

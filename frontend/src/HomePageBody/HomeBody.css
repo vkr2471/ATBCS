@@ -1,237 +1,250 @@
-.home-body{
-    height: 100%;
-    width: 100%;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
+.home-body {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.home-body .wrapper{
-    border-radius: 0;
-    position: relative;
-    border: 2px solid rgba(255, 255, 255, .5);
-    border-radius: 20px;
-    width: 50%;
-    height: 100%;    
-    margin-left: 7%;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #dcd9f7;
+.home-body .wrapper {
+  border-radius: 0;
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  width: 50%;
+  height: 100%;
+  margin-left: 7%;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #dcd9f7;
 }
 
-.options label{
-    position: relative;
-    margin-right: 5px;
-    margin-left:2px;
-    font-size: 1.1rem;
-    color: #162938;
+.options label {
+  position: relative;
+  margin-right: 5px;
+  margin-left: 2px;
+  font-size: 1.1rem;
+  color: #162938;
 }
-
 
 .place .textbox {
-    height: 100%;
-    width: 100%;
-    border: none;
-    outline: none;
-    background:fixed;
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: fixed;
 }
 
-.place legend{
-    color:#162938;
+.place legend {
+  color: #162938;
 }
 
-.place ::placeholder{
-    color: #162938;
-    font-size: 1.1rem;
-    font-weight: 500;
-    font-family: Arial, Helvetica, sans-serif;
+.place ::placeholder {
+  color: #162938;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.search-place{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5%;
+.search-place {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5%;
 }
 
-.wrapper .form{
-    width:100%;
-    padding-top: 2%;
-    padding-left: 10%;
-    margin-left: auto;
-    margin-right: auto;
+.wrapper .form {
+  width: 100%;
+  padding-top: 2%;
+  padding-left: 10%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.form .title{
-    font-size: 1.75rem;
-    color: #162938;
-    text-align: justify;
-    font-family: "Helvetica";
-    font-weight: 100;
+.form .title {
+  font-size: 1.75rem;
+  color: #162938;
+  text-align: justify;
+  font-family: "Helvetica";
+  font-weight: 100;
 }
 
-.form .options{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2%;
+.form .options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
 }
 
-.form .place{
-    margin-top: 3%;
-    margin-bottom: 3%;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    border: 1px solid #162938;
+.form .place {
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  border: 1px solid #162938;
 }
 
-.form .place .place-header{
-    font-size: 1.75rem;
-    color: #162938;
-    text-align: justify;
-    font-family: "Helvetica";
-    font-weight: 100;
+.form .place .place-header {
+  font-size: 1.75rem;
+  color: #162938;
+  text-align: justify;
+  font-family: "Helvetica";
+  font-weight: 100;
 }
 
-
-
-.form .passenger{
-    margin-top: 4%;
-    margin-bottom: 1%;
-    border-radius: 6px;
-    font-size: 1.3rem;
-    color: #162938;
+.form .passenger {
+  margin-top: 4%;
+  margin-bottom: 1%;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  color: #162938;
 }
 
-.form .age{
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    gap: 10%;
-    padding-right: 50%;    
-    margin-top: 2%;
-    margin-bottom: 2%;
+.form .age {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 10%;
+  padding-right: 50%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
-.age .adults-age{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-size: 1.1rem;
-    color:#162938;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin-left: 7%;
+.age select {
+  background-color: transparent;
+  padding: 0 1rem 0 1rem;
+  margin: 0;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  line-height: inherit;
+}
+.age option {
+  white-space: normal;
+  outline-color: var(--select-focus);
+}
+.age .adults-age {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-size: 1.1rem;
+  color: #162938;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin-left: 7%;
+  justify-content: space-between;
 }
 
-.age .children-age{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2%;
-    color:#162938;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-size: 1.1rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin-left: 7%;
+.age .children-age {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+  color: #162938;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin-left: 7%;
+  justify-content: space-between;
 }
 
-.age .infants-age{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2%;
-    color:#162938;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-size: 1.1rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin-left: 7%;
+.age .infants-age {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+  color: #162938;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin-left: 7%;
+  justify-content: space-between;
 }
 
-.age .class-type{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2%;
-    color:#162938;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-size: 1.1rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin-left: 7%;
+.age .class-type {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+  color: #162938;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin-left: 7%;
+  justify-content: space-between;
 }
 
-.choose-time{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2%;
-    margin-top: 1%;
-    margin-bottom: 3%;
+.choose-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+  margin-top: 1%;
+  margin-bottom: 3%;
 }
 
-.choose-time .time{
-    margin-right: 5%;
-    display: flex;
-    flex-direction: row;
+.choose-time .time {
+  margin-right: 5%;
+  display: flex;
+  flex-direction: row;
 }
 
-.time .time-header{
-    font-size: 1.3rem;
-    color: #162938;
-    font-family: "Helvetica";
-    font-weight: 100;
-
+.time .time-header {
+  font-size: 1.3rem;
+  color: #162938;
+  font-family: "Helvetica";
+  font-weight: 100;
 }
 
-.time .date{
-    border-radius: 6px;
-    margin-left: 3%;
-    width: 100%;
-    background-color: #d3dbe0;
+.time .date {
+  border-radius: 6px;
+  margin-left: 3%;
+  width: 100%;
+  background-color: #d3dbe0;
 }
 
-.form .search-button{
-    width: 80%;
-    height: 50px;
-    background: #162938;
-    border: none;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #fff;
-    font-weight: 500;
-    margin-bottom: 5%;
+.form .search-button {
+  width: 80%;
+  height: 50px;
+  background: #162938;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 5%;
 }
 
 @media screen and (max-width: 850px) {
-    .search-place {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5%;
-    }
+  .search-place {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+  }
 
-    .choose-time {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5%;
-    }
-    body{
-        background-image: none!important;
-    }
+  .choose-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+  }
+  body {
+    background-image: none !important;
+  }
 }
-
