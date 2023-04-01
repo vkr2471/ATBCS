@@ -32,7 +32,7 @@ export default function Profile() {
   if (user.length === 0) {
     return (
       <div>
-        <h1>Loading</h1>
+        <h1>Loading...</h1>
       </div>
     );
   }
@@ -45,7 +45,11 @@ export default function Profile() {
         <h3>Phone number: {user.phone}</h3>
         <h3>Date of birth: {user.dob.split("T")[0]}</h3>
         <h3>ffm: {user.ffm}</h3>
-        <h3><Link to={"/manage"}><button>Check your booking here...</button></Link></h3>
+        <h3>
+          <Link to={"/manage"}>
+            <button>Check your booking here...</button>
+          </Link>
+        </h3>
       </div>
       <div className="buttons">
         <Link to={"/"}>
