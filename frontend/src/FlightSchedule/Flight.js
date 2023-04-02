@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Flight.css";
-import Plane from "./Plane.js";
+import Plane from "./Planes.js";
 import axios from "axios";
 
 export default function Flight(props) {
@@ -9,9 +9,6 @@ export default function Flight(props) {
   const [details, setDetails] = React.useState(props.location.state.details);
   const [data, setData] = React.useState([]);
   useEffect(() => {
-    console.log(
-      `http://localhost:5000/search/${details.source}/${details.destination}/${details.date}/${details.class}/${details.passengers}`
-    );
     axios
       .get(
         `http://localhost:5000/search/${details.from}/${details.to}/${details.date}/${details.class}/${details.passengers}`
@@ -31,22 +28,34 @@ export default function Flight(props) {
       </div>
     );
   }
-  return (<div className="flights">
-    <h1 className="flights-header">Available Flights</h1>
-    <div className="details">
-      <h3 className="date">Date: {details.date}</h3>
-      <h3 className="source">Source: {details.from}</h3>
-      <h3 className="destination">Destination: {details.to}</h3>
+  return (
+    <div className="flights">
+      <h1 className="flights-header">Available Flights</h1>
+      <div className="details">
+        <h3 className="date">Date: {details.date}</h3>
+        <h3 className="source">Source: {details.from}</h3>
+        <h3 className="destination">Destination: {details.to}</h3>
+        <h3 className="class">Class: {details.class}</h3>
+        <h3 className="passengers">Passengers: {details.passengers}</h3>
+      </div>
+      {data.availableflights.length ? (
+        data.availableflights.map((available) => {
+          return (
+            <Plane
+              details={details}
+              key={available.flight._id}
+              flightid={available.flight.flightid}
+              arrival={available.flight.arrival}
+              departure={available.flight.departure}
+              ticketfare={available.flight.ticketfare[details.class]}
+            />
+          );
+        })
+      ) : (
+        <h1 className="no-available">
+          No flights available. Sorry for the inconvenience.
+        </h1>
+      )}
     </div>
-    {data.availableflights.map((available) => {
-        return(
-          <Plane key={available.flight._id}
-           flightid={available.flight.flightid} 
-           arrival={available.flight.arrival}
-           departure={available.flight.departure}
-           ticketfare={available.flight.ticketfare[details.class]}
-          />
-        )
-    })}
-  </div>);
+  );
 }

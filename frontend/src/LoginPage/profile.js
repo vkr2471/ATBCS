@@ -46,7 +46,6 @@ export default function Profile() {
         <h3>Phone number: {user.phone}</h3>
         <h3>Date of birth: {user.dob.split("T")[0]}</h3>
         <h3>ffm: {user.ffm}</h3> */}
-
         <table>
           <td className="attributes">
             <tr>Name</tr>

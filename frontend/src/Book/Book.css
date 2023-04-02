@@ -1,0 +1,242 @@
+.book-wrapper{
+    width: 80%;
+    padding-top: 20px;
+    padding-left: 20px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(220, 217, 247, 0.7);
+    margin-top: 10px;
+    margin-left: 20px;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.book-wrapper form{
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    justify-content: left;
+}
+
+.book-wrapper form .adult{
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    justify-content: left;
+}
+
+.book-wrapper-header{
+    font-size: 1.75rem;
+    color: #232323;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 600;
+}
+
+.adult-header{
+    font-size: 1.5rem;
+    color: #232323;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 500;
+}
+
+.child-header{
+    font-size: 1.5rem;
+    color: #232323;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 500;
+}
+
+.infant-header{
+    font-size: 1.5rem;
+    color: #232323;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 500;
+}
+
+.adult .input{
+    position: relative;
+    width: 40%;
+    height: 40px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.adult .input label {
+    position: absolute;
+    top: 0%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-size: 1rem;
+    color: #162938;
+}
+
+.adult .input input {
+    width: 40%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: 0.5s;
+}
+
+.adult .checkbox{
+    position: relative;
+    width: 40%;
+    height: 40px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.adult .cowin{
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.book-wrapper form .children{
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    justify-content: left;
+}
+
+.children .input{
+    position: relative;
+    width: 40%;
+    height: 40px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.children .input label {
+    position: absolute;
+    top: 0%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-size: 1rem;
+    color: #162938;
+}
+
+.children .input input {
+    width: 40%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: 0.5s;
+}
+
+.children .checkbox{
+    position: relative;
+    width: 40%;
+    height: 40px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.book-wrapper form .infant{
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    justify-content: left;
+}
+
+.infant .input{
+    position: relative;
+    width: 40%;
+    height: 40px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.infant .input label {
+    position: absolute;
+    top: 0%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-size: 1rem;
+    color: #162938;
+}
+
+.infant .input input {
+    width: 40%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: 0.5s;
+}
+
+.infant .checkbox{
+    position: relative;
+    width: 40%;
+    height: 40px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-size: 1rem;
+    color:#162938;
+    font-weight: 600;
+}
+
+.submit-button{
+    width: 20%;
+    height: 50px;
+    border-radius: 10px;
+    background: #162938;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

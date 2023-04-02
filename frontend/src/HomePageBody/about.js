@@ -6,11 +6,33 @@ import { UserProvider } from "../App";
 import "./about.css";
 
 export default function About() {
-  const { airport } = useContext(UserProvider);
+  const { airport, setAirport } = useContext(UserProvider);
   airport.sort(function (a, b) {
     var x = a.city < b.city ? -1 : 1;
     return x;
   });
+  if (airport.length === 0) {
+    axios
+      .get("http://localhost:5000/airportdata")
+      .then((res) => {
+        setAirport(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  const [flights, setFlights] = React.useState([]);
+  if (flights.length === 0) {
+    axios
+      .get("http://localhost:5000/flights")
+      .then((res) => {
+        console.log(res.data);
+        setFlights(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <div className="about">
       <div className="about-us">

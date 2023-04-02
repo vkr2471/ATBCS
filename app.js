@@ -24,6 +24,7 @@ const crypto = require("crypto");
 const user = require("./database/schemas/user.js");
 
 const session = require("express-session");
+const flight = require("./database/schemas/flights.js");
 
 const MongoStore = require("connect-mongo")(session);
 const findflights = require("./backend/middleware/findflights.js");
@@ -221,3 +222,8 @@ app.get("/user/:id", (req, res, next) => {
 });*/
 
 app.get("/search/:source/:destination/:date/:type/:seats", findflights);
+app.get("/flights", (req, res, next) => {
+  flight.find({}).then((data) => {
+    res.send(data);
+  });
+});

@@ -23,10 +23,10 @@ export default function PlaceSearch() {
     const from = e.target.from.value;
     const to = e.target.to.value;
     const option = e.target.option.value;
-    const passengers =
-      parseInt(e.target.adults.value) +
-      parseInt(e.target.children.value) +
-      parseInt(e.target.infants.value);
+    const adults = parseInt(e.target.adults.value);
+    const children = parseInt(e.target.children.value);
+    const infants = parseInt(e.target.infants.value);
+    const passengers = adults + children + infants;
     const date = e.target.departure.value;
     const clas = e.target.class.value;
     const returndate = e.target.return.value;
@@ -38,6 +38,9 @@ export default function PlaceSearch() {
       date: date,
       returndate: returndate,
       class: clas,
+      adults: adults,
+      children: children,
+      infants: infants,
     };
     console.log(data);
     const now = new Date();
