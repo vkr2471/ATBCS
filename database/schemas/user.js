@@ -45,6 +45,12 @@ const userschema = mongoose.Schema({
         {
             type: String
         }
-    ]
+    ],
+    pl:{
+        type: String,
+    },
+    sl:{
+        type: String,
+    },
 });
 module.exports = mongoose.model('user',userschema);

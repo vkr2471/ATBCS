@@ -36,7 +36,7 @@
     "passport-local": "^1.0.0",
     "selenium": "^2.20.0",
     "selenium-webdriver": "^4.8.2",
-    "stripe": "^11.15.0",
+    "stripe": "^11.17.0",
     "xlsx": "^0.18.5"
   }
 }
