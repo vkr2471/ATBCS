@@ -1,8 +1,17 @@
 //check if user is already registered while registering
 
 require("dotenv").config();
+const path = require("path");
+const fs = require("fs");
+
+const stripe = require("stripe")(
+  "sk_test_51MnnkzSARgmBpkGyMJdzua5kXod303wNYtLJqvKr6TMAgdFJCFakSa8aQFEXUxNfMk7ZqFu6EwmL9AEiQz2TCIRm00RpPNyrGj"
+);
 
 isAuth = require("./backend/middleware/isAuth.js");
+const multer = require("multer");
+const uploader = multer({ dest: "uploads/" });
+const fileupload = require("express-fileupload");
 
 const cors = require("cors");
 
@@ -15,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 const home = require("./backend/routes/home.js");
 const search = require("./backend/routes/search.js");
-
+app.use(fileupload());
 const crypto = require("crypto");
 //const findflights=require('./backend/middleware/findflights.js');
 
@@ -229,7 +238,130 @@ app.get("/flights", (req, res, next) => {
   });
 });
 
-app.post("/book", (req, res, next) => {
-  console.log(req.body);
+app.post("/book", async (req, res, next) => {
+  const data = await JSON.parse(req.body.data);
+  const usered = await user.findById(data.userId);
+  const files = req.files.image;
+
+
+//check if pending request exists
+
+  // if(usered.pl!=null)
+  // {
+  //   res.send("it seems you already have pending payment you can can either pay or cancel the previous booking")
+  // }
+  usered.data=req.body.data;
+
+  
+  //usered.save();
+  const used_ffm=req.body.data.ffmused;
+  const day =req.body.data.date;
+  const seat = req.body.data.type;
+  const nadults=req.body.data.nadults;
+  const nchildren=req.body.data.nchildren;
+  const ninfants=req.body.data.ninfants;
+   const dayschedule =await schedule.findOne({date:day});
+   const flightid=req.body.data.flightId;
+   const choosenflight=await dayschedule.flights.find((flight)=>flight._id==flightid);
+
+  const ffm=Math.round((100*req.body.duration)*(nadults+nchildren+ninfants));
+   const adultcost=choosenflight.ticketfare[seat];
+   let totalcost = adultcost*(nadults+nchildren)+0.5*adultcost*ninfants;
+   if(used_ffm)
+   {
+
+
+      usered.prev_ffm=usered.ffm;
+
+      const ffmused=user.ffm;
+      const discount =Math.round(ffmused/1000)*100;
+      usered.ffm=0;
+      totalcost=totalcost-discount;
+
+   }
+
+   usered.flight_cost = totalcost;
+   // usered.save();
+    usered.temp_ffm=ffm;
+    await usered.save();
+
+  try {
+    if (!fs.existsSync(__dirname + `/backend/images/${usered.email}`)) {
+      fs.mkdirSync(__dirname + `/backend/images/${usered.email}`);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    for (const file of files) {
+      const fileName = file.name;
+      const path = __dirname + `/backend/images/${usered.email}/` + fileName;
+
+      file.mv(path, (err) => {
+        console.log(err);
+      });
+    }
+  } catch (err) {
+    const fileName = files.name;
+    const path = __dirname + `/backend/images/${usered.email}/` + fileName;
+    files.mv(path);
+  }
+  console.log(data);
+});
+
+app.get("/payment/:id", async (req, res, next) => {
+  console.log(req.user);
+
+
+
+    user1 =await user.findOne({pl:req.params.id})
+
+    if(!user1)
+    {
+      return res.send("oops something went wrong")
+    }
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            currency: 'inr',
+            product_data: {
+              name: 'Flight-Ticket',
+            },
+            unit_amount: user1.flight_cost*100,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://localhost:5002/success/${user1.sl}`,
+      cancel_url: 'http://localhost:5002/cancel',
+    });
+  
+    res.redirect(303, session.url);
+
 })
 
+app.get('/success/:id',async(req,res,next)=>{
+    user1 =await user.findOne({sl:req.params.id})
+    if(!user1)
+    {
+      return res.send("oops something went wrong")
+    }
+    //update ffm
+    //update pl
+    //update sl
+    //remove PL , add it to bookings
+    //reduce flight tickets 
+
+    usered.prev_ffm=0;
+    user1.ffm = user1.ffm + user1.temp_ffm;
+    user1.temp_ffm=0;
+    user1.bookings.push(user1.data);
+    user1.data=null;
+    user1.pl=null;
+    user1.sl=null;
+
+    await user1.save()
+    res.send("payment successful")
+})
