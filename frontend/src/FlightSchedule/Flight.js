@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import "./Flight.css";
 import Plane from "./Planes.js";
 import axios from "axios";
+import Placemodify from "./Placemodify";
 
 export default function Flight(props) {
-  const [dataTable, setDataTable] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [details, setDetails] = React.useState(props.location.state.details);
   const [data, setData] = React.useState([]);
@@ -29,33 +29,38 @@ export default function Flight(props) {
     );
   }
   return (
-    <div className="flights">
-      <h1 className="flights-header">Available Flights</h1>
-      <div className="details">
-        <h3 className="date">Date: {details.date}</h3>
-        <h3 className="source">Source: {details.from}</h3>
-        <h3 className="destination">Destination: {details.to}</h3>
-        <h3 className="class">Class: {details.class}</h3>
-        <h3 className="passengers">Passengers: {details.passengers}</h3>
+    <>
+      <div>
+        <Placemodify details={details} />
       </div>
-      {data.availableflights.length ? (
-        data.availableflights.map((available) => {
-          return (
-            <Plane
-              details={details}
-              key={available.flight._id}
-              flightid={available.flight.flightid}
-              arrival={available.flight.arrival}
-              departure={available.flight.departure}
-              ticketfare={available.flight.ticketfare[details.class]}
-            />
-          );
-        })
-      ) : (
-        <h1 className="no-available">
-          No flights available. Sorry for the inconvenience.
-        </h1>
-      )}
-    </div>
+      <div className="flights">
+        <h1 className="flights-header">Available Flights</h1>
+        <div className="details">
+          <h3 className="date">Date: {details.date}</h3>
+          <h3 className="source">Source: {details.from}</h3>
+          <h3 className="destination">Destination: {details.to}</h3>
+          <h3 className="class">Class: {details.class}</h3>
+          <h3 className="passengers">Passengers: {details.passengers}</h3>
+        </div>
+        {data.availableflights.length ? (
+          data.availableflights.map((available) => {
+            return (
+              <Plane
+                details={details}
+                key={available.flight._id}
+                flightid={available.flight.flightid}
+                arrival={available.flight.arrival}
+                departure={available.flight.departure}
+                ticketfare={available.flight.ticketfare[details.class]}
+              />
+            );
+          })
+        ) : (
+          <h1 className="no-available">
+            No flights available. Sorry for the inconvenience.
+          </h1>
+        )}
+      </div>
+    </>
   );
 }
