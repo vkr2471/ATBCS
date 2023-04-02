@@ -4,7 +4,9 @@ require("dotenv").config();
 const path = require("path");
 const fs = require("fs");
 
-const stripe =require('stripe')('sk_test_51MnnkzSARgmBpkGyMJdzua5kXod303wNYtLJqvKr6TMAgdFJCFakSa8aQFEXUxNfMk7ZqFu6EwmL9AEiQz2TCIRm00RpPNyrGj');
+const stripe = require("stripe")(
+  "sk_test_51MnnkzSARgmBpkGyMJdzua5kXod303wNYtLJqvKr6TMAgdFJCFakSa8aQFEXUxNfMk7ZqFu6EwmL9AEiQz2TCIRm00RpPNyrGj"
+);
 
 isAuth = require("./backend/middleware/isAuth.js");
 const multer = require("multer");
@@ -264,56 +266,56 @@ app.post("/book", async (req, res, next) => {
   console.log(data);
 });
 
-
-app.get('/payment/:id',async(req,res,next)=>{
-
+app.get("/payment/:id", async (req, res, next) => {
   console.log(req.user);
-
-
 
   //calculte flight cost here
 
+  user1 = await user.findOne({ pl: req.params.id });
 
-    user1 =await user.findOne({pl:req.params.id})
-
-    if(!user1)
-    {
-      return res.send("oops something went wrong")
-    }
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'inr',
-            product_data: {
-              name: 'Flight-Ticket',
-            },
-            unit_amount: 2000,
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: "Flight-Ticket",
           },
-          quantity: 1,
+          unit_amount: 2000,
         },
-      ],
-      mode: 'payment',
-      success_url: `http://localhost:5002/success/${user1.sl}`,
-      cancel_url: 'http://localhost:5002/cancel',
-    });
-  
-    res.redirect(303, session.url);
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: `http://localhost:5002/success/${user1.sl}`,
+    cancel_url: "http://localhost:5002/cancel",
+  });
 
-})
+  res.redirect(303, session.url);
+});
 
-app.get('/success/:id',async(req,res,next)=>{
-    user1 =await user.findOne({sl:req.params.id})
-    if(!user1)
-    {
-      return res.send("oops something went wrong")
-    }
-    //update ffm
-    //update pl
-    //update sl
-    //remove PL , add it to bookings
-    //reduce flight tickets 
-    user1.ffm = 1;
-    await user1.save()
-    res.send("payment successful")
-})
+app.get("/success/:id", async (req, res, next) => {
+  user1 = await user.findOne({ sl: req.params.id });
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  //update ffm
+  //update pl
+  //update sl
+  //remove PL , add it to bookings
+  //reduce flight tickets
+  user1.ffm = 1;
+  await user1.save();
+  res.send("payment successful");
+});
+
+app.get("/ffm/:id", async (req, res, next) => {
+  const user1 = await user.findById(req.params.id);
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  res.send({ ffm: user1.ffm });
+});

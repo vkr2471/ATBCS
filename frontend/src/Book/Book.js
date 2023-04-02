@@ -7,6 +7,28 @@ import axios from "axios";
 
 export default function Book(props) {
   const [Details, setDetails] = React.useState(props.location.state.details);
+  const [ffmu, setffmu] = useState(false);
+  const [ffm, setFfm] = React.useState(-1);
+  const [fare, setFare] = React.useState(
+    (Details.adults + Details.children) * props.location.state.fare +
+      Details.infants * props.location.state.fare * 0.5
+  );
+  console.log(fare);
+  if (ffm == -1) {
+    axios
+      .get(`http://localhost:5000/ffm/${localStorage.getItem("user")}`)
+      .then((res) => {
+        setFfm(res.data.ffm);
+      });
+  }
+  function ffmchecked(e) {
+    setffmu(e.target.checked);
+    if (e.target.checked) {
+      setFare(fare - Math.floor(ffm / 1000) * 100);
+    } else {
+      setFare(fare + Math.floor(ffm / 1000) * 100);
+    }
+  }
   async function handleSub(event) {
     event.preventDefault();
     var n = document.getElementsByClassName("adult-name");
@@ -56,7 +78,9 @@ export default function Book(props) {
       infant: infant,
       details: Details,
       flightId: props.location.state.flightid,
+      duration: props.location.state.duration,
       userId: localStorage.getItem("user"),
+      ffmUsed: ffmu,
     };
     cert.append("data", JSON.stringify(data));
     axios
@@ -99,6 +123,22 @@ export default function Book(props) {
             </div>
           );
         })}
+        <div className="ffm-wrapper">
+          <label className="ffm-label">Available FFM: {ffm}</label>
+          <br />
+          <label className="ffm-label">
+            Use FFM (you will get a discount of ₹{Math.floor(ffm / 1000) * 100})
+          </label>
+          <input
+            type="checkbox"
+            className="ffm-checkbox"
+            onChange={(e) => ffmchecked(e)}
+            disabled={ffm <= 1000}
+          />
+        </div>
+        <h3 className="fare-header">
+          Total Fare: ₹{fare.toLocaleString("en-IN")}
+        </h3>
         <button type="submit" className="submit-button">
           Book
         </button>

@@ -3,6 +3,7 @@ import "./Plane.css";
 import { UserProvider } from "../App";
 import { useContext } from "react";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 export default function Plane(props) {
   console.log("Plane");
@@ -57,6 +58,8 @@ export default function Plane(props) {
           state: {
             details: props.details,
             flightid: props.id,
+            duration: z / 3600000,
+            fare: props.ticketfare,
           },
         }}
       />
@@ -74,7 +77,9 @@ export default function Plane(props) {
         </li>
         <li className="plane-arrival">{props.arrival}</li>
         <li className="plane-name">{props.flightid}&emsp;&emsp;&emsp;</li>
-        <li className="plane-ticketfare">₹{props.ticketfare}</li>
+        <li className="plane-ticketfare">
+          ₹{props.ticketfare.toLocaleString("en-IN")}
+        </li>
         <li>
           <button onClick={() => HandleBooking(props.key)}>Book</button>
         </li>
