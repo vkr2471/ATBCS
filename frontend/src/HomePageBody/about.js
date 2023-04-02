@@ -7,6 +7,10 @@ import "./about.css";
 
 export default function About() {
   const { airport, setAirport } = useContext(UserProvider);
+  airport.sort(function (a, b) {
+    var x = a.city < b.city ? -1 : 1;
+    return x;
+  });
   if (airport.length === 0) {
     axios
       .get("http://localhost:5000/airportdata")
@@ -55,7 +59,6 @@ export default function About() {
           );
         })}
       </ul>
-      <h2 className="flights-header">Our Flights:</h2>
       <ul></ul>
     </div>
   );

@@ -141,6 +141,7 @@ export default function PlaceSearch() {
           </fieldset>
         </div>
         <label className="passenger">Passengers</label>
+        {/*  */}
         <div className="age">
           <div className="adults-age">
             <label className="adults">Adults (greater than 15)</label>
@@ -182,6 +183,7 @@ export default function PlaceSearch() {
             </select>
           </div>
         </div>
+        {/*  */}
         <div className="choose-time">
           <div className="time">
             <label className="time-header">Departure</label>
