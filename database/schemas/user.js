@@ -39,22 +39,18 @@ const userschema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  bookings: [
-    {
-      type: String,
-    },
+  
     bookings:[
-        {
-            type: String
-        }
+      
     ],
     data:{
 
-        type:Number,
+       
 
     },
 
     flight_cost:{
+        type: Number,
 
     },
     pl:{
