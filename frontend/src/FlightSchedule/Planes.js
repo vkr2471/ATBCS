@@ -5,9 +5,11 @@ import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 
 export default function Plane(props) {
+  console.log("Plane");
+  console.log(props);
   const { Loggedin } = useContext(UserProvider);
-  const [redirect , setRedirect] = React.useState(false);
-  const [redirect1 , setRedirect1] = React.useState(false);
+  const [redirect, setRedirect] = React.useState(false);
+  const [redirect1, setRedirect1] = React.useState(false);
   var year = "2013";
   var month = "04";
   var day = "18";
@@ -35,26 +37,30 @@ export default function Plane(props) {
       setRedirect(true);
     }
   };
-  if(redirect){
-    return <Redirect
+  if (redirect) {
+    return (
+      <Redirect
         to={{
           pathname: "/login",
           state: {
             details: props.details,
           },
         }}
-      />;
+      />
+    );
   }
-  if(redirect1){
-    return <Redirect
+  if (redirect1) {
+    return (
+      <Redirect
         to={{
           pathname: "/book",
           state: {
             details: props.details,
-            flightid: props.flightid,
+            flightid: props.id,
           },
         }}
-      />;
+      />
+    );
   }
   return (
     <div className="plane">
@@ -70,7 +76,7 @@ export default function Plane(props) {
         <li className="plane-name">{props.flightid}&emsp;&emsp;&emsp;</li>
         <li className="plane-ticketfare">₹{props.ticketfare}</li>
         <li>
-          <button onClick={() => HandleBooking(props.flightid)}>Book</button>
+          <button onClick={() => HandleBooking(props.key)}>Book</button>
         </li>
       </ul>
     </div>

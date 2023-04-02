@@ -52,6 +52,7 @@ export default function Flight(props) {
                 arrival={available.flight.arrival}
                 departure={available.flight.departure}
                 ticketfare={available.flight.ticketfare[details.class]}
+                id={available.flight._id}
               />
             );
           })
