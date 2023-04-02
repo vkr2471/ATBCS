@@ -1,8 +1,13 @@
 //check if user is already registered while registering
 
 require("dotenv").config();
+const path = require("path");
+const fs = require("fs");
 
 isAuth = require("./backend/middleware/isAuth.js");
+const multer = require("multer");
+const uploader = multer({ dest: "uploads/" });
+const fileupload = require("express-fileupload");
 
 const cors = require("cors");
 
@@ -15,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 const home = require("./backend/routes/home.js");
 const search = require("./backend/routes/search.js");
-
+app.use(fileupload());
 const crypto = require("crypto");
 //const findflights=require('./backend/middleware/findflights.js');
 
@@ -229,7 +234,30 @@ app.get("/flights", (req, res, next) => {
   });
 });
 
-app.post("/book", (req, res, next) => {
-  console.log(req.body);
-})
+app.post("/book", async (req, res, next) => {
+  const data = await JSON.parse(req.body.data);
+  const usered = await user.findById(data.userId);
+  const files = req.files.image;
+  try {
+    if (!fs.existsSync(__dirname + `/backend/images/${usered.email}`)) {
+      fs.mkdirSync(__dirname + `/backend/images/${usered.email}`);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    for (const file of files) {
+      const fileName = file.name;
+      const path = __dirname + `/backend/images/${usered.email}/` + fileName;
 
+      file.mv(path, (err) => {
+        console.log(err);
+      });
+    }
+  } catch (err) {
+    const fileName = files.name;
+    const path = __dirname + `/backend/images/${usered.email}/` + fileName;
+    files.mv(path);
+  }
+  console.log(data);
+});
