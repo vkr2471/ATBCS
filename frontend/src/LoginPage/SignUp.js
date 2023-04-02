@@ -23,7 +23,7 @@ export default function SignUp() {
       alert("Passwords do not match");
     } else {
       await axios
-        .post("http://localhost:5000/register", signUpData)
+        .post("http://localhost:5002/register", signUpData)
         .then((response) => {
           console.log(response);
           alert("Registered Successfully , Please verify your email");

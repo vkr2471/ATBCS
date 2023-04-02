@@ -10,7 +10,7 @@ export default function PlaceSearch() {
   const [details, setDetails] = React.useState({});
   if (airport.length === 0) {
     axios
-      .get("http://localhost:5000/airportdata")
+      .get("http://localhost:5002/airportdata")
       .then((res) => {
         setAirport(res.data);
       })

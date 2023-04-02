@@ -11,7 +11,7 @@ export default function Verify() {
     
     async function verifyEmail() {
         await axios
-        .get(`http://localhost:5000/verify-email/${a}`)
+        .get(`http://localhost:5002/verify-email/${a}`)
         .then((response) => {
             console.log(response);
             setVerified(true);

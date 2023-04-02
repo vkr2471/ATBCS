@@ -48,6 +48,7 @@ const ensure = require("connect-ensure-login");
 const { verify } = require("./backend/lib/verifycowincert.js");
 const { upload } = require("./backend/lib/upload.js");
 const { rename1 } = require("./backend/lib/rename.js");
+const schedule=require('./database/schemas/schedule.js');
 
 const {
   sendVerificationMail,
@@ -58,7 +59,7 @@ const { log } = require("console");
 const start = async () => {
   try {
     db = await connect();
-    app.listen(5000, console.log("Listening on port 5000..."));
+    app.listen(5002, console.log("Listening on port 5002..."));
   } catch (error) {
     console.log(error);
   }
@@ -118,6 +119,9 @@ app.post("/register", async (req, res, next) => {
     emailToken: crypto.randomBytes(64).toString("hex"),
     isVerified: false,
     ffm: 0,
+    pl:null,
+    sl:null,
+
   });
   await newuser
     .save()
@@ -242,7 +246,7 @@ app.post("/book", async (req, res, next) => {
   const data = await JSON.parse(req.body.data);
   const usered = await user.findById(data.userId);
   const files = req.files.image;
-
+console.log(req.body)
 
 //check if pending request exists
 
@@ -250,21 +254,23 @@ app.post("/book", async (req, res, next) => {
   // {
   //   res.send("it seems you already have pending payment you can can either pay or cancel the previous booking")
   // }
-  usered.data=req.body.data;
+  usered.data=data ;
 
   
   //usered.save();
-  const used_ffm=req.body.data.ffmused;
-  const day =req.body.data.date;
-  const seat = req.body.data.type;
-  const nadults=req.body.data.nadults;
-  const nchildren=req.body.data.nchildren;
-  const ninfants=req.body.data.ninfants;
+  const used_ffm=data.ffmused;
+  const day =data.details.date;
+  console.log(day)
+  const seat = data.details.class;
+  const nadults=data.details.adults;
+  const nchildren=data.details.children;
+  const ninfants=data.details.infants;
    const dayschedule =await schedule.findOne({date:day});
-   const flightid=req.body.data.flightId;
+   console.log(dayschedule)
+   const flightid=data.flightId;
    const choosenflight=await dayschedule.flights.find((flight)=>flight._id==flightid);
 
-  const ffm=Math.round((100*req.body.duration)*(nadults+nchildren+ninfants));
+  const ffm=Math.round((100*data.duration)*(nadults+nchildren+ninfants));
    const adultcost=choosenflight.ticketfare[seat];
    let totalcost = adultcost*(nadults+nchildren)+0.5*adultcost*ninfants;
    if(used_ffm)
@@ -343,7 +349,7 @@ app.get("/payment/:id", async (req, res, next) => {
 })
 
 app.get('/success/:id',async(req,res,next)=>{
-    user1 =await user.findOne({sl:req.params.id})
+    let user1 =await user.findOne({sl:req.params.id})
     if(!user1)
     {
       return res.send("oops something went wrong")
@@ -354,14 +360,24 @@ app.get('/success/:id',async(req,res,next)=>{
     //remove PL , add it to bookings
     //reduce flight tickets 
 
-    usered.prev_ffm=0;
+    user1.prev_ffm=0;
     user1.ffm = user1.ffm + user1.temp_ffm;
     user1.temp_ffm=0;
     user1.bookings.push(user1.data);
     user1.data=null;
     user1.pl=null;
     user1.sl=null;
+    user1.flight_cost=0;
 
     await user1.save()
     res.send("payment successful")
 })
+
+app.get("/ffm/:id",async (req,res,next)=>{
+  const user1 =await user.findById(req.params.id)
+  if(!user1){
+    return res.send("oops something went wrong")
+  }
+  res.send({ffm:user1.ffm})
+}
+)

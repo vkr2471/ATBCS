@@ -13,7 +13,7 @@ export default function About() {
   });
   if (airport.length === 0) {
     axios
-      .get("http://localhost:5000/airportdata")
+      .get("http://localhost:5002/airportdata")
       .then((res) => {
         setAirport(res.data);
       })
@@ -24,7 +24,7 @@ export default function About() {
   const [flights, setFlights] = React.useState([]);
   if (flights.length === 0) {
     axios
-      .get("http://localhost:5000/flights")
+      .get("http://localhost:5002/flights")
       .then((res) => {
         console.log(res.data);
         setFlights(res.data);
