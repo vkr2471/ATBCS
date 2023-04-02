@@ -4,7 +4,9 @@ require("dotenv").config();
 const path = require("path");
 const fs = require("fs");
 
-const stripe =require('stripe')('sk_test_51MnnkzSARgmBpkGyMJdzua5kXod303wNYtLJqvKr6TMAgdFJCFakSa8aQFEXUxNfMk7ZqFu6EwmL9AEiQz2TCIRm00RpPNyrGj');
+const stripe = require("stripe")(
+  "sk_test_51MnnkzSARgmBpkGyMJdzua5kXod303wNYtLJqvKr6TMAgdFJCFakSa8aQFEXUxNfMk7ZqFu6EwmL9AEiQz2TCIRm00RpPNyrGj"
+);
 
 isAuth = require("./backend/middleware/isAuth.js");
 const multer = require("multer");
@@ -307,9 +309,7 @@ app.post("/book", async (req, res, next) => {
   console.log(data);
 });
 
-
-app.get('/payment/:id',async(req,res,next)=>{
-
+app.get("/payment/:id", async (req, res, next) => {
   console.log(req.user);
 
 

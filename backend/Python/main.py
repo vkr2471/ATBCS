@@ -11,7 +11,7 @@ import shutil
 #session=smtplib.SMTP('smtp-mail.outlook.com',587)
 session =smtplib.SMTP('smtp.gmail.com',587)
 session.starttls()
-session.login("vkr2471@gmail.com","zlstktcnyzacsijb")
+session.login("ATBCSKB@outlook.com","zlstktcnyzacsijb")
 
 #print(token_hex(64))
 
@@ -108,8 +108,8 @@ while(1):
 
                      message=msg.MIMEText('<p>sorry! we coudnt verify your certificates..make sure the qr is visable in the screenshot and try again! we regret your inconvinience </p>','html')
                      message["Subject"] = "Invalid Certificate/Certificates"
-                     message["From"] = "Cloud9 Airlines <vkr2471@gmail.com>"
-                     session.sendmail("vkr2471@gmail.com", user1["email"], message.as_string())
+                     message["From"] = "Cloud9 Airlines <ATBCSKB@outlook.com>"
+                     session.sendmail("ATBCSKB@outlook.com", user1["email"], message.as_string())
                      #shutil.rmtree(dir_path + '/' + file)
                      break
 
@@ -124,10 +124,10 @@ while(1):
                         user1["sl"]=token_hex(64)
                         message=msg.MIMEText(f'<p>Click <a href="http://localhost:5002/payment/{user1["pl"]}">here</a> to complete you payment </p>','html')
                         message["Subject"]  ="Complete Your Payment"
-                        message["From"]="Cloud9 Airlines <vkr2471@gmail.com>"
+                        message["From"]="Cloud9 Airlines <ATBCSKB@outlook.com>"
                         #print(user1["email"])
 
-                        session.sendmail("vkr2471@gmail.com",user1["email"],message.as_string())
+                        session.sendmail("ATBCSKB@outlook.com",user1["email"],message.as_string())
                         #shutil.rmtree(dir_path + '/' + file)
 
 
@@ -140,8 +140,8 @@ while(1):
                     '<p>sorry! we coudnt verify your certificates..make sure the qr is visable in the screenshot and try again! we regret your inconvinience </p>',
                     'html')
                 message["Subject"] = "Invalid Certificate/Certificates"
-                message["From"] = "Cloud9 Airlines <vkr2471@gmail.com>"
-                session.sendmail("vkr2471@gmail.com", user1["email"], message.as_string())
+                message["From"] = "Cloud9 Airlines <ATBCSKB@outlook.com>"
+                session.sendmail("ATBCSKB@outlook.com", user1["email"], message.as_string())
                 print("invalid")
                 #shutil.rmtree(dir_path + '/' + file)
                 break
