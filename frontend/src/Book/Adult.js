@@ -37,6 +37,7 @@ export default function Adult(){
                     name="name"
                     value={adult.name}
                     onChange={HandleChange}
+                    className="adult-name"
                     required
                 />
             </div>
@@ -47,6 +48,7 @@ export default function Adult(){
                     name="age"
                     value={adult.age}
                     onChange={HandleChange}
+                    className="adult-age"
                     required
                 />
             </div>
@@ -56,6 +58,7 @@ export default function Adult(){
                     type="text"
                     name="email"
                     value={adult.email}
+                    className="adult-email"
                     onChange={HandleChange}
                 />
             </div>
@@ -65,6 +68,7 @@ export default function Adult(){
                     type="text"
                     name="phone"    
                     value={adult.phone}
+                    className="adult-phone"
                     onChange={HandleChange}
                 />
             </div>
@@ -73,15 +77,17 @@ export default function Adult(){
                 <input
                     type="checkbox"
                     name="firstTimeFlier"
+                    className="adult-firstTimeFlier"
                     value={adult.firstTimeFlier}
                     onChange={HandleChange}
                 />
             </div>
             <div className="cowin">
-                <label>Cowin Certificate (only in .jpeg/.png format) </label>
+                <label>Cowin Certificate (only in .jpeg/.png format) </label><br></br>
                 <input
                     type="file"
                     name="cowinCertificate"
+                    className="adult-cowinCertificate"
                     value={adult.cowinCertificate}
                     onChange={HandleChange}
                 />

@@ -44,6 +44,7 @@ const {
   sendVerificationMail,
 } = require("./backend/lib/sendVerificationMail.js");
 const airport = require("./database/schemas/airports.js");
+const { log } = require("console");
 
 const start = async () => {
   try {
@@ -227,3 +228,8 @@ app.get("/flights", (req, res, next) => {
     res.send(data);
   });
 });
+
+app.post("/book", (req, res, next) => {
+  console.log(req.body);
+})
+

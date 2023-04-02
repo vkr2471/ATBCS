@@ -35,6 +35,7 @@ export default function Infant(){
                     value={infant.name}
                     onChange={HandleChange}
                     required
+                    className="infant-name"
                 />
             </div>
             <div className="input">
@@ -45,6 +46,7 @@ export default function Infant(){
                     value={infant.age}
                     onChange={HandleChange}
                     required
+                    className="infant-age"
                 />
             </div>
             <div className="checkbox">
@@ -54,6 +56,7 @@ export default function Infant(){
                     name="firstTimeFlier"
                     checked={infant.firstTimeFlier}
                     onChange={HandleChange}
+                    className="infant-firstTimeFlier"
                 />
             </div>
         </div>
