@@ -240,6 +240,49 @@ app.post("/book", async (req, res, next) => {
   const data = await JSON.parse(req.body.data);
   const usered = await user.findById(data.userId);
   const files = req.files.image;
+
+
+//check if pending request exists
+
+  // if(usered.pl!=null)
+  // {
+  //   res.send("it seems you already have pending payment you can can either pay or cancel the previous booking")
+  // }
+  usered.data=req.body.data;
+
+  
+  //usered.save();
+  const used_ffm=req.body.data.ffmused;
+  const day =req.body.data.date;
+  const seat = req.body.data.type;
+  const nadults=req.body.data.nadults;
+  const nchildren=req.body.data.nchildren;
+  const ninfants=req.body.data.ninfants;
+   const dayschedule =await schedule.findOne({date:day});
+   const flightid=req.body.data.flightId;
+   const choosenflight=await dayschedule.flights.find((flight)=>flight._id==flightid);
+
+  const ffm=Math.round((100*req.body.duration)*(nadults+nchildren+ninfants));
+   const adultcost=choosenflight.ticketfare[seat];
+   let totalcost = adultcost*(nadults+nchildren)+0.5*adultcost*ninfants;
+   if(used_ffm)
+   {
+
+
+      usered.prev_ffm=usered.ffm;
+
+      const ffmused=user.ffm;
+      const discount =Math.round(ffmused/1000)*100;
+      usered.ffm=0;
+      totalcost=totalcost-discount;
+
+   }
+
+   usered.flight_cost = totalcost;
+   // usered.save();
+    usered.temp_ffm=ffm;
+    await usered.save();
+
   try {
     if (!fs.existsSync(__dirname + `/backend/images/${usered.email}`)) {
       fs.mkdirSync(__dirname + `/backend/images/${usered.email}`);
@@ -271,9 +314,6 @@ app.get('/payment/:id',async(req,res,next)=>{
 
 
 
-  //calculte flight cost here
-
-
     user1 =await user.findOne({pl:req.params.id})
 
     if(!user1)
@@ -288,7 +328,7 @@ app.get('/payment/:id',async(req,res,next)=>{
             product_data: {
               name: 'Flight-Ticket',
             },
-            unit_amount: 2000,
+            unit_amount: user1.flight_cost*100,
           },
           quantity: 1,
         },
@@ -313,7 +353,15 @@ app.get('/success/:id',async(req,res,next)=>{
     //update sl
     //remove PL , add it to bookings
     //reduce flight tickets 
-    user1.ffm = 1;
+
+    usered.prev_ffm=0;
+    user1.ffm = user1.ffm + user1.temp_ffm;
+    user1.temp_ffm=0;
+    user1.bookings.push(user1.data);
+    user1.data=null;
+    user1.pl=null;
+    user1.sl=null;
+
     await user1.save()
     res.send("payment successful")
 })

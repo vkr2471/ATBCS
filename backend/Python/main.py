@@ -1,14 +1,11 @@
 from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from pymongo import MongoClient
-
 from secrets import  token_hex
 
 import smtplib
 import email.mime.text as msg
-
 import shutil
 
 #session=smtplib.SMTP('smtp-mail.outlook.com',587)
@@ -30,7 +27,10 @@ import os
 
 while(1):
 
-    dir_path = '/Users/karthikreddyvoddula/Desktop/ATBCS/backend/images'
+    dir_path = os.getcwd()+'/../images'
+    #print(os.listdir(dir_path))
+    #print(dir_path)
+    #exit()
     files = os.listdir(dir_path)
 
     for file in files:
@@ -111,7 +111,7 @@ while(1):
                      message["From"] = "Cloud9 Airlines <vkr2471@gmail.com>"
                      session.sendmail("vkr2471@gmail.com", user1["email"], message.as_string())
                      #shutil.rmtree(dir_path + '/' + file)
-                     break;
+                     break
 
                      print("invvalid")
 
@@ -144,7 +144,7 @@ while(1):
                 session.sendmail("vkr2471@gmail.com", user1["email"], message.as_string())
                 print("invalid")
                 #shutil.rmtree(dir_path + '/' + file)
-                break;
+                break
 
 
 

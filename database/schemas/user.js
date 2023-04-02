@@ -46,11 +46,27 @@ const userschema = mongoose.Schema({
             type: String
         }
     ],
+    data:{
+
+        type:Number,
+
+    },
+
+    flight_cost:{
+
+    },
     pl:{
         type: String,
     },
     sl:{
         type: String,
     },
+    temp_ffm:{
+        type: Number,
+    },
+    prev_ffm:{
+        type: Number,
+
+    }
 });
 module.exports = mongoose.model('user',userschema);
