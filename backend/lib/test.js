@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+var fs = require('fs');
+var pdf = require('html-pdf');
+var name ="karthik"
+var html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,7 +28,7 @@
                     color: #fff;
                     background-color: #000;
                     height: 15%;">
-                <img src="../Template/Cloud9logo.png" alt="Cloud9-Airlines" style="
+                <img src="/Users/karthikreddyvoddula/Documents/ATBCS/backend/mailbody/Cloud9logo.png" alt="Cloud9-Airlines" style="
                     margin-left: 20%;
                     width: 100px;
                     height: 100px;
@@ -56,7 +59,7 @@
                         padding-bottom: 30px;
                         ">
                     <p>
-                        Dear {{name}},
+                        Dear ${name},
                     </p>
                     <div style="
                             padding-left: 20px;">
@@ -71,25 +74,31 @@
                                 <span style="font-weight: 600;">Booking ID:</span> {{bookingId}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Flight ID:</span> {{flightId}}
+                                <span style="font-weight: 600;">Flight ID:</span> {flightId}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Departure:</span> {{departure}}
+                                <span style="font-weight: 600;">To:</span> {departure}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Arrival:</span> {{arrival}}
+                                <span style="font-weight: 600;">From:</span> {arrival}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Date:</span> {{date}}
+                                <span style="font-weight: 600;">Date:</span> {date}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Time:</span> {{time}}
+                                <span style="font-weight: 600;">Class:</span> {type}
+                            </p>
+                            <p>
+                                <span style="font-weight: 600;">Departs:</span> {departs}
+                            </p>
+                            <p>
+                                <span style="font-weight: 600;">Arrives:</span> {arrives}
                             </p>
                             <p>
                                 <span style="font-weight: 600;">Number of Passengers:</span> {{passengers}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Total Cost:</span> {{cost}}
+                                <span style="font-weight: 600;">Total Cost:</span> {cost}
                             </p>
                         </div>
                         <p>
@@ -106,4 +115,10 @@
         </div>
     </div>
 </body>
-</html>
+</html>`
+var options = { format: 'A4' };
+
+pdf.create(html, options).toFile('./test1.pdf', function(err, res) {
+  if (err) return console.log(err);
+  console.log(res); // { filename: '/app/businesscard.pdf' }
+});

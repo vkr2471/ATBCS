@@ -56,6 +56,8 @@ const {
 const airport = require("./database/schemas/airports.js");
 const { log } = require("console");
 
+const{sendSuccessEmail}=require('./backend/lib/sendSuccessEmail.js');
+
 const start = async () => {
   try {
     db = await connect();
@@ -359,6 +361,7 @@ app.get('/success/:id',async(req,res,next)=>{
     //update sl
     //remove PL , add it to bookings
     //reduce flight tickets 
+    await sendSuccessEmail(user1);
 
     user1.prev_ffm=0;
     user1.ffm = user1.ffm + user1.temp_ffm;
@@ -381,3 +384,19 @@ app.get("/ffm/:id",async (req,res,next)=>{
   res.send({ffm:user1.ffm})
 }
 )
+
+app.get("/cancel/:id",async(req,res,next)=>{
+  const user1 =await user.findOne({pl:req.params.id})
+  if(!user1){
+    res.send("oops look likes the payment was already cancelled/ invalid link")
+  }
+  user1.data=null;
+  user1.pl=null;
+  user1.sl=null;
+  user1.flight_cost=0;
+  user1.temp_ffm=0;
+  user.ffm=user1.prev_ffm;
+  user1.prev_ffm=0;
+  await user1.save();
+  res.send("payment cancelled")
+})
