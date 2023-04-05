@@ -4,6 +4,8 @@ import Plane from "./Planes.js";
 import axios from "axios";
 import Placemodify from "./Placemodify";
 
+export const detcontext = React.createContext();
+
 export default function Flight(props) {
   const [loading, setLoading] = React.useState(true);
   const [details, setDetails] = React.useState(props.location.state.details);
@@ -31,7 +33,9 @@ export default function Flight(props) {
   return (
     <>
       <div>
-        <Placemodify details={details} />
+        <detcontext.Provider value={{ details, setDetails }}>
+          <Placemodify />
+        </detcontext.Provider>
       </div>
       <div className="flights">
         <h1 className="flights-header">Available Flights</h1>

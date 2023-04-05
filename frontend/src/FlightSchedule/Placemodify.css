@@ -1,0 +1,46 @@
+.place-modify {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #c5ef70b6;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5%;
+    gap: 2%;
+}
+
+.optionsmod .way{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: max-content; 
+}
+
+.optionsmod , .agemod , .dateplace {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.choose-timemod {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+}
+
+.choose-timemod .time {
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row
+}
