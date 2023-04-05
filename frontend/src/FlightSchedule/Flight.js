@@ -11,6 +11,7 @@ export default function Flight(props) {
   const [details, setDetails] = React.useState(props.location.state.details);
   const [data, setData] = React.useState([]);
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         `http://localhost:5000/search/${details.from}/${details.to}/${details.date}/${details.class}/${details.passengers}`
