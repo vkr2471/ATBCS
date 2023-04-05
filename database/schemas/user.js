@@ -39,32 +39,23 @@ const userschema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  
-    bookings:[
-      
-    ],
-    data:{
 
-       
+  bookings: [],
+  data: {},
 
-    },
-
-    flight_cost:{
-        type: Number,
-
-    },
-    pl:{
-        type: String,
-    },
-    sl:{
-        type: String,
-    },
-    temp_ffm:{
-        type: Number,
-    },
-    prev_ffm:{
-        type: Number,
-
-    }
+  flight_cost: {
+    type: Number,
+  },
+  pl: {
+    type: String,
+    default: null,
+  },
+  sl: {
+    type: String,
+    default: null,
+  },
+  gender: {
+    type: String,
+  },
 });
 module.exports = mongoose.model("user", userschema);

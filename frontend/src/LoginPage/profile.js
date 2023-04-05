@@ -24,7 +24,7 @@ export default function Profile() {
   }
   if (user.length === 0) {
     axios
-      .get(`http://localhost:5002/user/${localStorage.getItem("user")}`)
+      .get(`http://localhost:5000/user/${localStorage.getItem("user")}`)
       .then((res) => {
         console.log(res.data);
         setUser(res.data);

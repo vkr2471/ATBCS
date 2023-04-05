@@ -50,7 +50,7 @@ const ensure = require("connect-ensure-login");
 const { verify } = require("./backend/lib/verifycowincert.js");
 const { upload } = require("./backend/lib/upload.js");
 const { rename1 } = require("./backend/lib/rename.js");
-const schedule=require('./database/schemas/schedule.js');
+const schedule = require("./database/schemas/schedule.js");
 
 
 let image =fs.readFileSync('./backend/mailbody/Cloud9logo.png').toString('base64')
@@ -69,7 +69,7 @@ const qrcode=require('qrcode');
 const start = async () => {
   try {
     db = await connect();
-    app.listen(5002, console.log("Listening on port 5002..."));
+    app.listen(5000, console.log("Listening on port 5000..."));
   } catch (error) {
     console.log(error);
   }
@@ -129,9 +129,9 @@ app.post("/register", async (req, res, next) => {
     emailToken: crypto.randomBytes(64).toString("hex"),
     isVerified: false,
     ffm: 0,
-    pl:null,
-    sl:null,
-
+    pl: null,
+    sl: null,
+    flight_cost: 0,
   });
   await newuser
     .save()
@@ -256,50 +256,50 @@ app.post("/book", async (req, res, next) => {
   const data = await JSON.parse(req.body.data);
   const usered = await user.findById(data.userId);
   const files = req.files.image;
-console.log(req.body)
+  console.log(req.body);
 
-//check if pending request exists
+  //check if pending request exists
 
   // if(usered.pl!=null)
   // {
   //   res.send("it seems you already have pending payment you can can either pay or cancel the previous booking")
   // }
-  usered.data=data ;
+  usered.data = data;
 
-  
   //usered.save();
-  const used_ffm=data.ffmused;
-  const day =data.details.date;
-  console.log(day)
+  const used_ffm = data.ffmused;
+  const day = data.details.date;
+  console.log(day);
   const seat = data.details.class;
-  const nadults=data.details.adults;
-  const nchildren=data.details.children;
-  const ninfants=data.details.infants;
-   const dayschedule =await schedule.findOne({date:day});
-   console.log(dayschedule)
-   const flightid=data.flightId;
-   const choosenflight=await dayschedule.flights.find((flight)=>flight._id==flightid);
+  const nadults = data.details.adults;
+  const nchildren = data.details.children;
+  const ninfants = data.details.infants;
+  const dayschedule = await schedule.findOne({ date: day });
+  console.log(dayschedule);
+  const flightid = data.flightId;
+  const choosenflight = await dayschedule.flights.find(
+    (flight) => flight._id == flightid
+  );
 
-  const ffm=Math.round((100*data.duration)*(nadults+nchildren+ninfants));
-   const adultcost=choosenflight.ticketfare[seat];
-   let totalcost = adultcost*(nadults+nchildren)+0.5*adultcost*ninfants;
-   if(used_ffm)
-   {
+  const ffm = Math.round(
+    100 * data.duration * (nadults + nchildren + ninfants)
+  );
+  const adultcost = choosenflight.ticketfare[seat];
+  let totalcost =
+    adultcost * (nadults + nchildren) + 0.5 * adultcost * ninfants;
+  if (used_ffm) {
+    usered.prev_ffm = usered.ffm;
 
+    const ffmused = user.ffm;
+    const discount = Math.round(ffmused / 1000) * 100;
+    usered.ffm = 0;
+    totalcost = totalcost - discount;
+  }
 
-      usered.prev_ffm=usered.ffm;
-
-      const ffmused=user.ffm;
-      const discount =Math.round(ffmused/1000)*100;
-      usered.ffm=0;
-      totalcost=totalcost-discount;
-
-   }
-
-   usered.flight_cost = totalcost;
-   // usered.save();
-    usered.temp_ffm=ffm;
-    await usered.save();
+  usered.flight_cost = totalcost;
+  // usered.save();
+  usered.temp_ffm = ffm;
+  await usered.save();
 
   try {
     if (!fs.existsSync(__dirname + `/backend/images/${usered.email}`)) {
@@ -325,38 +325,36 @@ console.log(req.body)
   console.log(data);
 });
 
-app.get("/payment/:id", async (req, res, next) => {
-  console.log(req.user);
+app.get("/payment/:id/:flag", async (req, res, next) => {
+  let user1 = await user.findOne({ pl: req.params.id });
 
-
-
-    user1 =await user.findOne({pl:req.params.id})
-
-    if(!user1)
-    {
-      return res.send("oops something went wrong")
-    }
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'inr',
-            product_data: {
-              name: 'Flight-Ticket',
-            },
-            unit_amount: user1.flight_cost*100,
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: "Flight-Ticket",
           },
-          quantity: 1,
+          unit_amount: user1.flight_cost * 100,
         },
-      ],
-      mode: 'payment',
-      success_url: `http://localhost:5002/success/${user1.sl}`,
-      cancel_url: 'http://localhost:5002/cancel',
-    });
-  
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: `http://localhost:3000/success/${user1.sl}`,
+    cancel_url: "http://localhost:5000/cancel",
+  });
+  if (req.params.flag === "0") {
+    res.send(session.url);
+  } else {
     res.redirect(303, session.url);
 
-})
+}})
+
 
 app.get('/success/:id',async(req,res,next)=>{
     let user1 =await user.findOne({sl:req.params.id})
@@ -420,23 +418,61 @@ app.get("/ffm/:id",async (req,res,next)=>{
   if(!user1){
     return res.send("oops something went wrong")
   }
-  res.send({ffm:user1.ffm})
-}
-)
+});
 
-app.get("/cancel/:id",async(req,res,next)=>{
-  const user1 =await user.findOne({pl:req.params.id})
-  if(!user1){
-    res.send("oops look likes the payment was already cancelled/ invalid link")
+app.get("/success/:id", async (req, res, next) => {
+  let user1 = await user.findOne({ sl: req.params.id });
+  if (!user1) {
+    return res.send("oops something went wrong");
   }
+  //update ffm
+  //update pl
+  //update sl
+  //remove PL , add it to bookings
+  //reduce flight tickets
+  await sendSuccessEmail(user1);
 
-  user1.data=null;
-  user1.pl=null;
-  user1.sl=null;
-  user1.flight_cost=0;
-  user1.temp_ffm=0;
-  user.ffm=user1.prev_ffm;
-  user1.prev_ffm=0;
+  user1.prev_ffm = 0;
+  user1.ffm = user1.ffm + user1.temp_ffm;
+  user1.temp_ffm = 0;
+  user1.bookings.push(user1.data);
+  user1.data = null;
+  user1.pl = null;
+  user1.sl = null;
+  user1.flight_cost = 0;
+
   await user1.save();
-  res.send("payment cancelled")
-})
+  res.send("payment successful");
+});
+
+app.get("/ffm/:id", async (req, res, next) => {
+  const user1 = await user.findById(req.params.id);
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  res.send({ ffm: user1.ffm });
+});
+
+app.get("/cancel/:id", async (req, res, next) => {
+  const user1 = await user.findOne({ pl: req.params.id });
+  if (!user1) {
+    res.send("oops look likes the payment was already cancelled/ invalid link");
+  }
+  user1.data = null;
+  user1.pl = null;
+  user1.sl = null;
+  user1.flight_cost = 0;
+  user1.temp_ffm = 0;
+  user.ffm = user1.prev_ffm;
+  user1.prev_ffm = 0;
+  await user1.save();
+  res.send("payment cancelled");
+});
+
+app.get("/pl/:id", async (req, res, next) => {
+  const user1 = await user.findById(req.params.id);
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  res.send({ pl: user1.pl });
+});

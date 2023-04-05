@@ -76,7 +76,8 @@ while(1):
                         user1["pl"]=token_hex(64)
                         user1["sl"]=token_hex(64)
                         user.update_one({"email":file},{"$set":{"pl":user1["pl"],"sl":user1["sl"]}})
-                        message=msg.MIMEText(f'<p>Click <a href="http://localhost:5002/payment/{user1["pl"]}">here</a> to complete you payment </p>','html')
+
+                        message=msg.MIMEText(f'<p>Click <a href="http://localhost:5000/payment/{user1["pl"]}">here</a> to complete you payment </p>','html')
                         message["Subject"]  ="Complete Your Payment"
                         message["From"]="Cloud9 Airlines <vkr2471@gmail.com>"
                         #print(user1["email"])

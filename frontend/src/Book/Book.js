@@ -16,12 +16,13 @@ export default function Book(props) {
   console.log(fare);
   if (ffm === -1) {
     axios
-      .get(`http://localhost:5002/ffm/${localStorage.getItem("user")}`)
+      .get(`http://localhost:5000/ffm/${localStorage.getItem("user")}`)
       .then((res) => {
         setFfm(res.data.ffm);
-      }).catch((err)=>{
-        console.log(err);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   function ffmchecked(e) {
     setffmu(e.target.checked);
@@ -86,7 +87,7 @@ export default function Book(props) {
     };
     cert.append("data", JSON.stringify(data));
     axios
-      .post("http://localhost:5002/book", cert, {
+      .post("http://localhost:5000/book", cert, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

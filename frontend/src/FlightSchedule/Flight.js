@@ -11,7 +11,7 @@ export default function Flight(props) {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5002/search/${details.from}/${details.to}/${details.date}/${details.class}/${details.passengers}`
+        `http://localhost:5000/search/${details.from}/${details.to}/${details.date}/${details.class}/${details.passengers}`
       )
       .then((res) => {
         console.log(res.data);

@@ -11,18 +11,34 @@ export default function SignIn(props) {
     email: "",
     password: "",
   });
+  const [pay, setPay] = React.useState(null);
   const { Loggedin, setLoggedin } = useContext(UserProvider);
   async function HandleSubmit(event) {
     event.preventDefault();
-    await axios
-      .post("http://localhost:5002/login", signInData)
+    axios
+      .post("http://localhost:5000/login", signInData)
       .then(async (response) => {
-        console.log(response);
         const user = response.data;
         localStorage.setItem("user", user.user);
         localStorage.setItem("token", user.session.cookie.expires);
-        alert("Logged In Successfully");
-        setLoggedin(true);
+        const due = await axios.get(`http://localhost:5000/pl/${user.user}`);
+        if (due.data.pl === null) {
+          alert("Logged In Successfully");
+          setLoggedin(true);
+        } else {
+          const conf = window.confirm(
+            "You have a pending transaction.\nDo you want to pay it or cancel it?"
+          );
+          if (conf) {
+            const paye = await axios.get(
+              `http://localhost:5000/payment/${due.data.pl}/0`
+            );
+            setPay(paye.data);
+          } else {
+            alert("Logged In Successfully and your payment has been cancelled");
+          }
+          setLoggedin(true);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -40,6 +56,16 @@ export default function SignIn(props) {
     });
   }
   if (Loggedin) {
+    if (pay !== null) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/payment",
+            state: { url: pay },
+          }}
+        ></Redirect>
+      );
+    }
     if (props.location.state === undefined) {
       return <Redirect to="/" />;
     } else {

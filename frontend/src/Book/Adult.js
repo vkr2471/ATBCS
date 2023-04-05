@@ -95,6 +95,7 @@ export default function Adult() {
           name="cowinCertificate"
           className="adult-cowinCertificate"
           onChange={HandleChange}
+          accept=".jpeg,.png"
         />
       </div>
     </div>
