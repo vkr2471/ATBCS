@@ -8,6 +8,8 @@ const stripe = require("stripe")(
   "sk_test_51MnnkzSARgmBpkGyMJdzua5kXod303wNYtLJqvKr6TMAgdFJCFakSa8aQFEXUxNfMk7ZqFu6EwmL9AEiQz2TCIRm00RpPNyrGj"
 );
 
+
+
 isAuth = require("./backend/middleware/isAuth.js");
 const multer = require("multer");
 const uploader = multer({ dest: "uploads/" });
@@ -50,6 +52,10 @@ const { upload } = require("./backend/lib/upload.js");
 const { rename1 } = require("./backend/lib/rename.js");
 const schedule=require('./database/schemas/schedule.js');
 
+
+let image =fs.readFileSync('./backend/mailbody/Cloud9logo.png').toString('base64')
+const templateHtml=require('/Users/karthikreddyvoddula/Documents/ATBCS/backend/mailbody/ticketConfirmation.js')
+
 const {
   sendVerificationMail,
 } = require("./backend/lib/sendVerificationMail.js");
@@ -57,6 +63,8 @@ const airport = require("./database/schemas/airports.js");
 const { log } = require("console");
 
 const{sendSuccessEmail}=require('./backend/lib/sendSuccessEmail.js');
+const {html_to_pdf} = require('./backend/lib/test1.js');
+const qrcode=require('qrcode');
 
 const start = async () => {
   try {
@@ -361,6 +369,37 @@ app.get('/success/:id',async(req,res,next)=>{
     //update sl
     //remove PL , add it to bookings
     //reduce flight tickets 
+    user1.data.bookingID=crypto.randomBytes(64).toString('hex');
+
+
+    const options = {
+      format: "A4",
+      headerTemplate: "<p></p>",
+      footerTemplate: "<p></p>",
+      displayHeaderFooter: false,
+      margin: {
+        top: "40px",
+        bottom: "100px",
+      },
+      printBackground: true,
+      path:'/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/'+user1.email+'.pdf' ,
+    };
+    //finish this and update send success email
+    
+    const dataBinding={
+      name:user1.name,
+      email:user1.email,
+      flightId:user1.data.details.flightId,
+      source:user1.data.details.from,
+      destination:user1.data.details.to,
+      date:user1.data.details.date,
+
+    }
+    await qrcode.toFile('/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr'+user1.email+'.png',user1.data.bookingID)
+
+    await html_to_pdf(templateHtml,dataBinding,options)
+
+
     await sendSuccessEmail(user1);
 
     user1.prev_ffm=0;
@@ -390,6 +429,7 @@ app.get("/cancel/:id",async(req,res,next)=>{
   if(!user1){
     res.send("oops look likes the payment was already cancelled/ invalid link")
   }
+
   user1.data=null;
   user1.pl=null;
   user1.sl=null;

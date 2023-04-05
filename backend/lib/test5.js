@@ -20,8 +20,11 @@ const {verifyJSON, init_signer} = require('certificate-signer-library');
     // }
    // const stringi=JSON.stringify(await symbols[0].decode());
 
-  //const signedJSON=(JSON.parse(stringi));
+  
 result =await verifyJSON(await symbols[0].decode());
+//const result =symbols[0].decode();
+//const signedJSON=(JSON.parse(`"${result}"`));
+//console.log(result.toString(''))
 console.log(result);
 }) ('/Users/karthikreddyvoddula/Documents/ATBCS/backend/tempimage/abc.png');
 

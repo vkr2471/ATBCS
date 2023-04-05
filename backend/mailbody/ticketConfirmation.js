@@ -9,7 +9,7 @@
 </head>
 <body>
     <div style="
-        width:60%;
+        width:100%;
         margin-left: auto;
         margin-right: auto;">
         <div class="container" style="
@@ -26,7 +26,7 @@
                     color: #fff;
                     background-color: #000;
                     height: 15%;">
-                <img src="cid:Cloud9logo" alt="Cloud9-Airlines" style="
+                <img src="data:image/jpeg;base64,{{img}}"alt="Cloud9-Airlines" style="
                     margin-left: 20%;
                     width: 100px;
                     height: 100px;
@@ -57,7 +57,7 @@
                         padding-bottom: 30px;
                         ">
                     <p>
-                        Dear {},
+                        Dear {{name}},
                     </p>
                     <div style="
                             padding-left: 20px;">
@@ -72,31 +72,31 @@
                                 <span style="font-weight: 600;">Booking ID:</span> {{bookingId}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Flight ID:</span> ${flightId}
+                                <span style="font-weight: 600;">Flight ID:</span> {{flightId}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">To:</span> ${departure}
+                                <span style="font-weight: 600;">To:</span> {{destination}}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">From:</span> ${arrival}
+                                <span style="font-weight: 600;">From:</span> {{source}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Date:</span> ${date}
+                                <span style="font-weight: 600;">Date:</span> {{date}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Class:</span> ${type}
+                                <span style="font-weight: 600;">Class:</span> {{class}}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Departs:</span> {departs}
+                                <span style="font-weight: 600;">Departs:</span> {{departs}}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Arrives:</span> {arrives}
+                                <span style="font-weight: 600;">Arrives:</span> {{arrives}
                             </p>
                             <p>
                                 <span style="font-weight: 600;">Number of Passengers:</span> {{passengers}}
                             </p>
                             <p>
-                                <span style="font-weight: 600;">Total Cost:</span> ${cost}
+                                <span style="font-weight: 600;">Total Cost:</span> {{flight_cost}}
                             </p>
                         </div>
                         <p>
