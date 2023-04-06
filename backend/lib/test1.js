@@ -28,6 +28,8 @@ const templateHtml=`<!DOCTYPE html>
 <body>
     <div style="
         width:100%;
+        margin-top:10px;
+        margin-bottom: 10px;
         margin-left: auto;
         margin-right: auto;">
         <div class="container" style="
@@ -139,7 +141,7 @@ const templateHtml=`<!DOCTYPE html>
 // }
 
 
-let image =fs.readFileSync('Cloud9logo.png').toString('base64')
+let image =fs.readFileSync('C:/Users/K.Bhavani/Documents/mokshith anime web dev task 1/ATBCS/backend/lib/Cloud9logo.png').toString('base64')
 
 const options = {
   format: "A4",
@@ -147,8 +149,8 @@ const options = {
   footerTemplate: "<p></p>",
   displayHeaderFooter: false,
   margin: {
-    top: "40px",
-    bottom: "100px",
+    top: "10px",
+    bottom: "10px",
   },
   printBackground: true,
   path:
@@ -160,7 +162,7 @@ const options = {
 const dataBinding = {
   name: "captian_monu",
   email: "email",
-  flightId: "kullull_bhavani123",
+  flightId: "katika shampoo",
   source: "disney land",
   destination:"la la land",
   date: "daily",

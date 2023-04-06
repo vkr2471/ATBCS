@@ -33,11 +33,7 @@ export default function Flight(props) {
   }
   return (
     <>
-      <div>
-        <detcontext.Provider value={{ details, setDetails }}>
-          <Placemodify />
-        </detcontext.Provider>
-      </div>
+      
       <div className="flights">
         <h1 className="flights-header">Available Flights</h1>
         <div className="details">
@@ -66,6 +62,11 @@ export default function Flight(props) {
             No flights available. Sorry for the inconvenience.
           </h1>
         )}
+      </div>
+      <div>
+        <detcontext.Provider value={{ details, setDetails }}>
+          <Placemodify />
+        </detcontext.Provider>
       </div>
     </>
   );
