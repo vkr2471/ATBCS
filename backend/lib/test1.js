@@ -5,7 +5,7 @@ const fs = require("fs");
 html_to_pdf = async ({ templateHtml, dataBinding, options }) => {
   const template = handlebars.compile(templateHtml);
   const finalHtml = encodeURIComponent(template(dataBinding));
-
+  
   const browser = await puppeteer.launch({
     args: ["--no-sandbox"],
     headless: true,
@@ -17,6 +17,9 @@ html_to_pdf = async ({ templateHtml, dataBinding, options }) => {
   await page.pdf(options);
   await browser.close();
 };
+image =fs.readFileSync('/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/Cloud9logo.png').toString('base64')
+
+
 const templateHtml=`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +31,10 @@ const templateHtml=`<!DOCTYPE html>
 <body>
     <div style="
         width:100%;
-        margin-left: auto;
-        margin-right: auto;">
+        height: 100%;
+
+
+       margin:auto;">
         <div class="container" style="
         background-color: #5f7ec1;
         width: 100%;
@@ -44,7 +49,7 @@ const templateHtml=`<!DOCTYPE html>
                     color: #fff;
                     background-color: #000;
                     height: 15%;">
-                <img src="data:image/jpeg;base64,{{img}}"alt="Cloud9-Airlines" style="
+                <img src="data:image/jpeg;base64,${image}"alt="Cloud9-Airlines" style="
                     margin-left: 20%;
                     width: 100px;
                     height: 100px;
@@ -139,20 +144,20 @@ const templateHtml=`<!DOCTYPE html>
 // }
 
 
-let image =fs.readFileSync('Cloud9logo.png').toString('base64')
 
 const options = {
   format: "A4",
   headerTemplate: "<p></p>",
   footerTemplate: "<p></p>",
   displayHeaderFooter: false,
+  
   margin: {
     top: "40px",
-    bottom: "100px",
+    bottom: "0px",
   },
   printBackground: true,
   path:
-    "mokky.pdf",
+    "mokky1.pdf",
     
 };
 //finish this and update send success email

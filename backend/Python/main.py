@@ -10,9 +10,9 @@ import shutil
 #session=smtplib.SMTP('smtp-mail.outlook.com',587)
 session =smtplib.SMTP('smtp.gmail.com',587)
 session.starttls()
-session.login("vkr2471@gmail.com","<password>")
+session.login("vkr2471@gmail.com","kfzmfhusygxiokhb")
 #print(token_hex(64))
-client=MongoClient("<mongo db connection >")
+client=MongoClient("mongodb+srv://Mokshith:mok123@node.oj4ykhp.mongodb.net/ATBCS?retryWrites=true&w=majority")
 user =client.ATBCS.users
 #print(a)
 import os

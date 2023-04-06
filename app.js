@@ -244,7 +244,8 @@ app.get("/user/:id", (req, res, next) => {
   res.send("uploaded");
 });*/
 
-app.get("/search/:source/:destination/:date/:type/:seats", findflights);
+app.get("/search/:trip/:source/:destination/:date/:type/:seats", findflights);
+app.get("/search/:trip/:source/:destination/:date1/:date2/:type", findflights);
 app.get("/flights", (req, res, next) => {
   flight.find({}).then((data) => {
     res.send(data);

@@ -9,11 +9,12 @@ const verify= async(req,res,next)=>
    try
    {
 
+
     let options = new chrome.Options();
     options.addArguments("use-fake-ui-for-media-stream");
 
-    // options.addArguments("use-fake-device-for-media-stream"); 
-    // options.addArguments("use-file-for-fake-video-capture=\"../images/img.png\"");
+     options.addArguments("use-fake-device-for-media-stream"); 
+     options.addArguments("use-file-for-fake-video-capture=/Users/karthikreddyvoddula/Documents/ATBCS/backend/tempimage/img.png");
     
     let driver = new    webdriver.Builder().forBrowser('chrome').setChromeOptions(options).build();
 
@@ -23,18 +24,19 @@ const verify= async(req,res,next)=>
     await driver.sleep(10000)
     let name =await driver.findElement({className:'value-col'}).getText();
     //console.log(req);
-    if(req.user.name===name)
+    if("voddula jagadeeswara reddy"===name)
         {   
-            return res.send('verified')
+            console.log("verified")
 }
     else 
         {
-           return  res.send('not verified')
+           console.log("not verified")
         }
 
     }catch(error)
     {
-        return res.send('not verified')
+        console.log(error)
+        return console.log('not verified')
     }
     console.log(name)
    // console.log(source)
@@ -44,4 +46,5 @@ const verify= async(req,res,next)=>
 
 
 }
+verify()
 module.exports={verify}
