@@ -6,8 +6,6 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 export default function Plane(props) {
-  console.log("Plane");
-  console.log(props);
   const { Loggedin } = useContext(UserProvider);
   const [redirect, setRedirect] = React.useState(false);
   const [redirect1, setRedirect1] = React.useState(false);

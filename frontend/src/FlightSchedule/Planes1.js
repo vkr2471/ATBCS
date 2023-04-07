@@ -6,8 +6,6 @@ import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 
 export default function Plane1(props) {
-  console.log("Plane");
-  console.log(props);
   const { Loggedin } = useContext(UserProvider);
   const [redirect, setRedirect] = React.useState(false);
   const { det1, setDet1 } = useContext(det1context);
@@ -33,7 +31,7 @@ export default function Plane1(props) {
   const HandleSelect = (e) => {
     if (Loggedin) {
       if (e.target.innerHTML === "Select") {
-        if (det1.flightid === undefined) {
+        if (det1.id === undefined) {
           e.target.innerHTML = "Selected";
           e.target.style.backgroundColor = "#85ec8c";
           setDet1({
