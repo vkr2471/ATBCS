@@ -1,11 +1,12 @@
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
 const fs = require("fs");
+const path = require("path");
 //const logoimg = require("../mailbody/Cloud9logo.png")
 html_to_pdf = async ({ templateHtml, dataBinding, options }) => {
   const template = handlebars.compile(templateHtml);
   const finalHtml = encodeURIComponent(template(dataBinding));
-  
+
   const browser = await puppeteer.launch({
     args: ["--no-sandbox"],
     headless: true,
@@ -17,10 +18,11 @@ html_to_pdf = async ({ templateHtml, dataBinding, options }) => {
   await page.pdf(options);
   await browser.close();
 };
-image =fs.readFileSync('/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/Cloud9logo.png').toString('base64')
+image = fs
+  .readFileSync(path.resolve(__dirname + "/Cloud9logo.png"))
+  .toString("base64");
 
-
-const templateHtml=`<!DOCTYPE html>
+const templateHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -136,29 +138,25 @@ const templateHtml=`<!DOCTYPE html>
         </div>
     </div>
 </body>
-</html>`
+</html>`;
 
 // const dataBinding={
 //     name:"Vikram",
 //     flightId:"AI-123",
 // }
 
-
-
 const options = {
   format: "A4",
   headerTemplate: "<p></p>",
   footerTemplate: "<p></p>",
   displayHeaderFooter: false,
-  
+
   margin: {
     top: "40px",
     bottom: "0px",
   },
   printBackground: true,
-  path:
-    "mokky1.pdf",
-    
+  path: "mokky1.pdf",
 };
 //finish this and update send success email
 
@@ -167,13 +165,11 @@ const dataBinding = {
   email: "email",
   flightId: "kullull_bhavani123",
   source: "disney land",
-  destination:"la la land",
+  destination: "la la land",
   date: "daily",
-  img:image
+  img: image,
 };
-console.log(templateHtml)
- html_to_pdf({templateHtml, dataBinding, options});
-
+html_to_pdf({ templateHtml, dataBinding, options });
 
 // //module.exports={html_to_pdf};
 
@@ -255,7 +251,7 @@ console.log(templateHtml)
 //                     top: 45%;
 //                     left: 50%;
 //                     transform: translate(-50%, -50%);">Cloud9 Airlines</h1>
-                
+
 //             </div>
 //             <div
 //             style="background-color: #9daac6;">
@@ -320,13 +316,9 @@ console.log(templateHtml)
 //                     </p>
 //                     <p>
 //                         Cloud9 Airlines
-//                     </p>    
+//                     </p>
 //                 </div>
 //         </div>
 //     </div>
 // </body>
 // </html>`
-
-
-
-

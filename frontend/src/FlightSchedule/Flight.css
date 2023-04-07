@@ -105,3 +105,22 @@ tr td
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.flights .book-button{
+    background-color: rgb(110, 34, 224);
+        border: 1px solid #000;
+        color: #fff;
+        border-radius: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        width: 10%;
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 45px;
+}
