@@ -283,16 +283,18 @@ app.post("/book", async (req, res, next) => {
   const choosenflight = await dayschedule.flights.find(
     (flight) => flight._id == flightid
   );
+  console.log(choosenflight);
   let choosenflight1;
   const ffm = Math.round(
     100 * data.duration * (nadults + nchildren + ninfants)
   );
-  let adultcost;
+  let adultcost = choosenflight.ticketfare[seat];
   if (flightid1 != null) {
     choosenflight1 = await dayschedule.flights.find(
       (flight) => flight._id == flightid1
     );
-    adultcost = choosenflight.cost[seat] + choosenflight1.cost[seat];
+    adultcost =
+      choosenflight.ticketfare[seat] + choosenflight1.ticketfare[seat];
   }
   let totalcost =
     adultcost * (nadults + nchildren) + 0.5 * adultcost * ninfants;

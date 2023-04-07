@@ -3,11 +3,10 @@ var pdf = require("html-pdf");
 const qrcode = require("qrcode");
 const { createMailTransporter } = require("./createMailTransporter");
 const crypto = require("crypto");
+const path = require("path");
 
 const image = fs
-  .readFileSync(
-    "/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/Cloud9logo.png"
-  )
+  .readFileSync(path.resolve(__dirname + "/Cloud9logo.png"))
   .toString("base64");
 
 const sendSuccessEmail = (user1) => {
@@ -17,7 +16,7 @@ const sendSuccessEmail = (user1) => {
   // }
 
   qrcode.toFile(
-    `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr/${user1.email}.png`,
+    path.resolve(__dirname + `/../Qr/${user1.email}.png`),
     `${user1.data.bookingID}`,
     {
       errorCorrectionLevel: "H",
@@ -30,9 +29,7 @@ const sendSuccessEmail = (user1) => {
 
   setTimeout(() => {
     qr = fs
-      .readFileSync(
-        `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr/${user1.email}.png`
-      )
+      .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
       .toString("base64");
 
     const name = user1.name;
@@ -178,7 +175,7 @@ const sendSuccessEmail = (user1) => {
     pdf
       .create(html, options)
       .toFile(
-        `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/${user1.email}.pdf`,
+        path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
         function (err, res) {
           if (err) return console.log(err);
           console.log(res); // { filename: '/app/businesscard.pdf' }
@@ -193,7 +190,7 @@ const sendSuccessEmail = (user1) => {
       attachments: [
         {
           filename: "Ticket.pdf",
-          path: `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/${user1.email}.pdf`,
+          path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
           cid: "Cloud9logo",
         },
       ],
