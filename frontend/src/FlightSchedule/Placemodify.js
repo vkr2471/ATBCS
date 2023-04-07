@@ -58,6 +58,8 @@ export default function Placemodify() {
           alert("Invalid Date");
         } else if (date1 > date2) {
           alert("Invalid Date");
+        } else {
+          setDetails(datas);
         }
       } else {
         setDetails(datas);
