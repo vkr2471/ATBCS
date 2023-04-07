@@ -56,6 +56,9 @@ export default function PlaceSearch() {
           alert("Invalid Date");
         } else if (date1 > date2) {
           alert("Invalid Date");
+        } else {
+          setDetails(data);
+          setRedirect(true);
         }
       } else {
         setDetails(data);

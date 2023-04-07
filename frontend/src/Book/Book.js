@@ -81,10 +81,12 @@ export default function Book(props) {
       infant: infant,
       details: Details,
       flightId: props.location.state.flightid,
+      flightId1: props.location.state.flightid1,
       duration: props.location.state.duration,
       userId: localStorage.getItem("user"),
       ffmUsed: ffmu,
     };
+    console.log("data", data);
     cert.append("data", JSON.stringify(data));
     axios
       .post("http://localhost:5000/book", cert, {
@@ -96,7 +98,6 @@ export default function Book(props) {
         console.log(res);
       });
   }
-  console.log(Details);
   return (
     <div className="book-wrapper">
       <form onSubmit={handleSub} encType="multipart/form-data">

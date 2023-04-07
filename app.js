@@ -45,7 +45,7 @@ const {
 const { loginpage } = require("./backend/controllers/login.js");
 
 const ensure = require("connect-ensure-login");
-const { verify } = require("./backend/lib/verifycowincert.js");
+//const { verify } = require("./backend/lib/verifycowincert.js");
 const { upload } = require("./backend/lib/upload.js");
 const { rename1 } = require("./backend/lib/rename.js");
 const schedule = require("./database/schemas/schedule.js");
@@ -244,7 +244,11 @@ app.get("/user/:id", (req, res, next) => {
   res.send("uploaded");
 });*/
 
-app.get("/search/:source/:destination/:date/:type/:seats", findflights);
+app.get("/search/:trip/:source/:destination/:date/:type/:seats", findflights);
+app.get(
+  "/search/:trip/:source/:destination/:date1/:date2/:type/:seats",
+  findflights
+);
 app.get("/flights", (req, res, next) => {
   flight.find({}).then((data) => {
     res.send(data);
@@ -274,16 +278,22 @@ app.post("/book", async (req, res, next) => {
   const nchildren = data.details.children;
   const ninfants = data.details.infants;
   const dayschedule = await schedule.findOne({ date: day });
-  console.log(dayschedule);
   const flightid = data.flightId;
+  const flightid1 = data.flightId1;
   const choosenflight = await dayschedule.flights.find(
     (flight) => flight._id == flightid
   );
-
+  let choosenflight1;
   const ffm = Math.round(
     100 * data.duration * (nadults + nchildren + ninfants)
   );
-  const adultcost = choosenflight.ticketfare[seat];
+  let adultcost;
+  if (flightid1 != null) {
+    choosenflight1 = await dayschedule.flights.find(
+      (flight) => flight._id == flightid1
+    );
+    adultcost = choosenflight.cost[seat] + choosenflight1.cost[seat];
+  }
   let totalcost =
     adultcost * (nadults + nchildren) + 0.5 * adultcost * ninfants;
   if (used_ffm) {
@@ -291,7 +301,7 @@ app.post("/book", async (req, res, next) => {
 
     const ffmused = user.ffm;
     const discount = Math.round(ffmused / 1000) * 100;
-    usered.ffm = 0;
+    usered.ffm = ffmused - discount / 100;
     totalcost = totalcost - discount;
   }
 
@@ -301,6 +311,9 @@ app.post("/book", async (req, res, next) => {
   await usered.save();
 
   try {
+    if (!fs.existsSync(__dirname + `/backend/images`)) {
+      fs.mkdirSync(__dirname + `/backend/images`);
+    }
     if (!fs.existsSync(__dirname + `/backend/images/${usered.email}`)) {
       fs.mkdirSync(__dirname + `/backend/images/${usered.email}`);
     }
@@ -420,6 +433,7 @@ app.get("/ffm/:id", async (req, res, next) => {
   if (!user1) {
     return res.send("oops something went wrong");
   }
+  res.send({ ffm: user1.ffm });
 });
 
 app.get("/success/:id", async (req, res, next) => {

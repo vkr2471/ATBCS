@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
 const fs = require("fs");
+const path = require("path");
 //const logoimg = require("../mailbody/Cloud9logo.png")
 html_to_pdf = async ({ templateHtml, dataBinding, options }) => {
   const template = handlebars.compile(templateHtml);
@@ -17,7 +18,11 @@ html_to_pdf = async ({ templateHtml, dataBinding, options }) => {
   await page.pdf(options);
   await browser.close();
 };
-const templateHtml=`<!DOCTYPE html>
+image = fs
+  .readFileSync(path.resolve(__dirname + "/Cloud9logo.png"))
+  .toString("base64");
+
+const templateHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,10 +33,10 @@ const templateHtml=`<!DOCTYPE html>
 <body>
     <div style="
         width:100%;
-        margin-top:10px;
-        margin-bottom: 10px;
-        margin-left: auto;
-        margin-right: auto;">
+        height: 100%;
+
+
+       margin:auto;">
         <div class="container" style="
         background-color: #5f7ec1;
         width: 100%;
@@ -46,7 +51,7 @@ const templateHtml=`<!DOCTYPE html>
                     color: #fff;
                     background-color: #000;
                     height: 15%;">
-                <img src="data:image/jpeg;base64,{{img}}"alt="Cloud9-Airlines" style="
+                <img src="data:image/jpeg;base64,${image}"alt="Cloud9-Airlines" style="
                     margin-left: 20%;
                     width: 100px;
                     height: 100px;
@@ -133,29 +138,25 @@ const templateHtml=`<!DOCTYPE html>
         </div>
     </div>
 </body>
-</html>`
+</html>`;
 
 // const dataBinding={
 //     name:"Vikram",
 //     flightId:"AI-123",
 // }
 
-
-let image =fs.readFileSync('C:/Users/K.Bhavani/Documents/mokshith anime web dev task 1/ATBCS/backend/lib/Cloud9logo.png').toString('base64')
-
 const options = {
   format: "A4",
   headerTemplate: "<p></p>",
   footerTemplate: "<p></p>",
   displayHeaderFooter: false,
+
   margin: {
-    top: "10px",
-    bottom: "10px",
+    top: "40px",
+    bottom: "0px",
   },
   printBackground: true,
-  path:
-    "mokky.pdf",
-    
+  path: "mokky1.pdf",
 };
 //finish this and update send success email
 
@@ -164,13 +165,11 @@ const dataBinding = {
   email: "email",
   flightId: "katika shampoo",
   source: "disney land",
-  destination:"la la land",
+  destination: "la la land",
   date: "daily",
-  img:image
+  img: image,
 };
-console.log(templateHtml)
- html_to_pdf({templateHtml, dataBinding, options});
-
+html_to_pdf({ templateHtml, dataBinding, options });
 
 // //module.exports={html_to_pdf};
 
@@ -252,7 +251,7 @@ console.log(templateHtml)
 //                     top: 45%;
 //                     left: 50%;
 //                     transform: translate(-50%, -50%);">Cloud9 Airlines</h1>
-                
+
 //             </div>
 //             <div
 //             style="background-color: #9daac6;">
@@ -317,13 +316,9 @@ console.log(templateHtml)
 //                     </p>
 //                     <p>
 //                         Cloud9 Airlines
-//                     </p>    
+//                     </p>
 //                 </div>
 //         </div>
 //     </div>
 // </body>
 // </html>`
-
-
-
-

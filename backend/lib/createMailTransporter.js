@@ -1,10 +1,10 @@
 const nodemailer = require("nodemailer");
 const createMailTransporter = () => {
   const transporter = nodemailer.createTransport({
-    service: "hotmail",
+    service: "gmail",
     auth: {
-      user: "ATBCSKB@outlook.com",
-      pass: "strong@123",
+      user: "vkr2471@gmail.com",
+      pass: "pzauwybnyuhmvksn",
     },
   });
   return transporter;

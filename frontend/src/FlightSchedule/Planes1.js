@@ -1,14 +1,14 @@
 import React from "react";
 import "./Plane.css";
 import { UserProvider } from "../App";
+import { det1context } from "./Flight";
 import { useContext } from "react";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 
-export default function Plane(props) {
+export default function Plane1(props) {
   const { Loggedin } = useContext(UserProvider);
   const [redirect, setRedirect] = React.useState(false);
-  const [redirect1, setRedirect1] = React.useState(false);
+  const { det1, setDet1 } = useContext(det1context);
   var year = "2013";
   var month = "04";
   var day = "18";
@@ -28,9 +28,29 @@ export default function Plane(props) {
   if (z < 0) z += 86400000;
   var hr = Math.floor(z / 3600000);
   var min = Math.floor((z % 3600000) / 60000);
-  const HandleBooking = (flightid) => {
+  const HandleSelect = (e) => {
     if (Loggedin) {
-      setRedirect1(true);
+      if (e.target.innerHTML === "Select") {
+        if (det1.id === undefined) {
+          e.target.innerHTML = "Selected";
+          e.target.style.backgroundColor = "#85ec8c";
+          setDet1({
+            id: props.id,
+            departure: props.departure,
+            arrival: props.arrival,
+            ticketfare: props.ticketfare,
+            duration: z / 3600000,
+          });
+        } else {
+          alert(
+            "Please Select only one Flight from each direction. You can deselect the selected flight by clicking on it again."
+          );
+        }
+      } else {
+        e.target.innerHTML = "Select";
+        e.target.style.backgroundColor = "#e3ee8c";
+        setDet1({});
+      }
     } else {
       alert("Please Login to Book a Ticket");
       setRedirect(true);
@@ -43,21 +63,6 @@ export default function Plane(props) {
           pathname: "/login",
           state: {
             details: props.details,
-          },
-        }}
-      />
-    );
-  }
-  if (redirect1) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/book",
-          state: {
-            details: props.details,
-            flightid: props.id,
-            duration: z / 3600000,
-            fare: props.ticketfare,
           },
         }}
       />
@@ -79,7 +84,9 @@ export default function Plane(props) {
           ₹{props.ticketfare.toLocaleString("en-IN")}
         </li>
         <li>
-          <button onClick={() => HandleBooking(props.key)}>Book</button>
+          <button onClick={HandleSelect} style={{ backgroundColor: "#e3ee8c" }}>
+            Select
+          </button>
         </li>
       </ul>
     </div>
