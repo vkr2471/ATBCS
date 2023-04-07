@@ -17,28 +17,28 @@ export default function Flight(props) {
   const [det1, setDet1] = React.useState({});
   const [det2, setDet2] = React.useState({});
   const [redirect, setRedirect] = React.useState(false);
-  useEffect(() => {
+  var i = 0;
+  useEffect(async () => {
     setLoading(true);
     if (details.option === "one-way") {
+      //console.log("one");
       axios
         .get(
           `http://localhost:5000/search/${details.option}/${details.from}/${details.to}/${details.date}/${details.class}/${details.passengers}`
         )
         .then((res) => {
+          console.log("one");
           console.log(res.data);
           setData(res.data);
           setLoading(false);
         });
     } else {
-      axios
-        .get(
-          `http://localhost:5000/search/${details.option}/${details.from}/${details.to}/${details.date}/${details.returndate}/${details.class}/${details.passengers}`
-        )
-        .then((res) => {
-          console.log(res.data);
-          setData(res.data);
-          setLoading(false);
-        });
+      console.log("two");
+      const res = await axios.get(
+        `http://localhost:5000/search/${details.option}/${details.from}/${details.to}/${details.date}/${details.returndate}/${details.class}/${details.passengers}`
+      );
+      setData(res.data);
+      setLoading(false);
     }
   }, [details]);
   //const date = data[0]["date"];
@@ -51,6 +51,13 @@ export default function Flight(props) {
     );
   }
   if (details.option !== "one-way") {
+    if (data.flight2 === undefined) {
+      return (
+        <div className="loading">
+          <h1>No flights available. Sorry for the inconvenience.</h1>
+        </div>
+      );
+    }
     if (data.flight1.length === 0 || data.flight2.length === 0) {
       return (
         <div className="loading">
@@ -142,7 +149,6 @@ export default function Flight(props) {
   }
   return (
     <>
-      
       <div className="flights">
         <h1 className="flights-header">Available Flights</h1>
         <div className="details">
