@@ -27,7 +27,7 @@ const sendSuccessEmail = (user1) => {
     }
   );
 
-  if(user1.data.trip=="oneway")
+  if(user1.data.details.option=="one-way")
   {
 
   setTimeout(() => {
@@ -45,6 +45,8 @@ const sendSuccessEmail = (user1) => {
     const date = user1.data.details.date;
     const cost = user1.flight_cost;
     let type=user1.data.details.class
+    const flight_number=user1.data.flight_number
+    const ftm=user1.data.ftm;
     if(type=="fc")
     {
         type="First Class"
@@ -198,19 +200,40 @@ const sendSuccessEmail = (user1) => {
           console.log(res); // { filename: '/app/businesscard.pdf' }
         }
       );
+      let attachment
+      if(ftm)
+      {
+        attachment=[
+          {
+            filename: "Ticket.pdf",
+            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+            cid: "Cloud9logo",
+          },
+          {
+            filename:"First_Time_Flyer_guide.docx",
+            path:path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+            cid:"guide"
+          }
+        ]
+      }
+      else{
+        attachment=[
+          {
+            filename: "Ticket.pdf",
+            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+            cid: "Cloud9logo",
+          },
+        ]
+
+      }
+      
     const transporter = createMailTransporter();
     const mailOptions = {
       from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
       to: user1.email,
       subject: "Ticket Confirmation",
       html: "<p>Thank your for choosing cloud9 </p>",
-      attachments: [
-        {
-          filename: "Ticket.pdf",
-          path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-          cid: "Cloud9logo",
-        },
-      ],
+      attachments: attachment,
     };
 
     transporter.sendMail(mailOptions, async (error, info) => {
@@ -235,8 +258,8 @@ else
 
     const name = user1.name;
     const email = user1.email;
-    const flight_number1 = user1.data.flight_number1;
-    const flight_number2=user1.data.flight_number2
+    const flight_number = user1.data.flight_number;
+    const flight_number1=user1.data.flight_number1;
     const departure = user1.data.details.from;
     const arrival = user1.data.details.to;
     const date1 = user1.data.details.date1;
@@ -422,19 +445,39 @@ else
           console.log(res); // { filename: '/app/businesscard.pdf' }
         }
       );
+      let attachment
+      if(ftm)
+      {
+        attachment=[
+          {
+            filename: "Ticket.pdf",
+            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+            cid: "Cloud9logo",
+          },
+          {
+            filename:"First_Time_Flyer_guide.docx",
+            path:path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+            cid:"guide"
+          }
+        ]
+      }
+      else{
+        attachment=[
+          {
+            filename: "Ticket.pdf",
+            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+            cid: "Cloud9logo",
+          },
+        ]
+
+      }
     const transporter = createMailTransporter();
     const mailOptions = {
       from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
       to: user1.email,
       subject: "Ticket Confirmation",
       html: "<p>Thank your for choosing cloud9 </p>",
-      attachments: [
-        {
-          filename: "Ticket.pdf",
-          path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-          cid: "Cloud9logo",
-        },
-      ],
+      attachments: attachment,
     };
 
     transporter.sendMail(mailOptions, async (error, info) => {
