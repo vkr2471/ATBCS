@@ -391,7 +391,7 @@ app.get("/success/:id", async (req, res, next) => {
 
   setTimeout(async()=>{
     user1.prev_ffm = 0;
-    user.ffm=user.ffm+user1.temp_ffm;
+    user1.ffm=user1.ffm+user1.temp_ffm;
   
   user1.bookings.push(user1.data);
   user1.data = null;
