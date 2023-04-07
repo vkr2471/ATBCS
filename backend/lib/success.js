@@ -27,39 +27,35 @@ const sendSuccessEmail = (user1) => {
     }
   );
 
-  if(user1.data.details.option=="one-way")
-  {
+  if (user1.data.details.option == "one-way") {
+    setTimeout(() => {
+      qr = fs
+        .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
+        .toString("base64");
+      console.log("creating mail");
 
-  setTimeout(() => {
+      const name = user1.name;
+      const email = user1.email;
+      const flightId = user1.data.flightId;
+      const departure = user1.data.details.from;
+      const arrival = user1.data.details.to;
+      const date = user1.data.details.date;
+      const cost = user1.flight_cost;
+      const flight_number = user1.data.flight_number;
+      let type = user1.data.details.class;
+      if (type == "fc") {
+        type = "First Class";
+      } else if (type == "bc") {
+        type = "Business Class";
+      } else {
+        type = "Economy";
+      }
+      const passengers =
+        user1.data.details.adults +
+        user1.data.details.children +
+        user1.data.details.infants;
 
-    qr = fs
-      .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
-      .toString("base64");
-      console.log("creating mail")
-
-    const name = user1.name;
-    const email = user1.email;
-    const flightId = user1.data.flightId;
-    const departure = user1.data.details.from;
-    const arrival = user1.data.details.to;
-    const date = user1.data.details.date;
-    const cost = user1.flight_cost;
-    let type=user1.data.details.class
-    const flight_number=user1.data.flight_number
-    const ftm=user1.data.ftm;
-    if(type=="fc")
-    {
-        type="First Class"
-    }
-    else if(type=="bc"){
-        type="Business Class"
-    }
-    else{
-      type="Economy"
-    }
-    const passengers=user1.data.details.adults+user1.data.details.children+user1.data.details.infants
-
-    var html = `<!DOCTYPE html>
+      var html = `<!DOCTYPE html>
      <html lang="en">
      <head>
          <meta charset="UTF-8">
@@ -134,7 +130,7 @@ const sendSuccessEmail = (user1) => {
                                      <span style="font-weight: 600;">Booking ID:</span> {{bookingId}}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Flight ID:</span> {flightId}
+                                     <span style="font-weight: 600;">Flight ID:</span> ${flight_number}
                                  </p>
                                  <p>
                                      <span style="font-weight: 600;">To:</span> ${departure}
@@ -189,100 +185,94 @@ const sendSuccessEmail = (user1) => {
          </div>
      </body>
      </html>`;
-    var options = { format: "A4" };
+      var options = { format: "A4" };
 
-    pdf
-      .create(html, options)
-      .toFile(
-        path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-        function (err, res) {
-          if (err) return console.log(err);
-          console.log(res); // { filename: '/app/businesscard.pdf' }
-        }
-      );
-      let attachment
-      if(ftm)
-      {
-        attachment=[
-          {
-            filename: "Ticket.pdf",
-            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-            cid: "Cloud9logo",
-          },
-          {
-            filename:"First_Time_Flyer_guide.docx",
-            path:path.resolve(__dirname + "/First_time_flyer_guide.docx"),
-            cid:"guide"
+      pdf
+        .create(html, options)
+        .toFile(
+          path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+          function (err, res) {
+            if (err) return console.log(err);
+            console.log(res); // { filename: '/app/businesscard.pdf' }
           }
-        ]
-      }
-      else{
-        attachment=[
+        );
+      let attachment;
+      if (ftm) {
+        attachment = [
           {
             filename: "Ticket.pdf",
             path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
             cid: "Cloud9logo",
           },
-        ]
-
-      }
-      
-    const transporter = createMailTransporter();
-    const mailOptions = {
-      from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
-      to: user1.email,
-      subject: "Ticket Confirmation",
-      html: "<p>Thank your for choosing cloud9 </p>",
-      attachments: attachment,
-    };
-
-    transporter.sendMail(mailOptions, async (error, info) => {
-      console.log("hello");
-      if (error) {
-        console.log(error);
+          {
+            filename: "First_Time_Flyer_guide.docx",
+            path: path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+            cid: "guide",
+          },
+        ];
       } else {
-        console.log(info);
-        console.log("Message sent: ");
+        attachment = [
+          {
+            filename: "Ticket.pdf",
+            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+            cid: "Cloud9logo",
+          },
+        ];
       }
-    });
-  }, 1000);
-}
-else
-{
-  setTimeout(() => {
 
-    qr = fs
-      .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
-      .toString("base64");
-      console.log("creating mail")
+      const transporter = createMailTransporter();
+      const mailOptions = {
+        from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
+        to: user1.email,
+        subject: "Ticket Confirmation",
+        html: "<p>Thank your for choosing cloud9 </p>",
+        attachments: attachment,
+      };
 
-    const name = user1.name;
-    const email = user1.email;
-    const flight_number = user1.data.flight_number;
-    const flight_number1=user1.data.flight_number1;
-    const departure = user1.data.details.from;
-    const arrival = user1.data.details.to;
-    const date1 = user1.data.details.date1;
-    const date2=user1.data.details.date2
-    const arrives1=user.data.details.arrives1
-    const departs1=user.data.details.departs1
-    const arrives=user.data.details.arrives
-    const departs=user.data.details.departs1
-    const cost = user1.flight_cost;
-    var type = user1.data.details.class;
-    if(type=="fc")
-    {
-      type="First Class"
-    }
-    else if(type=="bc"){
-      type="Business Class"
-    }
-    else if(type=="ec"){
-      type="Economy"
-    }
-    const passengers=user1.data.details.adults+user1.data.details.children+user1.data.details.infants
+      transporter.sendMail(mailOptions, async (error, info) => {
+        console.log("hello");
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(info);
+          console.log("Message sent: ");
+        }
+      });
+    }, 1000);
+  } else {
+    setTimeout(() => {
+      qr = fs
+        .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
+        .toString("base64");
+      console.log("creating mail");
 
-    var html = `<!DOCTYPE html>
+      const name = user1.name;
+      const email = user1.email;
+      const flight_number = user1.data.flight_number;
+      const flight_number1 = user1.data.flight_number1;
+      const departure = user1.data.details.from;
+      const arrival = user1.data.details.to;
+      const date1 = user1.data.details.date1;
+      const date2 = user1.data.details.date2;
+      const arrives1 = user.data.details.arrives1;
+      const departs1 = user.data.details.departs1;
+      const arrives = user.data.details.arrives;
+      const departs = user.data.details.departs1;
+      const cost = user1.flight_cost;
+      var type = user1.data.details.class;
+      if (type == "fc") {
+        type = "First Class";
+      } else if (type == "bc") {
+        type = "Business Class";
+      } else if (type == "ec") {
+        type = "Economy";
+      }
+      const passengers =
+        user1.data.details.adults +
+        user1.data.details.children +
+        user1.data.details.infants;
+
+      var html = `<!DOCTYPE html>
      <html lang="en">
      <head>
          <meta charset="UTF-8">
@@ -434,64 +424,60 @@ else
          </div>
      </body>
      </html>`;
-    var options = { format: "A4" };
+      var options = { format: "A4" };
 
-    pdf
-      .create(html, options)
-      .toFile(
-        path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-        function (err, res) {
-          if (err) return console.log(err);
-          console.log(res); // { filename: '/app/businesscard.pdf' }
-        }
-      );
-      let attachment
-      if(ftm)
-      {
-        attachment=[
-          {
-            filename: "Ticket.pdf",
-            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-            cid: "Cloud9logo",
-          },
-          {
-            filename:"First_Time_Flyer_guide.docx",
-            path:path.resolve(__dirname + "/First_time_flyer_guide.docx"),
-            cid:"guide"
+      pdf
+        .create(html, options)
+        .toFile(
+          path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+          function (err, res) {
+            if (err) return console.log(err);
+            console.log(res); // { filename: '/app/businesscard.pdf' }
           }
-        ]
-      }
-      else{
-        attachment=[
+        );
+      let attachment;
+      if (ftm) {
+        attachment = [
           {
             filename: "Ticket.pdf",
             path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
             cid: "Cloud9logo",
           },
-        ]
-
-      }
-    const transporter = createMailTransporter();
-    const mailOptions = {
-      from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
-      to: user1.email,
-      subject: "Ticket Confirmation",
-      html: "<p>Thank your for choosing cloud9 </p>",
-      attachments: attachment,
-    };
-
-    transporter.sendMail(mailOptions, async (error, info) => {
-      console.log("hello");
-      if (error) {
-        console.log(error);
+          {
+            filename: "First_Time_Flyer_guide.docx",
+            path: path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+            cid: "guide",
+          },
+        ];
       } else {
-        console.log(info);
-        console.log("Message sent: ");
+        attachment = [
+          {
+            filename: "Ticket.pdf",
+            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+            cid: "Cloud9logo",
+          },
+        ];
       }
-    });
-  }, 1000); 
-}
+      const transporter = createMailTransporter();
+      const mailOptions = {
+        from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
+        to: user1.email,
+        subject: "Ticket Confirmation",
+        html: "<p>Thank your for choosing cloud9 </p>",
+        attachments: attachment,
+      };
 
+      transporter.sendMail(mailOptions, async (error, info) => {
+        console.log("hello");
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(info);
+          console.log("Message sent: ");
+        }
+      });
+    }, 1000);
+  }
 };
 //sendSuccessEmail();
 module.exports = { sendSuccessEmail };

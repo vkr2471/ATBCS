@@ -83,6 +83,10 @@ export default function Flight(props) {
                 flightid1: det2.id,
                 duration: det1.duration + det2.duration,
                 fare: det1.ticketfare + det2.ticketfare,
+                arrives: det1.arrival,
+                departs: det1.departure,
+                arrives1: det2.arrival,
+                departs1: det2.departure,
               },
             }}
           />

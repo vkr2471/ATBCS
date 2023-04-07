@@ -58,6 +58,8 @@ export default function Plane(props) {
             flightid: props.id,
             duration: z / 3600000,
             fare: props.ticketfare,
+            arrives: props.arrival,
+            departs: props.departure,
           },
         }}
       />
