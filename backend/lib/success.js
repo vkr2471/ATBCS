@@ -35,6 +35,8 @@ const sendSuccessEmail = (user1) => {
       console.log("creating mail");
 
       const name = user1.name;
+      const departs =user1.data.departs;
+      const arrives =user1.data.arrives;
       const email = user1.email;
       const flightId = user1.data.flightId;
       const departure = user1.data.details.from;
@@ -142,16 +144,16 @@ const sendSuccessEmail = (user1) => {
                                      <span style="font-weight: 600;">Date:</span> ${date}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Class:</span> {type}
+                                     <span style="font-weight: 600;">Class:</span> ${type}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Departs:</span> {departs}
+                                     <span style="font-weight: 600;">Departs:</span> ${departs}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Arrives:</span> {arrives}
+                                     <span style="font-weight: 600;">Arrives:</span> ${arrives}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Number of Passengers:</span> {{pas}}
+                                     <span style="font-weight: 600;">Number of Passengers:</span> ${passengers}
                                  </p>
                                  <p>
                                      <span style="font-weight: 600;">Total Cost:</span> ${cost}
@@ -197,7 +199,7 @@ const sendSuccessEmail = (user1) => {
           }
         );
       let attachment;
-      if (ftm) {
+      // if (ftm) {
         attachment = [
           {
             filename: "Ticket.pdf",
@@ -206,19 +208,19 @@ const sendSuccessEmail = (user1) => {
           },
           {
             filename: "First_Time_Flyer_guide.docx",
-            path: path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+            path:"/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/First _time_ flyer_ guide.docx",
             cid: "guide",
           },
         ];
-      } else {
-        attachment = [
-          {
-            filename: "Ticket.pdf",
-            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-            cid: "Cloud9logo",
-          },
-        ];
-      }
+      // } else {
+      //   attachment = [
+      //     {
+      //       filename: "Ticket.pdf",
+      //       path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+      //       cid: "Cloud9logo",
+      //     },
+      //   ];
+      // }
 
       const transporter = createMailTransporter();
       const mailOptions = {
@@ -252,12 +254,12 @@ const sendSuccessEmail = (user1) => {
       const flight_number1 = user1.data.flight_number1;
       const departure = user1.data.details.from;
       const arrival = user1.data.details.to;
+      const date = user1.data.details.date;
       const date1 = user1.data.details.date1;
-      const date2 = user1.data.details.date2;
-      const arrives1 = user.data.details.arrives1;
-      const departs1 = user.data.details.departs1;
-      const arrives = user.data.details.arrives;
-      const departs = user.data.details.departs1;
+      const arrives1 = user1.data.arrives1;
+      const departs1 = user1.data.departs1;
+      const arrives = user1.data.arrives;
+      const departs = user1.data.departs1;
       const cost = user1.flight_cost;
       var type = user1.data.details.class;
       if (type == "fc") {
@@ -360,10 +362,10 @@ const sendSuccessEmail = (user1) => {
                                  </p>
 
                                  <p>
-                                 <span style="font-weight: 600;">Departs:</span> {departs}
+                                 <span style="font-weight: 600;">Departs:</span> ${departs}
                              </p>
                              <p>
-                                 <span style="font-weight: 600;">Arrives:</span> {arrives}
+                                 <span style="font-weight: 600;">Arrives:</span> ${arrives}
                                
 
 
@@ -372,7 +374,7 @@ const sendSuccessEmail = (user1) => {
                                  < /p>
 
                                  <p>
-                                 <span style="font-weight: 600;">Flight ID:</span> {flight_number}
+                                 <span style="font-weight: 600;">Flight ID:</span> ${flight_number}
                              </p>
 
                                  <p>
@@ -384,13 +386,13 @@ const sendSuccessEmail = (user1) => {
                                      <span style="font-weight: 600;">Class:</span> ${type}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Departs:</span> {departs1}
+                                     <span style="font-weight: 600;">Departs:</span> ${departs1}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Arrives:</span> {arrives1}
+                                     <span style="font-weight: 600;">Arrives:</span> ${arrives1}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Number of Passengers:</span> {{pas}}
+                                     <span style="font-weight: 600;">Number of Passengers:</span> ${passengers}
                                  </p>
                                  <p>
                                      <span style="font-weight: 600;">Total Cost:</span> ${cost}
@@ -436,7 +438,7 @@ const sendSuccessEmail = (user1) => {
           }
         );
       let attachment;
-      if (ftm) {
+      // if (ftm) {
         attachment = [
           {
             filename: "Ticket.pdf",
@@ -445,19 +447,19 @@ const sendSuccessEmail = (user1) => {
           },
           {
             filename: "First_Time_Flyer_guide.docx",
-            path: path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+            path: "/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/First _time_ flyer_ guide.docx",
             cid: "guide",
           },
         ];
-      } else {
-        attachment = [
-          {
-            filename: "Ticket.pdf",
-            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-            cid: "Cloud9logo",
-          },
-        ];
-      }
+      // } else {
+      //   attachment = [
+      //     {
+      //       filename: "Ticket.pdf",
+      //       path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+      //       cid: "Cloud9logo",
+      //     },
+      //   ];
+      // }
       const transporter = createMailTransporter();
       const mailOptions = {
         from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
