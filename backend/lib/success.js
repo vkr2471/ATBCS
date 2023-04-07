@@ -1,41 +1,49 @@
-var fs = require('fs');
-var pdf = require('html-pdf');
-const qrcode=require('qrcode');
-const {createMailTransporter}=require('./createMailTransporter');
-const crypto = require('crypto');
+var fs = require("fs");
+var pdf = require("html-pdf");
+const qrcode = require("qrcode");
+const { createMailTransporter } = require("./createMailTransporter");
+const crypto = require("crypto");
 
+const image = fs
+  .readFileSync(
+    "/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/Cloud9logo.png"
+  )
+  .toString("base64");
 
+const sendSuccessEmail = (user1) => {
+  // user1={
+  //     email:'vkr2471@gmail.com',
+  //     bookingID:crypto.randomBytes(64).toString('hex')
+  // }
 
-const image=fs.readFileSync('/Users/karthikreddyvoddula/Documents/ATBCS/backend/lib/Cloud9logo.png').toString('base64')
-
-const sendSuccessEmail=()=>
-{
-    usered={
-        email:'vkr2471@gmail.com',
-        bookingID:crypto.randomBytes(64).toString('hex')
+  qrcode.toFile(
+    `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr/${user1.email}.png`,
+    `${user1.data.bookingID}`,
+    {
+      errorCorrectionLevel: "H",
+    },
+    function (err) {
+      if (err) throw err;
+      console.log("QR code saved!");
     }
+  );
 
-  qrcode.toFile(`/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr/${usered.email}.png`,`${usered.bookingID}` , {
-        errorCorrectionLevel: 'H'
-      }, function(err) {
-        if (err) throw err;
-        console.log('QR code saved!');
-      });
+  setTimeout(() => {
+    qr = fs
+      .readFileSync(
+        `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr/${user1.email}.png`
+      )
+      .toString("base64");
 
+    const name = user1.name;
+    const email = user1.email;
+    const flightId = user1.data.details.flightId;
+    const departure = user1.data.details.from;
+    const arrival = user1.data.details.to;
+    const date = user1.data.details.date;
+    const cost = user1.flight_cost;
 
-      setTimeout(()=>{
-        qr= fs.readFileSync(`/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr/${usered.email}.png`).toString('base64')
-
-        const name= "karthik"//user1.name
-       const email= "vkr2471@gmail.com"//user1.email
-        const flightId= "23432"//user1.data.details.flightId
-        const departure ="Delhi"//user1.data.details.from
-        const arrival= "bombay"//user1.data.details.to
-        const date= "12-04-2023"//user1.data.details.date
-        const cost ="104531"//user1.flight_cost
-     
-     
-     var html = `<!DOCTYPE html>
+    var html = `<!DOCTYPE html>
      <html lang="en">
      <head>
          <meta charset="UTF-8">
@@ -164,44 +172,42 @@ const sendSuccessEmail=()=>
              </div>
          </div>
      </body>
-     </html>`
-     var options = { format: 'A4',
-      };
-     
-     pdf.create(html, options).toFile(`/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/${usered.email}.pdf`, function(err, res) {
-       if (err) return console.log(err);
-       console.log(res); // { filename: '/app/businesscard.pdf' }
-     })
-     const transporter=createMailTransporter();
-     const mailOptions = {
-     
-         from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
-         to: "vkr172003@gmail.com",
-         subject: "Ticket Confirmation",
-         html: "<p>Thank your for choosing cloud9 </p>",
-         attachments: [
-           {
-               filename:'Ticket.pdf',
-               path:`/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/${usered.email}.pdf`,
-               cid:'Cloud9logo'
-           }
-         ]
-         
-       };
-       
-       transporter.sendMail(mailOptions, async (error, info) => {
-         if (error) {
-           console.log(error);
-         } else {
-             console.log(info)
-           console.log("Message sent: ");
-         }
-       });
+     </html>`;
+    var options = { format: "A4" };
 
-      },1000)
-    
-  
+    pdf
+      .create(html, options)
+      .toFile(
+        `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/${user1.email}.pdf`,
+        function (err, res) {
+          if (err) return console.log(err);
+          console.log(res); // { filename: '/app/businesscard.pdf' }
+        }
+      );
+    const transporter = createMailTransporter();
+    const mailOptions = {
+      from: '"Cloud9 Airlines" <ATBCSKB@outlook.com>',
+      to: user1.email,
+      subject: "Ticket Confirmation",
+      html: "<p>Thank your for choosing cloud9 </p>",
+      attachments: [
+        {
+          filename: "Ticket.pdf",
+          path: `/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/${user1.email}.pdf`,
+          cid: "Cloud9logo",
+        },
+      ],
+    };
 
-
-}
-sendSuccessEmail();
+    transporter.sendMail(mailOptions, async (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(info);
+        console.log("Message sent: ");
+      }
+    });
+  }, 1000);
+};
+//sendSuccessEmail();
+module.exports = { sendSuccessEmail };

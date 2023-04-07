@@ -61,7 +61,7 @@ const {
 const airport = require("./database/schemas/airports.js");
 const { log } = require("console");
 
-const { sendSuccessEmail } = require("./backend/lib/sendSuccessEmail.js");
+const { sendSuccessEmail } = require("./backend/lib/success.js");
 const { html_to_pdf } = require("./backend/lib/test1.js");
 const qrcode = require("qrcode");
 
@@ -378,42 +378,9 @@ app.get("/success/:id", async (req, res, next) => {
   //remove PL , add it to bookings
   //reduce flight tickets
   user1.data.bookingID = crypto.randomBytes(64).toString("hex");
-
-  const options = {
-    format: "A4",
-    headerTemplate: "<p></p>",
-    footerTemplate: "<p></p>",
-    displayHeaderFooter: false,
-    margin: {
-      top: "40px",
-      bottom: "100px",
-    },
-    printBackground: true,
-    path:
-      "/Users/karthikreddyvoddula/Documents/ATBCS/backend/Tickets/" +
-      user1.email +
-      ".pdf",
-  };
-  //finish this and update send success email
-
-  const dataBinding = {
-    name: user1.name,
-    email: user1.email,
-    flightId: user1.data.details.flightId,
-    source: user1.data.details.from,
-    destination: user1.data.details.to,
-    date: user1.data.details.date,
-  };
-  await qrcode.toFile(
-    "/Users/karthikreddyvoddula/Documents/ATBCS/backend/Qr" +
-      user1.email +
-      ".png",
-    user1.data.bookingID
-  );
-
-  await html_to_pdf(templateHtml, dataBinding, options);
-
   await sendSuccessEmail(user1);
+
+  //finish this and update send success email
 
   user1.prev_ffm = 0;
   user1.ffm = user1.ffm + user1.temp_ffm;
