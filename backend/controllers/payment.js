@@ -22,8 +22,8 @@ const payment = async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:5000/success/${user1.sl}`,
-    cancel_url: "http://localhost:5000/cancel",
+    success_url: `http://localhost:5002/success/${user1.sl}`,
+    cancel_url: "http://localhost:5002/cancel",
   });
 
   res.redirect(303, session.url);

@@ -8,7 +8,7 @@ export default function Paysucce() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   axios
-    .get(`http://localhost:5000/payment/${useParams().id}`)
+    .get(`http://localhost:5002/success/${useParams().id}`)
     .then((res) => {
       setLoading(false);
     })
@@ -27,6 +27,7 @@ export default function Paysucce() {
     );
   }
   if (error) {
+    console.log(error)
     return (
       <div>
         <h2>Booking has failed</h2>

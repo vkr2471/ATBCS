@@ -68,7 +68,7 @@ const qrcode = require("qrcode");
 const start = async () => {
   try {
     db = await connect();
-    app.listen(5000, console.log("Listening on port 5000..."));
+    app.listen(5002, console.log("Listening on port 5002..."));
   } catch (error) {
     console.log(error);
   }
@@ -360,7 +360,7 @@ app.get("/payment/:id/:flag", async (req, res, next) => {
     ],
     mode: "payment",
     success_url: `http://localhost:3000/success/${user1.sl}`,
-    cancel_url: "http://localhost:5000/cancel",
+    cancel_url: "http://localhost:5002/cancel",
   });
   if (req.params.flag === "0") {
     res.send(session.url);
@@ -384,9 +384,10 @@ app.get("/success/:id", async (req, res, next) => {
 
   //finish this and update send success email
 
-  user1.prev_ffm = 0;
-  user1.ffm = user1.ffm + user1.temp_ffm;
-  user1.temp_ffm = 0;
+  setTimeout(async()=>{
+    user1.prev_ffm = 0;
+    user.ffm=user.ffm+user1.temp_ffm;
+  
   user1.bookings.push(user1.data);
   user1.data = null;
   user1.pl = null;
@@ -394,6 +395,9 @@ app.get("/success/:id", async (req, res, next) => {
   user1.flight_cost = 0;
 
   await user1.save();
+
+  },10000) 
+
   res.send("payment successful");
 });
 
@@ -405,38 +409,6 @@ app.get("/ffm/:id", async (req, res, next) => {
   res.send({ ffm: user1.ffm });
 });
 
-app.get("/success/:id", async (req, res, next) => {
-  let user1 = await user.findOne({ sl: req.params.id });
-  if (!user1) {
-    return res.send("oops something went wrong");
-  }
-  //update ffm
-  //update pl
-  //update sl
-  //remove PL , add it to bookings
-  //reduce flight tickets
-  await sendSuccessEmail(user1);
-
-  user1.prev_ffm = 0;
-  user1.ffm = user1.ffm + user1.temp_ffm;
-  user1.temp_ffm = 0;
-  user1.bookings.push(user1.data);
-  user1.data = null;
-  user1.pl = null;
-  user1.sl = null;
-  user1.flight_cost = 0;
-
-  await user1.save();
-  res.send("payment successful");
-});
-
-app.get("/ffm/:id", async (req, res, next) => {
-  const user1 = await user.findById(req.params.id);
-  if (!user1) {
-    return res.send("oops something went wrong");
-  }
-  res.send({ ffm: user1.ffm });
-});
 
 app.get("/cancel/:id", async (req, res, next) => {
   const user1 = await user.findOne({ pl: req.params.id });

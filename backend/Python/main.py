@@ -45,10 +45,10 @@ while (1):
                 options = webdriver.ChromeOptions()
                 options.add_argument("use-fake-ui-for-media-stream")
                 driver = webdriver.Chrome(
-                    "C:/Users/venka/Downloads/chromedriver_win32/chromedriver.exe", options=options)
+                    "/Users/karthikreddyvoddula/Downloads/chromedriver_mac_arm64/chromedriver", options=options)
                 driver.get('https://verify.cowin.gov.in')
                 driver.find_element(By.CLASS_NAME, "green-btn").click()
-                sleep(10)
+                sleep(20)
                 name = driver.find_element(By.CLASS_NAME, "value-col").text
                 flag1 = 0
                 for j in range(0, len(customer["pass"])):
@@ -84,7 +84,7 @@ while (1):
                                         "$set": {"pl": user1["pl"], "sl": user1["sl"]}})
 
                         message = msg.MIMEText(
-                            f'<p>Click <a href="http://localhost:5000/payment/{user1["pl"]}/1">here</a> to complete you payment </p>', 'html')
+                            f'<p>Click <a href="http://localhost:5002/payment/{user1["pl"]}/1">here</a> to complete you payment </p>', 'html')
                         message["Subject"] = "Complete Your Payment"
                         message["From"] = "Cloud9 Airlines <vkr2471@gmail.com>"
                         # print(user1["email"])

@@ -16,12 +16,12 @@ export default function SignIn(props) {
   async function HandleSubmit(event) {
     event.preventDefault();
     axios
-      .post("http://localhost:5000/login", signInData)
+      .post("http://localhost:5002/login", signInData)
       .then(async (response) => {
         const user = response.data;
         localStorage.setItem("user", user.user);
         localStorage.setItem("token", user.session.cookie.expires);
-        const due = await axios.get(`http://localhost:5000/pl/${user.user}`);
+        const due = await axios.get(`http://localhost:5002/pl/${user.user}`);
         if (due.data.pl === null) {
           alert("Logged In Successfully");
           setLoggedin(true);
@@ -31,7 +31,7 @@ export default function SignIn(props) {
           );
           if (conf) {
             const paye = await axios.get(
-              `http://localhost:5000/payment/${due.data.pl}/0`
+              `http://localhost:5002/payment/${due.data.pl}/0`
             );
             setPay(paye.data);
           } else {
