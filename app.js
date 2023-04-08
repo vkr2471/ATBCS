@@ -268,16 +268,19 @@ app.post("/book", async (req, res, next) => {
   //   res.send("it seems you already have pending payment you can can either pay or cancel the previous booking")
   // }
   usered.data = data;
+  console.log(data)
 
   //usered.save();
   const used_ffm = data.ffmused;
   const day = data.details.date;
+  const day1 = data.details.returndate;
   console.log(day);
   const seat = data.details.class;
   const nadults = data.details.adults;
   const nchildren = data.details.children;
   const ninfants = data.details.infants;
   const dayschedule = await schedule.findOne({ date: day });
+  const dayschedule1 = await schedule.findOne({ date: day1 });
   const flightid = data.flightId;
   const flightid1 = data.flightId1;
   const choosenflight = await dayschedule.flights.find(
@@ -290,9 +293,10 @@ app.post("/book", async (req, res, next) => {
   );
   let adultcost = choosenflight.ticketfare[seat];
   if (flightid1 != null) {
-    choosenflight1 = await dayschedule.flights.find(
+    choosenflight1 = await dayschedule1.flights.find(
       (flight) => flight._id == flightid1
     );
+    console.log(choosenflight1);
     adultcost =
       choosenflight.ticketfare[seat] + choosenflight1.ticketfare[seat];
   }
@@ -320,12 +324,13 @@ app.post("/book", async (req, res, next) => {
       fs.mkdirSync(__dirname + `/backend/images/${usered.email}`);
     }
   } catch (err) {
-    console.log(err);
+    console.log(err);x
   }
   try {
     for (const file of files) {
-      const fileName = file.name;
-      const path = __dirname + `/backend/images/${usered.email}/` + fileName;
+      let r=crypto.randomBytes(16).toString("hex");
+      const fileName = file.name+r+".png";
+      const path = __dirname + `/backend/images/${usered.email}/` + fileName+r+".png";
 
       file.mv(path, (err) => {
         console.log(err);
@@ -386,7 +391,7 @@ app.get("/success/:id", async (req, res, next) => {
 
   setTimeout(async()=>{
     user1.prev_ffm = 0;
-    user.ffm=user.ffm+user1.temp_ffm;
+    user1.ffm=user1.ffm+user1.temp_ffm;
   
   user1.bookings.push(user1.data);
   user1.data = null;
@@ -395,10 +400,11 @@ app.get("/success/:id", async (req, res, next) => {
   user1.flight_cost = 0;
 
   await user1.save();
-
-  },10000) 
-
   res.send("payment successful");
+
+  },3000) 
+
+  
 });
 
 app.get("/ffm/:id", async (req, res, next) => {
