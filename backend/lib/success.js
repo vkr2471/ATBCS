@@ -44,8 +44,6 @@ const sendSuccessEmail = (user1) => {
       const cost = user1.flight_cost;
       const flight_number = user1.data.flight_number;
       let type = user1.data.details.class;
-      const arrives = user1.data.arrives;
-      const departs = user1.data.departs;
       if (type == "fc") {
         type = "First Class";
       } else if (type == "bc") {
