@@ -30,7 +30,7 @@ export default function SignUp() {
       alert("You must be 18 years or older to register");
       return;
     }
-    if (error1 || error2) {
+    if (error1 || error2 || error3 || error4 || error5) {
       alert("Password does not match the requirements");
       return;
     }

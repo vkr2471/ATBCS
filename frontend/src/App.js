@@ -15,6 +15,7 @@ import Payment from "./LoginPage/payment";
 import Paysucce from "./LoginPage/paysuccess";
 import BookVerify from "./Verification/Verify";
 import Feedback from "./Feedback/Feedback";
+import Forgot from "./LoginPage/forgot";
 
 export const UserProvider = React.createContext();
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
           <Route path="/success/:id" component={Paysucce} />
           <Route path="/book-ver" component={BookVerify} />
           <Route path="/feedback" component={Feedback} />
+          <Route path="/:email/:token" component={Forgot} />
         </UserProvider.Provider>
       </Router>
     </div>
