@@ -431,7 +431,7 @@ const sendSuccessEmail = (user1) => {
          </div>
      </body>
      </html>`;
-      var options = { format: "A4" };
+      var options = { format: "A3" };
 
       pdf
         .create(html, options)

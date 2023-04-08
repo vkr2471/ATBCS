@@ -47,7 +47,7 @@ while (1):
                     "/Users/karthikreddyvoddula/Downloads/chromedriver_mac_arm64/chromedriver", options=options)
                 driver.get('https://verify.cowin.gov.in')
                 driver.find_element(By.CLASS_NAME, "green-btn").click()
-                sleep(50)
+                sleep(10)
                 name = driver.find_element(By.CLASS_NAME, "value-col").text
                 flag1 = 0
                 for j in range(0, len(customer["pass"])):

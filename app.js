@@ -65,6 +65,8 @@ const { sendSuccessEmail } = require("./backend/lib/success.js");
 const { html_to_pdf } = require("./backend/lib/test1.js");
 const qrcode = require("qrcode");
 
+const {forgotpassword}=require('./backend/lib/forgotpassword.js');
+
 const start = async () => {
   try {
     db = await connect();
@@ -442,3 +444,41 @@ app.get("/pl/:id", async (req, res, next) => {
   }
   res.send({ pl: user1.pl });
 });
+
+app.get("/forgotpassword/:email",async(req,res,next)=>{
+  const user1 = await user.findOne({email:req.params.email});
+  if(!user1){
+    return res.send("not registered");
+  }
+  const token = crypto.randomBytes(64).toString("hex");
+  user1.emailToken = token;
+  forgotpassword(user1);
+  await user1.save();
+  res.send("email sent");
+})
+
+app.get("/forgotpassword/:email/:token",async(req,res,next)=>{
+  const user1=await user.findOne({emailToken:req.params.token});
+  if(!user1)
+  {
+    res.send("oops something went wrong")
+  }
+  res.send("password link vaild");
+
+})
+app.post("/fogotpassword/:token",async(req,res,next)=>{
+  const saltHash = genpassword(req.body.password);
+  const salt = saltHash.salt;
+  const hash = saltHash.hash;
+  const user1=await user.findOne({emailToken:req.params.token});
+  if(!user1){
+    res.send("oops something went wrong");
+  }
+  user1.salt=salt;
+  user1.hash=hash;
+  user1.emailToken=null;
+  await user1.save();
+  res.send("password changed");
+
+})
+
