@@ -4,6 +4,7 @@ import Children from "./Children";
 import Infant from "./Infant";
 import "./Book.css";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 export default function Book(props) {
   const [Details, setDetails] = React.useState(props.location.state.details);
@@ -12,6 +13,9 @@ export default function Book(props) {
   const [fare, setFare] = React.useState(
     (Details.adults + Details.children) * props.location.state.fare +
       Details.infants * props.location.state.fare * 0.5
+  );
+  const [message, setMessage] = useState(
+    "Verification under process. Please check your email for updates"
   );
   console.log(fare);
   if (ffm === -1) {
@@ -111,8 +115,11 @@ export default function Book(props) {
         },
       })
       .then((res) => {
-        console.log(res);
+        setMessage(res.data);
       });
+  }
+  if (message !== "") {
+    return <Redirect to="/book-ver" />;
   }
   return (
     <div className="book-wrapper">

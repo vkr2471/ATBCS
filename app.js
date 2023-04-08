@@ -350,6 +350,7 @@ app.post("/book", async (req, res, next) => {
     files.mv(path);
   }
   console.log(data);
+  res.send("Verification under process. Please check your email for updates");
 });
 
 app.get("/payment/:id/:flag", async (req, res, next) => {

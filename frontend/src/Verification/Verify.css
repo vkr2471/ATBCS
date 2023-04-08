@@ -12,3 +12,18 @@
     padding: 5px 4px;
     font-size: larger;
   }
+
+  .verifying button{
+    background-color: #2ca58f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 8%;
+    height: 45px;
+    margin-left: 10px;  
+    margin-top: 20px;
+  }
+  

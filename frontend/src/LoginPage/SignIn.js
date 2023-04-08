@@ -13,6 +13,7 @@ export default function SignIn(props) {
   });
   const [pay, setPay] = React.useState(null);
   const { Loggedin, setLoggedin } = useContext(UserProvider);
+  const [forgot, setForgot] = React.useState(false);
   async function HandleSubmit(event) {
     event.preventDefault();
     axios
@@ -82,6 +83,38 @@ export default function SignIn(props) {
       );
     }
   }
+  if (forgot) {
+    return (
+      <div className="wrapper">
+        <h2 className="login-header">Forgot password</h2>
+        <div className="input-box">
+          <span className="icon">
+            <ion-icon name="mail"></ion-icon>
+          </span>
+          <input
+            type="text"
+            name="email"
+            value={signInData.email}
+            onChange={HandleChange}
+            required
+          />
+          <label>Email</label>
+        </div>
+        <button
+          onClick={() => {
+            axios
+              .get(`http://localhost:5002/forgotpassword/${signInData.email}`)
+              .then((response) => {
+                alert("Password reset link has been sent to your email");
+                setForgot(false);
+              });
+          }}
+        >
+          Submit
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="wrapper">
       <form onSubmit={HandleSubmit} className="login-form">
@@ -112,6 +145,7 @@ export default function SignIn(props) {
           />
           <label>Password</label>
         </div>
+        <button onClick={() => setForgot(true)}>Forgot Password?</button>
         <button type="submit" className="button">
           Sign In
         </button>
