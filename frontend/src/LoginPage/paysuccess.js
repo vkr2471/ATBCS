@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default async function Paysucce() {
+export default function Paysucce() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  await axios
-    .get(`http://localhost:5002/success/${useParams().id}`)
-    .then((res) => {
-      setLoading(false);
-    })
-    .catch((err) => {
-      setError(true);
-      setLoading(false);
-    });
+  const url = `http://localhost:5002/success/${useParams().id}`;
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(true);
+        setLoading(false);
+      });
+  }, []);
   if (loading) {
     return (
       <>

@@ -9,9 +9,6 @@ import smtplib
 import email.mime.text as msg
 import shutil
 # session=smtplib.SMTP('smtp-mail.outlook.com',587)
-session = smtplib.SMTP('smtp.gmail.com', 587,timeout=435435)
-session.starttls()
-session.login("vkr2471@gmail.com", "kfzmfhusygxiokhb")
 # print(token_hex(64))
 client = MongoClient(
     "mongodb+srv://Mokshith:mok123@node.oj4ykhp.mongodb.net/ATBCS?retryWrites=true&w=majority")
@@ -40,15 +37,17 @@ while (1):
             i = 0
             p = []
             for image in images:
+                if os.path.exists(os.getcwd() + "/../tempimage/img.png"):
+                    os.remove(os.getcwd() + "/../tempimage/img.png")
                 os.rename(dir_path+'/'+file+'/'+image,
-                          "/Users/karthikreddyvoddula/Desktop/ATBCS/backend/tempimage/img.png")
+                          os.getcwd() + "/../tempimage/img.png")
                 options = webdriver.ChromeOptions()
                 options.add_argument("use-fake-ui-for-media-stream")
                 driver = webdriver.Chrome(
                     "/Users/karthikreddyvoddula/Downloads/chromedriver_mac_arm64/chromedriver", options=options)
                 driver.get('https://verify.cowin.gov.in')
                 driver.find_element(By.CLASS_NAME, "green-btn").click()
-                sleep(10)
+                sleep(50)
                 name = driver.find_element(By.CLASS_NAME, "value-col").text
                 flag1 = 0
                 for j in range(0, len(customer["pass"])):
@@ -65,6 +64,10 @@ while (1):
                 if flag1 == 0:
                     # mail invalid
                     driver.quit()
+                    session = smtplib.SMTP(
+                        'smtp.gmail.com', 587, timeout=435435)
+                    session.starttls()
+                    session.login("vkr2471@gmail.com", "kfzmfhusygxiokhb")
                     message = msg.MIMEText(
                         '<p>sorry! we coudnt verify your certificates..make sure the qr is visable in the screenshot and try again! we regret your inconvinience </p>', 'html')
                     message["Subject"] = "Invalid Certificate/Certificates"
@@ -73,6 +76,7 @@ while (1):
                                      user1["email"], message.as_string())
                     print("invvalid")
                     shutil.rmtree(dir_path + '/' + file)
+                    session.quit()
                     break
                 else:
                     i = i+1
@@ -82,6 +86,10 @@ while (1):
                         user1["sl"] = token_hex(64)
                         user.update_one({"email": file}, {
                                         "$set": {"pl": user1["pl"], "sl": user1["sl"]}})
+                        session = smtplib.SMTP(
+                            'smtp.gmail.com', 587, timeout=435435)
+                        session.starttls()
+                        session.login("vkr2471@gmail.com", "kfzmfhusygxiokhb")
 
                         message = msg.MIMEText(
                             f'<p>Click <a href="http://localhost:5002/payment/{user1["pl"]}/1">here</a> to complete you payment </p>', 'html')
@@ -92,12 +100,16 @@ while (1):
                                          user1["email"], message.as_string())
                         shutil.rmtree(dir_path + '/' + file)
                         print("valid")
+                        session.quit()
                         break
         except:
             try:
                 driver.quit()
             except:
                 print("no user")
+            session = smtplib.SMTP('smtp.gmail.com', 587, timeout=435435)
+            session.starttls()
+            session.login("vkr2471@gmail.com", "kfzmfhusygxiokhb")
             message = msg.MIMEText(
                 '<p>sorry! we coudnt verify your certificates..make sure the qr is visable in the screenshot and try again! we regret your inconvinience </p>',
                 'html')
@@ -105,6 +117,7 @@ while (1):
             message["From"] = "Cloud9 Airlines <vkr2471@gmail.com>"
             session.sendmail("vkr2471@gmail.com",
                              user1["email"], message.as_string())
+            session.quit()
             print("invalid")
             shutil.rmtree(dir_path + '/' + file)
             break

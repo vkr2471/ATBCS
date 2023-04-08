@@ -39,7 +39,14 @@ const userschema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-
+  temp_ffm: {
+    type: Number,
+    default: 0,
+  },
+  prev_ffm: {
+    type: Number,
+    default: 0,
+  },
   bookings: [],
   data: {},
 

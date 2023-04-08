@@ -51,6 +51,7 @@ export default function Book(props) {
     var child = [];
     var infant = [];
     const imgs = [];
+    var ftm = false;
     for (var i = 0; i < ni.length; i++) {
       infant.push({
         name: ni[i].value,
@@ -59,6 +60,9 @@ export default function Book(props) {
       });
     }
     for (var i = 0; i < nc.length; i++) {
+      if (fc[i].checked) {
+        ftm = true;
+      }
       child.push({
         name: nc[i].value,
         age: ac[i].value,
@@ -66,6 +70,9 @@ export default function Book(props) {
       });
     }
     for (var i = 0; i < n.length; i++) {
+      if (f[i].checked) {
+        ftm = true;
+      }
       cert.append("image", c[i].files[0]);
       adult.push({
         name: n[i].value,
@@ -93,6 +100,7 @@ export default function Book(props) {
       duration: props.location.state.duration,
       userId: localStorage.getItem("user"),
       ffmUsed: ffmu,
+      ftm: ftm,
     };
     console.log("data", data);
     cert.append("data", JSON.stringify(data));

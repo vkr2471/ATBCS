@@ -268,10 +268,10 @@ app.post("/book", async (req, res, next) => {
   //   res.send("it seems you already have pending payment you can can either pay or cancel the previous booking")
   // }
   usered.data = data;
-  console.log(data)
+  console.log(data);
 
   //usered.save();
-  const used_ffm = data.ffmused;
+  const used_ffm = data.ffmUsed;
   const day = data.details.date;
   const day1 = data.details.returndate;
   console.log(day);
@@ -305,17 +305,21 @@ app.post("/book", async (req, res, next) => {
   if (used_ffm) {
     usered.prev_ffm = usered.ffm;
 
-    const ffmused = user.ffm;
-    const discount = Math.round(ffmused / 1000) * 100;
-    usered.ffm = ffmused - discount / 100;
+    const ffmused = usered.ffm;
+    console.log(ffmused);
+    const discount = Math.floor(ffmused / 1000) * 100;
+    console.log(discount);
+    const meow = discount * 10;
+    usered.ffm = ffmused - meow;
     totalcost = totalcost - discount;
   }
 
   usered.flight_cost = totalcost;
   // usered.save();
+  console.log("ffm is", ffm);
   usered.temp_ffm = ffm;
   await usered.save();
-
+  console.log(usered.temp_ffm);
   try {
     if (!fs.existsSync(__dirname + `/backend/images`)) {
       fs.mkdirSync(__dirname + `/backend/images`);
@@ -324,13 +328,15 @@ app.post("/book", async (req, res, next) => {
       fs.mkdirSync(__dirname + `/backend/images/${usered.email}`);
     }
   } catch (err) {
-    console.log(err);x
+    console.log(err);
+    x;
   }
   try {
     for (const file of files) {
-      let r=crypto.randomBytes(16).toString("hex");
-      const fileName = file.name+r+".png";
-      const path = __dirname + `/backend/images/${usered.email}/` + fileName+r+".png";
+      let r = crypto.randomBytes(16).toString("hex");
+      const fileName = file.name + r + ".png";
+      const path =
+        __dirname + `/backend/images/${usered.email}/` + fileName + r + ".png";
 
       file.mv(path, (err) => {
         console.log(err);
@@ -389,22 +395,20 @@ app.get("/success/:id", async (req, res, next) => {
 
   //finish this and update send success email
 
-  setTimeout(async()=>{
+  setTimeout(async () => {
     user1.prev_ffm = 0;
-    user1.ffm=user1.ffm+user1.temp_ffm;
-  
-  user1.bookings.push(user1.data);
-  user1.data = null;
-  user1.pl = null;
-  user1.sl = null;
-  user1.flight_cost = 0;
+    console.log(user1.temp_ffm);
+    user1.ffm = user1.ffm + user1.temp_ffm;
 
-  await user1.save();
-  res.send("payment successful");
+    user1.bookings.push(user1.data);
+    user1.data = null;
+    user1.pl = null;
+    user1.sl = null;
+    user1.flight_cost = 0;
 
-  },3000) 
-
-  
+    await user1.save();
+    res.send("payment successful");
+  }, 3000);
 });
 
 app.get("/ffm/:id", async (req, res, next) => {
@@ -414,7 +418,6 @@ app.get("/ffm/:id", async (req, res, next) => {
   }
   res.send({ ffm: user1.ffm });
 });
-
 
 app.get("/cancel/:id", async (req, res, next) => {
   const user1 = await user.findOne({ pl: req.params.id });

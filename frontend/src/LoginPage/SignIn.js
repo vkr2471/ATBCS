@@ -35,6 +35,9 @@ export default function SignIn(props) {
             );
             setPay(paye.data);
           } else {
+            const cancel = await axios.get(
+              `http://localhost:5002/cancel/${due.data.pl}`
+            );
             alert("Logged In Successfully and your payment has been cancelled");
           }
           setLoggedin(true);
