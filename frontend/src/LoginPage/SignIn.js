@@ -86,7 +86,7 @@ export default function SignIn(props) {
   if (forgot) {
     return (
       <div className="wrapper">
-        <h2 className="login-header">Forgot password</h2>
+        <h2 className="forgot-login-header">Forgot password</h2>
         <div className="input-box">
           <span className="icon">
             <ion-icon name="mail"></ion-icon>
@@ -100,7 +100,8 @@ export default function SignIn(props) {
           />
           <label>Email</label>
         </div>
-        <button
+        <button 
+          className="forgot-button"
           onClick={() => {
             axios
               .get(`http://localhost:5002/forgotpassword/${signInData.email}`)
@@ -145,7 +146,7 @@ export default function SignIn(props) {
           />
           <label>Password</label>
         </div>
-        <button onClick={() => setForgot(true)}>Forgot Password?</button>
+        <button onClick={() => setForgot(true)} className="forgot-password">Forgot Password?</button>
         <button type="submit" className="button">
           Sign In
         </button>

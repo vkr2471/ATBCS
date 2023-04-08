@@ -129,3 +129,43 @@
     text-align: left;
 }
 
+.forgot-password{
+    border: none;
+    background: fixed;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    padding-top: 0px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #162938;
+    font-weight: 550;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.forgot-button{
+    width: 80%;
+    height: 45px;
+    background: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.forgot-login-header {
+    font-size: 1.5rem;
+    color: #232323;
+    text-align: justify;
+    font-family: "Helvetica";
+    font-weight: 100;
+    margin-bottom: 20px;
+}
