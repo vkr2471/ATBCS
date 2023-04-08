@@ -13,6 +13,8 @@ import Flight from "./FlightSchedule/Flight";
 import Book from "./Book/Book";
 import Payment from "./LoginPage/payment";
 import Paysucce from "./LoginPage/paysuccess";
+import BookVerify from "./Verification/Verify";
+import Feedback from "./Feedback/Feedback";
 
 export const UserProvider = React.createContext();
 export default function App() {
@@ -54,6 +56,8 @@ export default function App() {
           <Route path="/book" component={Book} />
           <Route path="/payment" component={Payment} />
           <Route path="/success/:id" component={Paysucce} />
+          <Route path="/book-ver" component={BookVerify} />
+          <Route path="/feedback" component={Feedback} />
         </UserProvider.Provider>
       </Router>
     </div>

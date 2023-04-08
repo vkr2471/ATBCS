@@ -1,8 +1,8 @@
 .place-modify {
     width: 90%;
     margin: 0 auto;
-    background-color: rgba(220, 217, 247, 0.7);
-    border-radius: 5px;
+    background-color: rgba(214, 197, 239, 0.5);
+    border-radius: 6px;
     padding: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin-top: 20px;
@@ -12,6 +12,7 @@
     flex-direction: column;
     row-gap: 5%;
     gap: 2%;
+    backdrop-filter: blur(10px);
 }
 
 .place-modify-form{
@@ -23,15 +24,15 @@
     flex-direction: row;
     gap: 3%;
     margin-left: 0%;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
 }
 
 .agemod{
     display: flex;
     width:100%;
     flex-direction: row;
-    gap: 4%;
-    margin-bottom: 1%;
+    gap: 5%;
+    margin-bottom: 2%;
 }
 
 .place{
@@ -62,4 +63,29 @@
     border-radius: 6px;
     outline: none;
 }
+
+.place-modify-form label{
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'fantasy';
+    padding-left: 1%;
+    padding-right: 3%;
+}
+
+.place-modify-form legend{
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'fantasy';
+    padding-left: 1%;
+    padding-right: 3%;
+}
+
+.time .time-header{
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'fantasy';
+    padding-left: 1%;
+    padding-right: 3%;
+}
+
 

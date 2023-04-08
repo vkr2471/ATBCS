@@ -24,12 +24,22 @@
     .buttons {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        gap: 10px;
         align-items: center;
         background-color: #dcd9f7;
         height: 20%;
         font-size: 0.8rem;
     }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dcd9f7;
+    height: 20%;
+    font-size: 0.8rem;
 }
 
 
@@ -56,6 +66,7 @@
 .title-login{
     background-color: #dcd9f7;
     border: none;
+    width: 100%;
     color: rgb(0, 0, 0);
     padding: 15px 32px;
     text-align: center;

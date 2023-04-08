@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import "./paysuccess.css";
 
 export default function Paysucce() {
   const [loading, setLoading] = useState(true);
@@ -32,11 +33,11 @@ export default function Paysucce() {
   if (error) {
     console.log(error);
     return (
-      <div>
-        <h2>Booking has failed</h2>
+      <div className="error">
+        <h2>Booking has failed&ensp;<i class='fas fa-sad-tear'></i></h2>
         <p>
-          Sorry for the inconvenience. Please try again later this booking will
-          be stored as pending booking in your profile
+          Sorry for the inconvenience. Please try again later, this booking will
+          be stored as pending booking in your profile.
         </p>
         <Link to={"/"}>
           <button>Home</button>
@@ -45,8 +46,8 @@ export default function Paysucce() {
     );
   }
   return (
-    <div>
-      <h1>Booking confirmed</h1>
+    <div className="confirmed">
+      <h1>Booking confirmed&ensp;<ion-icon name='happy'></ion-icon></h1>
       <p>
         Thank you for booking with us. Your booking has been confirmed. You can
         view your booking in your profile. More information about the booking
