@@ -40,6 +40,7 @@ export default function Plane1(props) {
             arrival: props.arrival,
             ticketfare: props.ticketfare,
             duration: z / 3600000,
+            flight_number: props.flightid,
           });
         } else {
           alert(

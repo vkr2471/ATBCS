@@ -60,6 +60,7 @@ export default function Plane(props) {
             fare: props.ticketfare,
             arrives: props.arrival,
             departs: props.departure,
+            flight_number: props.flightid,
           },
         }}
       />

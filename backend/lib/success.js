@@ -28,12 +28,11 @@ const sendSuccessEmail = (user1) => {
   );
 
   if (user1.data.details.option == "one-way") {
+    qr = fs
+      .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
+      .toString("base64");
+    console.log("creating mail");
     setTimeout(() => {
-      qr = fs
-        .readFileSync(path.resolve(__dirname + `/../Qr/${user1.email}.png`))
-        .toString("base64");
-      console.log("creating mail");
-
       const name = user1.name;
       const email = user1.email;
       const flightId = user1.data.flightId;
@@ -43,6 +42,8 @@ const sendSuccessEmail = (user1) => {
       const cost = user1.flight_cost;
       const flight_number = user1.data.flight_number;
       let type = user1.data.details.class;
+      const arrives = user1.data.arrives;
+      const departs = user1.data.departs;
       if (type == "fc") {
         type = "First Class";
       } else if (type == "bc") {
@@ -142,16 +143,16 @@ const sendSuccessEmail = (user1) => {
                                      <span style="font-weight: 600;">Date:</span> ${date}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Class:</span> {type}
+                                     <span style="font-weight: 600;">Class:</span> ${type}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Departs:</span> {departs}
+                                     <span style="font-weight: 600;">Departs:</span> ${departs}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Arrives:</span> {arrives}
+                                     <span style="font-weight: 600;">Arrives:</span> ${arrives}
                                  </p>
                                  <p>
-                                     <span style="font-weight: 600;">Number of Passengers:</span> {{pas}}
+                                     <span style="font-weight: 600;">Number of Passengers:</span> ${passengers}
                                  </p>
                                  <p>
                                      <span style="font-weight: 600;">Total Cost:</span> ${cost}
@@ -197,28 +198,28 @@ const sendSuccessEmail = (user1) => {
           }
         );
       let attachment;
-      if (ftm) {
-        attachment = [
-          {
-            filename: "Ticket.pdf",
-            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-            cid: "Cloud9logo",
-          },
-          {
-            filename: "First_Time_Flyer_guide.docx",
-            path: path.resolve(__dirname + "/First_time_flyer_guide.docx"),
-            cid: "guide",
-          },
-        ];
-      } else {
-        attachment = [
-          {
-            filename: "Ticket.pdf",
-            path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
-            cid: "Cloud9logo",
-          },
-        ];
-      }
+      //if (ftm) {
+      attachment = [
+        {
+          filename: "Ticket.pdf",
+          path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+          cid: "Cloud9logo",
+        },
+        {
+          filename: "First_Time_Flyer_guide.docx",
+          path: path.resolve(__dirname + "/First_time_flyer_guide.docx"),
+          cid: "guide",
+        },
+      ];
+      // } else {
+      attachment = [
+        {
+          filename: "Ticket.pdf",
+          path: path.resolve(__dirname + `/../Tickets/${user1.email}.pdf`),
+          cid: "Cloud9logo",
+        },
+      ];
+      //}
 
       const transporter = createMailTransporter();
       const mailOptions = {

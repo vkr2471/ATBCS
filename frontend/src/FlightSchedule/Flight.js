@@ -87,6 +87,8 @@ export default function Flight(props) {
                 departs: det1.departure,
                 arrives1: det2.arrival,
                 departs1: det2.departure,
+                flight_number: det1.flight_number,
+                flight_number1: det2.flight_number,
               },
             }}
           />

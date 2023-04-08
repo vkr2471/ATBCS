@@ -40,15 +40,17 @@ while (1):
             i = 0
             p = []
             for image in images:
+                if os.path.exists(os.getcwd() + "/../tempimage/img.png"):
+                    os.remove(os.getcwd() + "/../tempimage/img.png")
                 os.rename(dir_path+'/'+file+'/'+image,
-                          "/Users/karthikreddyvoddula/Desktop/ATBCS/backend/tempimage/img.png")
+                          os.getcwd() + "/../tempimage/img.png")
                 options = webdriver.ChromeOptions()
                 options.add_argument("use-fake-ui-for-media-stream")
                 driver = webdriver.Chrome(
                     "/Users/karthikreddyvoddula/Downloads/chromedriver_mac_arm64/chromedriver", options=options)
                 driver.get('https://verify.cowin.gov.in')
                 driver.find_element(By.CLASS_NAME, "green-btn").click()
-                sleep(20)
+                sleep(50)
                 name = driver.find_element(By.CLASS_NAME, "value-col").text
                 flag1 = 0
                 for j in range(0, len(customer["pass"])):

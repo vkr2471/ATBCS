@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Paysucce() {
+export default async function Paysucce() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  axios
+  await axios
     .get(`http://localhost:5002/success/${useParams().id}`)
     .then((res) => {
       setLoading(false);
@@ -27,7 +27,7 @@ export default function Paysucce() {
     );
   }
   if (error) {
-    console.log(error)
+    console.log(error);
     return (
       <div>
         <h2>Booking has failed</h2>
