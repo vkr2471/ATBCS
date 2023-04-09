@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Details</title>
+</head>
+<body>
+    <h1>Billing Details</h1>
+    <div style="margin-left: 30px;">
+        <p>To: {Name}</p>
+        <p>From: Cloud9 Airlines</p>
+        <p>Subject: Booking Confirmation</p>
+        <p>Message: Your booking has been confirmed. Billing details are as shown.</p>
+        <div>
+            <h3>Outbound Flight</h3>
+            <div style="margin-left: 20px;">
+                <p>Number Of Adults:&nbsp; {NOA}&emsp;&emsp;&ensp;Ticket price for Adult: {PA}&emsp;&emsp;&nbsp;
+                Total price: {TPA}</p>
+            </div>
+            <div style="margin-left: 20px;">
+                <p>Number Of Children: {NOC}&emsp;&emsp;Ticket price for Child: {PC}&emsp;&emsp;
+                Total price: {TPC}</p>
+            </div>
+            <div style="margin-left: 20px;">
+                <p>Number Of Infants:&nbsp; {NOI}&emsp;&emsp;&ensp;
+                Ticket price for Infant: {PI}&emsp;&emsp;&nbsp;
+                Total price: {TPI}</p>
+            </div>
+        </div>
+        <div>
+            <h3>Return Flight</h3>
+            <div style="margin-left: 20px;">
+                <p>Number Of Adults:&nbsp; {NOA}&emsp;&emsp;&ensp;Ticket price for Adult: {PA}&emsp;&emsp;
+                Total price: {TPA}</p>
+            </div>
+            <div style="margin-left: 20px;">
+                <p>Number Of Children: {NOC}&emsp;&emsp;Ticket price for Child: {PC}&emsp;&emsp;
+                Total price: {TPC}</p>
+            </div>
+            <div style="margin-left: 20px;">
+                <p>Number Of Infants:&nbsp; {NOI}&emsp;&emsp;&ensp;
+                Ticket price for Infant: {PI}&emsp;&emsp;&nbsp;
+                Total price: {TPI}</p>
+            </div>
+        <p>Total Price: {TPA+TPC+TPI}</p>
+        <p>Discount: {D}</p>
+        <p>Final Price(including taxes): {TPA+TPC+TPI-D}</p>
+    </div>
+</body>
+</html>
