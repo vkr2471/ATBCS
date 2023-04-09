@@ -4,7 +4,7 @@ import HomeBody from "./HomePageBody/HomeBody";
 import SignUp from "./LoginPage/SignUp";
 import SignIn from "./LoginPage/SignIn";
 import Verify from "./LoginPage/verify";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Logout from "./Template/logout";
 import Yes from "./Template/yes";
 import Profile from "./LoginPage/profile";
@@ -60,6 +60,9 @@ export default function App() {
           <Route path="/feedback" component={Feedback} />
           <Route path="/forgot/:email/:token" component={Forgot} />
           <Route path="/manage" component={Manage} />
+          <Route path="/*">
+            <Redirect to="/" />
+          </Route>
         </UserProvider.Provider>
       </Router>
     </div>

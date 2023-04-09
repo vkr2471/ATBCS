@@ -378,14 +378,12 @@ app.get("/payment/:id/:flag", async (req, res, next) => {
   });
   let user2 = await user.findOne({ pl: req.params.id });
 
-  user2.session_id=session.id
-  console.log(user2.session_id)
-  await user2.save()
+  user2.session_id = session.id;
+  console.log(user2.session_id);
+  await user2.save();
   // let user3 = await user.findOne({ pl: req.params.id });
   // console.log("3",user3.session_id)
-  
-  
-  
+
   if (req.params.flag === "0") {
     res.send(session.url);
   } else {
@@ -410,12 +408,12 @@ app.get("/success/:id", async (req, res, next) => {
 
   setTimeout(async () => {
     user1.prev_ffm = 0;
-    user1.data.session_id=user1.session_id;
-    user1.session_id=null,
-   // user1.data.pi=req.params.pi;
-    // console.log("fingers crossed")
-    // console.log(user1.data.pi)
-    console.log(user1.temp_ffm);
+    user1.data.session_id = user1.session_id;
+    (user1.session_id = null),
+      // user1.data.pi=req.params.pi;
+      // console.log("fingers crossed")
+      // console.log(user1.data.pi)
+      console.log(user1.temp_ffm);
     user1.ffm = user1.ffm + user1.temp_ffm;
 
     user1.bookings.push(user1.data);
@@ -495,36 +493,32 @@ app.post("/forgotpassword/:token", async (req, res, next) => {
   res.send("password changed");
 });
 
+app.get("/refund/:id/:email", async (req, res, next) => {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(req.params.id);
+    const pi = session.payment_intent;
+    console.log(pi);
 
-app.get("/refund/:id/:email",async(req,res,next)=>{
-  try{
-  const session = await stripe.checkout.sessions.retrieve(
-    req.params.id
-  );
-  const pi =session.payment_intent;
-  console.log(pi);
-  
-  const refund = await stripe.refunds.create({
-    payment_intent: pi,
+    const refund = await stripe.refunds.create({
+      payment_intent: pi,
+    });
+    console.log(refund);
+    res.send("refund successful");
+  } catch (error) {
+    console.log(error);
+    res.send("oops something went wrong");
+  }
+  const user1 = await user.findById(req.params.email);
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  const bookings = user1.bookings;
+  const newbookings = bookings.filter((booking) => {
+    return booking.session_id !== req.params.id;
   });
-  console.log(refund);
-  res.send("refund successful");
-}catch{
-  console.log(error)
-  res.send("oops something went wrong")
-}
-const user1=await user.findOne({email:req.params.email});
-if(!user1){
-  return res.send("oops something went wrong");
-}
-const bookings = user1.bookings;
-const newbookings = bookings.filter((booking)=>{
-  return booking.session_id !== req.params.id;
-})
-user1.bookings=newbookings;
-await user1.save();
-
-})
+  user1.bookings = newbookings;
+  await user1.save();
+});
 app.get("/bookings/:id", async (req, res, next) => {
   const user1 = await user.findById(req.params.id);
   if (!user1) {
