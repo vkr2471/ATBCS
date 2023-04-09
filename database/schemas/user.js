@@ -64,5 +64,8 @@ const userschema = mongoose.Schema({
   gender: {
     type: String,
   },
+  session_id:{
+    type:String,
+  }
 });
 module.exports = mongoose.model("user", userschema);

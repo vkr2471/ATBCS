@@ -374,7 +374,7 @@ const sendSuccessEmail = (user1) => {
 
                                  <p>
                                  <span style="font-weight: 600;">Return Journey</span> 
-                                 < /p>
+                                 
 
                                  <p>
                                  <span style="font-weight: 600;">Flight ID:</span> ${flight_number1}
