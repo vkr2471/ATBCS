@@ -105,3 +105,85 @@
     font-size: 1.2rem;
     cursor: pointer;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Titan+One&display=swap");
+.happy {
+  width: 100vw;
+  text-align: center;
+  height: 100vh;
+}
+.happy span {
+  -webkit-text-stroke-width: 1.25px;
+  -webkit-text-stroke-color: #000;
+  font-size: 100px;
+  text-shadow: 0 0px #f3c623, 0 0px #f2aaaa;
+  transform: translate(0, 100%) rotate(4deg);
+  animation: dance 2.5s ease-in-out infinite;
+  display: inline-block;
+  font-family: "Titan One", cursive;
+  color: #e0dda6;
+}
+.happy span:nth-child(1) {
+  animation-delay: 120ms;
+}
+.happy span:nth-child(2) {
+  animation-delay: 240ms;
+}
+.happy span:nth-child(3) {
+  animation-delay: 360ms;
+}
+.happy span:nth-child(4) {
+  animation-delay: 480ms;
+}
+.happy span:nth-child(5) {
+  animation-delay: 600ms;
+}
+.happy span:nth-child(6) {
+  animation-delay: 720ms;
+}
+.happy span:nth-child(7) {
+  animation-delay: 840ms;
+}
+.happy span:nth-child(8) {
+  animation-delay: 960ms;
+}
+.happy span:nth-child(9) {
+  animation-delay: 1080ms;
+}
+.happy span:nth-child(10) {
+  animation-delay: 1200ms;
+}
+.happy span:nth-child(11) {
+  animation-delay: 1320ms;
+}
+.happy span:nth-child(12) {
+  animation-delay: 1440ms;
+}
+.happy span:nth-child(13) {
+  animation-delay: 1560ms;
+}
+
+@keyframes dance {
+  33% {
+    text-shadow: 0 30px #d19bea, 0 60px #9cadea;
+  }
+  50% {
+    transform: translate(0, 0) rotate(-4deg);
+    text-shadow: 0 0px #8fc0a9, 0 0px #84a9ac;
+  }
+  66.67% {
+    text-shadow: 0 -30px #7890e3, 0 -60px #96c0c7;
+  }
+}
+
+@media screen and (max-height: 200px) {
+  .happy {
+    transform: scale(0.3, 0.3);
+  }
+}
+@media screen and (max-width: 576px) {
+  .happy span {
+    font-size: 50px;
+  }
+}
+

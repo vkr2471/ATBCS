@@ -56,6 +56,21 @@ export default function Paysucce() {
       <Link to={"/"}>
         <button>Home</button>
       </Link>
+      <div class="happy">
+        <span>H</span>
+        <span>A</span>
+        <span>P</span>
+        <span>P</span>
+        <span>Y</span>
+        <span>&ensp;</span>
+        <span>J</span>
+        <span>O</span>
+        <span>U</span>
+        <span>R</span>
+        <span>N</span>
+        <span>E</span>
+        <span>Y</span>
+      </div>
     </div>
   );
 }
