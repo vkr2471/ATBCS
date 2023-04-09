@@ -487,6 +487,7 @@ app.get("/bookings/:id", async (req, res, next) => {
   }
   let bookingsbydate = {};
   user1.bookings.forEach((booking) => {
+    booking.display = "none";
     if (bookingsbydate[booking.details.date]) {
       bookingsbydate[booking.details.date].push(booking);
     } else {

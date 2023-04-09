@@ -16,7 +16,7 @@ import Paysucce from "./LoginPage/paysuccess";
 import BookVerify from "./Verification/Verify";
 import Feedback from "./Feedback/Feedback";
 import Forgot from "./LoginPage/forgot";
-import Manage from "./Template/Manage";
+import Manage from "./Manage/Manage";
 
 export const UserProvider = React.createContext();
 export default function App() {
