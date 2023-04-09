@@ -420,12 +420,11 @@ app.get("/success/:id", async (req, res, next) => {
         const flightId=user1.data.flightId;
         const day1=user1.data.details.date;
         const date=await schedule.findOne({date:day1});
-        
         const type=user1.data.details.class;
         const seats=user1.data.details.passengers;
         var isavailable=false;
-     
-        const flights1=date.flights.forEach((flight)=>{
+        
+        const flights1=date.flights.filter((flight)=>{
           if(flight._id==flightId){
             if (flight.totalseats[type] - flight.seatsbooked[type] >= seats) {
               flight.seatsbooked[type] += seats;
@@ -437,11 +436,74 @@ app.get("/success/:id", async (req, res, next) => {
           }
           return flight
         });
+        console.log(flights1);
         if(isavailable){
           await sendSuccessEmail(user1);
-          const date1 = await schedule.findOne({ date: day1 });
+         // const date1 = await schedule.findOne({ date: day1 });
           setTimeout(async () => {
-            date1.flights=flights1;
+            date.flights=flights1;
+            await date.save();
+            user1.ffm = user1.ffm + user1.temp_ffm;
+        user1.bookings.push(user1.data);
+        
+        user1.data = null;
+        user1.pl = null;
+        user1.sl = null;
+        user1.flight_cost = 0;
+  
+        await user1.save();
+        return res.send("payment successful");
+          },3000);
+        }
+        else{
+          axios.get(`http://localhost:5002/refund/${user1.data.session_id}/${user1._id}`);
+          res.send("No tickets available..You will be refunded soon");
+        }
+      }
+      else{
+        const flightId=user1.data.flightId;
+        const flightId1=user1.data.flightId1;
+        const day1=user1.data.details.date;
+        const day2=user1.data.details.returndate;
+        const date=await schedule.findOne({date:day1});
+        const date1=await schedule.findOne({date:day2});
+        const type=user1.data.details.class;
+        const seats=user1.data.details.passengers;
+        var isavailable=false;
+        var isavailable1=false;
+        
+        const flights1=date.flights.filter((flight)=>{
+          if(flight._id==flightId){
+            if (flight.totalseats[type] - flight.seatsbooked[type] >= seats) {
+              flight.seatsbooked[type] += seats;
+              isavailable=true;
+              
+            } else {
+              isavailable=false;
+            }
+          }
+          return flight
+        });
+        const flights2=date1.flights.filter((flight)=>{
+          if(flight._id==flightId1){
+            if (flight.totalseats[type] - flight.seatsbooked[type] >= seats) {
+              flight.seatsbooked[type] += seats;
+              isavailable1=true;
+              
+            } else {
+              isavailable1=false;
+            }
+          }
+          return flight
+        });
+        console.log(flights1);
+        if(isavailable&&isavailable1){
+          await sendSuccessEmail(user1);
+         // const date1 = await schedule.findOne({ date: day1 });
+          setTimeout(async () => {
+            date.flights=flights1;
+            date1.flights=flights2;
+            await date.save();
             await date1.save();
             user1.ffm = user1.ffm + user1.temp_ffm;
         user1.bookings.push(user1.data);
@@ -453,8 +515,7 @@ app.get("/success/:id", async (req, res, next) => {
   
         await user1.save();
         return res.send("payment successful");
-          },3000)
-         
+          },3000);
         }
         else{
           axios.get(`http://localhost:5002/refund/${user1.data.session_id}/${user1._id}`);
