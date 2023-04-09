@@ -402,11 +402,11 @@ app.get("/success/:id", async (req, res, next) => {
   //remove PL , add it to bookings
   //reduce flight tickets
   user1.data.bookingID = crypto.randomBytes(64).toString("hex");
-  await sendSuccessEmail(user1);
+  
 
   //finish this and update send success email
 
-  setTimeout(async () => {
+
     user1.prev_ffm = 0;
     user1.data.session_id = user1.session_id;
     (user1.session_id = null),
@@ -414,17 +414,54 @@ app.get("/success/:id", async (req, res, next) => {
       // console.log("fingers crossed")
       // console.log(user1.data.pi)
       console.log(user1.temp_ffm);
-    user1.ffm = user1.ffm + user1.temp_ffm;
 
-    user1.bookings.push(user1.data);
-    user1.data = null;
-    user1.pl = null;
-    user1.sl = null;
-    user1.flight_cost = 0;
-
-    await user1.save();
-    res.send("payment successful");
-  }, 3000);
+      const options=user1.data.details.option;
+      if(options==="one-way"){
+        const flightId=user1.data.flightId;
+        const day1=user1.data.details.date;
+        const date=await schedule.findOne({date:day1});
+        
+        const type=user1.data.details.class;
+        const seats=user1.data.details.passengers;
+        var isavailable=false;
+     
+        const flights1=date.flights.forEach((flight)=>{
+          if(flight._id==flightId){
+            if (flight.totalseats[type] - flight.seatsbooked[type] >= seats) {
+              flight.seatsbooked[type] += seats;
+              isavailable=true;
+              
+            } else {
+              isavailable=false;
+            }
+          }
+          return flight
+        });
+        if(isavailable){
+          await sendSuccessEmail(user1);
+          const date1 = await schedule.findOne({ date: day1 });
+          setTimeout(async () => {
+            date1.flights=flights1;
+            await date1.save();
+            user1.ffm = user1.ffm + user1.temp_ffm;
+        user1.bookings.push(user1.data);
+        
+        user1.data = null;
+        user1.pl = null;
+        user1.sl = null;
+        user1.flight_cost = 0;
+  
+        await user1.save();
+        return res.send("payment successful");
+          },3000)
+         
+        }
+        else{
+          axios.get(`http://localhost:5002/refund/${user1.data.session_id}/${user1._id}`);
+          res.send("No tickets available..You will be refunded soon");
+        }
+      }
+ 
 });
 
 app.get("/ffm/:id", async (req, res, next) => {

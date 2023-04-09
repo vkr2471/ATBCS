@@ -60,9 +60,9 @@ export default function App() {
           <Route path="/feedback" component={Feedback} />
           <Route path="/forgot/:email/:token" component={Forgot} />
           <Route path="/manage" component={Manage} />
-          <Route path="/*">
+          {/* <Route path="/*">
             <Redirect to="/" />
-          </Route>
+          </Route> */}
         </UserProvider.Provider>
       </Router>
     </div>
