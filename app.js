@@ -495,7 +495,7 @@ app.post("/forgotpassword/:token", async (req, res, next) => {
   res.send("password changed");
 });
 
-})
+
 app.get("/refund/:id/:email",async(req,res,next)=>{
   try{
   const session = await stripe.checkout.sessions.retrieve(
