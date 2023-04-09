@@ -59,7 +59,27 @@ export default function About() {
           );
         })}
       </ul>
-      <ul></ul>
+      <h2 className="contacts">Contact Information</h2>
+      <div className="contacts-content">
+        <div>
+        <p className="contacts-text">
+          For any queries, please contact us at the following:
+        </p>
+        <p className="contact-email">
+          <a href="mailto:ATBCSKB@outlook.com">
+            <i className="fa fa-envelope"></i>
+            &ensp;Send Email
+          </a>
+        </p>
+        <p className="contact-phone">
+          <a href="tel:+919490520109">
+            <i className="fa fa-phone"></i>
+            &ensp;Call Us
+          </a>
+        </p>
+      </div>
+      <Link to="/feedback"><button>Feedback</button></Link>
+    </div>
     </div>
   );
 }
