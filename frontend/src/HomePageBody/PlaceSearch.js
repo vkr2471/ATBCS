@@ -51,14 +51,18 @@ export default function PlaceSearch() {
       if (date1 < now) {
         alert("Invalid Date");
       } else if (option === "round-trip") {
-        const date2 = new Date(returndate);
-        if (date2 < now) {
-          alert("Invalid Date");
-        } else if (date1 > date2) {
+        if (returndate === "") {
           alert("Invalid Date");
         } else {
-          setDetails(data);
-          setRedirect(true);
+          const date2 = new Date(returndate);
+          if (date2 < now) {
+            alert("Invalid Date");
+          } else if (date1 > date2) {
+            alert("Invalid Date");
+          } else {
+            setDetails(data);
+            setRedirect(true);
+          }
         }
       } else {
         setDetails(data);

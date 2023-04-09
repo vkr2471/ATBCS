@@ -16,6 +16,7 @@ import Paysucce from "./LoginPage/paysuccess";
 import BookVerify from "./Verification/Verify";
 import Feedback from "./Feedback/Feedback";
 import Forgot from "./LoginPage/forgot";
+import Manage from "./Template/Manage";
 
 export const UserProvider = React.createContext();
 export default function App() {
@@ -27,12 +28,10 @@ export default function App() {
       const date = new Date();
       if (date1 > date) {
         setLoggedin(true);
-        console.log("Logged in");
       } else {
         setLoggedin(false);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        console.log("Logged out");
       }
     } else {
       setLoggedin(false);
@@ -59,7 +58,8 @@ export default function App() {
           <Route path="/success/:id" component={Paysucce} />
           <Route path="/book-ver" component={BookVerify} />
           <Route path="/feedback" component={Feedback} />
-          <Route path="/:email/:token" component={Forgot} />
+          <Route path="/forgot/:email/:token" component={Forgot} />
+          <Route path="/manage" component={Manage} />
         </UserProvider.Provider>
       </Router>
     </div>

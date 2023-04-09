@@ -14,9 +14,8 @@ export default function Book(props) {
     (Details.adults + Details.children) * props.location.state.fare +
       Details.infants * props.location.state.fare * 0.5
   );
-  const [message, setMessage] = useState(
-    "Verification under process. Please check your email for updates"
-  );
+  const [message, setMessage] = useState("");
+  const [discount, setDiscount] = useState(0);
   console.log(fare);
   if (ffm === -1) {
     axios
@@ -32,8 +31,10 @@ export default function Book(props) {
     setffmu(e.target.checked);
     if (e.target.checked) {
       setFare(fare - Math.floor(ffm / 1000) * 100);
+      setDiscount(Math.floor(ffm / 1000) * 100);
     } else {
       setFare(fare + Math.floor(ffm / 1000) * 100);
+      setDiscount(0);
     }
   }
   async function handleSub(event) {
@@ -105,6 +106,8 @@ export default function Book(props) {
       userId: localStorage.getItem("user"),
       ffmUsed: ffmu,
       ftm: ftm,
+      fare: fare,
+      discount: discount,
     };
     console.log("data", data);
     cert.append("data", JSON.stringify(data));

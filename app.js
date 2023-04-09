@@ -466,7 +466,6 @@ app.get("/forgotpassword/:email/:token", async (req, res, next) => {
   res.send("p");
 });
 app.post("/forgotpassword/:token", async (req, res, next) => {
-  console.log(req.body.password);
   const saltHash = genpassword(req.body.password);
   const salt = saltHash.salt;
   const hash = saltHash.hash;
@@ -479,4 +478,21 @@ app.post("/forgotpassword/:token", async (req, res, next) => {
   user1.emailToken = null;
   await user1.save();
   res.send("password changed");
+});
+
+app.get("/bookings/:id", async (req, res, next) => {
+  const user1 = await user.findById(req.params.id);
+  if (!user1) {
+    return res.send("oops something went wrong");
+  }
+  let bookingsbydate = {};
+  user1.bookings.forEach((booking) => {
+    if (bookingsbydate[booking.details.date]) {
+      bookingsbydate[booking.details.date].push(booking);
+    } else {
+      bookingsbydate[booking.details.date] = [booking];
+    }
+  });
+  console.log(bookingsbydate);
+  res.send({ bookings: bookingsbydate });
 });
