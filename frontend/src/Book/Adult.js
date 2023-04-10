@@ -13,6 +13,7 @@ export default function Adult() {
 
   function HandleChange(event) {
     const { name, value, type, files } = event.target;
+    
     setAdult((prevValue) => {
       if (type === "checkbox") {
         return {

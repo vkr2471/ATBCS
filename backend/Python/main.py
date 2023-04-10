@@ -43,8 +43,11 @@ while (1):
             i = 0
             p = []
             for image in images:
+
                 if os.path.exists(os.getcwd() + "/../tempimage/img.png"):
+                    print("hello")
                     os.remove(os.getcwd() + "/../tempimage/img.png")
+                    sleep(2)
                 os.rename(dir_path+'/'+file+'/'+image,
                           os.getcwd() + "/../tempimage/img.png")
                 options = webdriver.ChromeOptions()
@@ -53,7 +56,7 @@ while (1):
                     "/Users/karthikreddyvoddula/Downloads/chromedriver_mac_arm64/chromedriver", options=options)
                 driver.get('https://verify.cowin.gov.in')
                 driver.find_element(By.CLASS_NAME, "green-btn").click()
-                sleep(10)
+                sleep(9)
                 name = driver.find_element(By.CLASS_NAME, "value-col").text
                 flag1 = 0
                 for j in range(0, len(customer["pass"])):
@@ -69,6 +72,7 @@ while (1):
                             break
                 if flag1 == 0:
                     # mail invalid
+                    print(name)
                     driver.quit()
                     session = smtplib.SMTP(
                         'smtp.gmail.com', 587, timeout=435435)

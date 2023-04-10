@@ -10,6 +10,7 @@ export default function Infant(){
     
     function HandleChange(event){
         const {name, value, type} = event.target;
+        
         setInfant((prevValue) => {
             if(type === "checkbox"){
                 return {

@@ -7,9 +7,9 @@ export default function Children(){
         age: '',
         firstTimeFlier: 'false'
     });
-
     function HandleChange(event){
         const {name, value, type} = event.target;
+        
         setChildren((prevValue) => {
             if(type === "checkbox"){
                 return {

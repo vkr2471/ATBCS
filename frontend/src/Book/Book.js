@@ -58,6 +58,13 @@ export default function Book(props) {
     const imgs = [];
     var ftm = false;
     for (var i = 0; i < ni.length; i++) {
+      if (fi[i].checked) {
+        ftm = true;
+      }
+      if(parseInt( ai[i].value)>2){
+        alert("Infants age must be less than 2");
+        return;
+      }
       infant.push({
         name: ni[i].value,
         age: ai[i].value,
@@ -68,6 +75,10 @@ export default function Book(props) {
       if (fc[i].checked) {
         ftm = true;
       }
+      if(parseInt( ac[i].value)>15||parseInt( ac[i].value)<2){
+        alert("Children age must be between 2 and 15");
+        return;
+      }
       child.push({
         name: nc[i].value,
         age: ac[i].value,
@@ -77,6 +88,10 @@ export default function Book(props) {
     for (var i = 0; i < n.length; i++) {
       if (f[i].checked) {
         ftm = true;
+      }
+      if(parseInt( a[i].value)<15){
+        alert("Adults age must be greater than 15");
+        return;
       }
       cert.append("image", c[i].files[0]);
       adult.push({

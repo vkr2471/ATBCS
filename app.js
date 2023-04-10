@@ -618,6 +618,7 @@ app.get("/refund/:id/:email", async (req, res, next) => {
   var returndate;
   var flightId1;
   var option
+  var duration
   const newbookings = bookings.filter((booking) => {
     if(booking.session_id==req.params.id){
       if(booking.details.option=="one-way"){
@@ -626,6 +627,7 @@ app.get("/refund/:id/:email", async (req, res, next) => {
         date=booking.details.date;
         flightId=booking.flightId;
         option="one-way"
+        duration=booking.duration
         console.log(seats,type,date,flightId)
       }
       else{
@@ -636,6 +638,7 @@ app.get("/refund/:id/:email", async (req, res, next) => {
          returndate=booking.details.returndate;
          flightId1=booking.flightId1;
          option="roundtrip"
+         duration=booking.duration
          console.log("hellowww")
         
       }
@@ -643,6 +646,9 @@ app.get("/refund/:id/:email", async (req, res, next) => {
     return booking.session_id !== req.params.id;
   });
   user1.bookings = newbookings;
+  user1.ffm=user1.ffm- Math.round(
+    100 * duration * (seats)
+  );
   await user1.save();
   if(option=="one-way"){
   const dateschedule=await schedule.findOne({date:date});
