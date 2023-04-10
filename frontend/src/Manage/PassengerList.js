@@ -4,7 +4,8 @@ import axios from "axios";
 
 export default function PassengerList({ flight }) {
   const now = new Date();
-  const HandleClick = () => {
+  const HandleClick = (e) => {
+    e.target.disabled = true;
     if (flight.session_id === undefined) {
       alert("You have not booked this flight yet");
     } else {
@@ -17,7 +18,9 @@ export default function PassengerList({ flight }) {
         .then((res) => {
           console.log(res.data);
           if (res.data === "refund successful") {
-            alert("Your flight has been cancelled");
+            alert(
+              "Your flight has been cancelled and you will be refunded soon."
+            );
             window.location.reload();
           } else {
             alert("Your flight could not be cancelled");

@@ -34,11 +34,14 @@ export default function Flight(props) {
         });
     } else {
       console.log("two");
-      const res = await axios.get(
-        `http://localhost:5002/search/${details.option}/${details.from}/${details.to}/${details.date}/${details.returndate}/${details.class}/${details.passengers}`
-      );
-      setData(res.data);
-      setLoading(false);
+      await axios
+        .get(
+          `http://localhost:5002/search/${details.option}/${details.from}/${details.to}/${details.date}/${details.returndate}/${details.class}/${details.passengers}`
+        )
+        .then((res) => {
+          setLoading(false);
+          setData(res.data);
+        });
     }
   }, [details]);
   //const date = data[0]["date"];

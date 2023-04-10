@@ -112,7 +112,11 @@
     background-color: rgb(0, 0, 0);
     color: white;
   }
-
+  .passenger-list button:disabled{
+    background-color: rgb(237, 86, 111);
+    color: #fff;
+    cursor: not-allowed;
+  }
     .passenger-list h3{
         text-align: center;
         font-size: 1.3rem;
