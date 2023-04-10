@@ -611,11 +611,74 @@ app.get("/refund/:id/:email", async (req, res, next) => {
     return res.send("oops something went wrong");
   }
   const bookings = user1.bookings;
+  var seats;
+  var type;
+  var date;
+  var flightId;
+  var returndate;
+  var flightId1;
+  var option
   const newbookings = bookings.filter((booking) => {
+    if(booking.session_id==req.params.id){
+      if(booking.details.option=="one-way"){
+        seats=booking.details.passengers;
+        type=booking.details.class;
+        date=booking.details.date;
+        flightId=booking.flightId;
+        option="one-way"
+        console.log(seats,type,date,flightId)
+      }
+      else{
+        seats=booking.details.passengers;
+        type=booking.details.class;
+        date=booking.details.date;
+        flightId=booking.flightId;
+         returndate=booking.details.returndate;
+         flightId1=booking.flightId1;
+         option="roundtrip"
+         console.log("hellowww")
+        
+      }
+    }
     return booking.session_id !== req.params.id;
   });
   user1.bookings = newbookings;
   await user1.save();
+  if(option=="one-way"){
+  const dateschedule=await schedule.findOne({date:date});
+ 
+     const flights1=dateschedule.flights.filter((flight)=>{
+    if(flight._id==flightId){
+      flight.seatsbooked[type]-=seats;
+    }
+    return flight
+  }); 
+  
+  dateschedule.flights=flights1;
+  await dateschedule.save();
+}
+else{
+  const dateschedule=await schedule.findOne({date:date})
+  console.log(dateschedule)
+  const dateschedule1=await schedule.findOne({date:returndate})
+  const flights1=dateschedule.flights.filter((flight)=>{
+    if(flight._id==flightId){
+      flight.seatsbooked[type]-=seats;
+    }
+    return flight
+  }); 
+  const flights2=dateschedule1.flights.filter((flight)=>{
+    if(flight._id==flightId1){
+      flight.seatsbooked[type]-=seats;
+    }
+    return flight
+  })
+  dateschedule.flights=flights1;
+  dateschedule1.flights=flights2;
+  await dateschedule.save();
+  await dateschedule1.save();
+  
+}
 });
 app.get("/bookings/:id", async (req, res, next) => {
   const user1 = await user.findById(req.params.id);
