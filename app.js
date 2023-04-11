@@ -66,6 +66,7 @@ const { sendSuccessEmail } = require("./backend/lib/success.js");
 const qrcode = require("qrcode");
 
 const { forgotpassword } = require("./backend/lib/forgotpassword.js");
+const {refundmail}=require('./backend/lib/refundmail.js');
 
 const start = async () => {
   try {
@@ -571,6 +572,8 @@ app.get("/forgotpassword/:email", async (req, res, next) => {
 
 app.get("/forgotpassword/:email/:token", async (req, res, next) => {
   const user1 = await user.findOne({ emailToken: req.params.token });
+  console.log(user1)
+  console.log("hello")
   if (!user1) {
     res.send("f");
   }
@@ -619,6 +622,8 @@ app.get("/refund/:id/:email", async (req, res, next) => {
   var flightId1;
   var option
   var duration
+  var fare
+  var discount
   const newbookings = bookings.filter((booking) => {
     if(booking.session_id==req.params.id){
       if(booking.details.option=="one-way"){
@@ -628,6 +633,8 @@ app.get("/refund/:id/:email", async (req, res, next) => {
         flightId=booking.flightId;
         option="one-way"
         duration=booking.duration
+        fare=booking.fare
+        discount=booking.discount
         console.log(seats,type,date,flightId)
       }
       else{
@@ -640,6 +647,8 @@ app.get("/refund/:id/:email", async (req, res, next) => {
          option="roundtrip"
          duration=booking.duration
          console.log("hellowww")
+         fare=booking.fare
+          discount=booking.discount
         
       }
     }
@@ -650,6 +659,8 @@ app.get("/refund/:id/:email", async (req, res, next) => {
     100 * duration * (seats)
   );
   await user1.save();
+  console.log("masteer",fare,discount)
+  refundmail(user1,fare,discount)
   if(option=="one-way"){
   const dateschedule=await schedule.findOne({date:date});
  
