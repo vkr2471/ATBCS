@@ -52,6 +52,7 @@ while (1):
                           os.getcwd() + "/../tempimage/img.png")
                 options = webdriver.ChromeOptions()
                 options.add_argument("use-fake-ui-for-media-stream")
+                # your driver goes here
                 driver = webdriver.Chrome(
                     "/Users/karthikreddyvoddula/Downloads/chromedriver_mac_arm64/chromedriver", options=options)
                 driver.get('https://verify.cowin.gov.in')
