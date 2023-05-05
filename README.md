@@ -5,7 +5,7 @@ Instuctions for Testing the software (Login,Registration):
 2) In new terminal go to project folder cd to backend and install the required packages using ```npm i``` and type npm run dev
  The software is up and running!!!!
  
-3) Install chrome driver for your machine .. and then change the path provided in the chrome driverr path in backend->python->main.py in line  to your chrome driver location.
+3) Install chrome driver for your machine .. and then change the path provided in the chrome driver path in backend->python->main.py  line 56 to your chrome driver location.
 
 4)Install obs , create a new image source and then add the image img.png found in (backend->tempimage->img.png)to the source then start the virtual camera.
 
